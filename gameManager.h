@@ -2,12 +2,15 @@
 #define GAMEMANAGER_H
 
 #include <list>
+#include <QGraphicsItem>
+
 
 #include "charactor.h"
 #include "banker.h"
 #include "cardDeck.h"
 #include "property.h"
 #include "nonProperty.h"
+#include "box.h"
 
 using namespace std;
 
@@ -17,6 +20,7 @@ public:
 
 private:
     list<Charactor> charactorList;
+    list<Box> gameField;
 
 };
 

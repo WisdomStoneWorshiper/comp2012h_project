@@ -7,6 +7,8 @@ class Box : public QGraphicsPixmapItem {
     public:
     Box();
     Box(const Box &);
+    public slots:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 };
 
 #endif // BOX_H

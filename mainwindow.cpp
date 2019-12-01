@@ -19,14 +19,17 @@ MainWindow::MainWindow(QWidget *parent)
         QString path= QString::fromStdString(":/img/test1.png");
 
         b->setPixmap(QPixmap(path));
+        b->setPos(-50,-50);
         scene->addItem(b);
-        b->setPos(0,0);
-        qDebug()<<"1";
+
+        qDebug()<<b->x()<<" "<<b->y();
    // }
     ui->box_0->setScene(scene);
     ui->box_0->show();
 
 }
+
+
 
 MainWindow::~MainWindow()
 {

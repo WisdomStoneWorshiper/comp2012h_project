@@ -1,7 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <list>
 #include <QMainWindow>
+#include <QInputDialog>
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
+
+#include "gameManager.h"
+#include "box.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,5 +24,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    GameManager *gm;
+    list<Box> gameField;
+    QGraphicsScene *scene;
 };
 #endif // MAINWINDOW_H

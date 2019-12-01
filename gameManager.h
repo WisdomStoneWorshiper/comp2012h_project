@@ -5,7 +5,7 @@
 #include <QGraphicsItem>
 
 
-#include "charactor.h"
+#include "player.h"
 #include "banker.h"
 #include "cardDeck.h"
 #include "property.h"
@@ -16,12 +16,13 @@ using namespace std;
 
 class GameManager{
 public:
-    void init();
+    GameManager();
+    void init(int);
 
 private:
-    list<Charactor> charactorList;
+    list<Player> playerList;
     list<Box> gameField;
-
+    int numOfPlayer;
 };
 
 #endif // GAMEMANAGER_H

@@ -1,8 +1,12 @@
 #ifndef BOX_H
 #define BOX_H
 
-class Box{
+#include <QGraphicsPixmapItem>
 
+class Box : public QGraphicsPixmapItem {
+    public:
+    Box();
+    Box(const Box &);
 };
 
 #endif // BOX_H

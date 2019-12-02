@@ -2,9 +2,9 @@
 #define CHARACTOR_H
 
 #include <vector>
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 
-class Charactor: public QGraphicsRectItem
+class Charactor: public QGraphicsPixmapItem
 {
 public:
     Charactor();

@@ -9,6 +9,7 @@
 
 #include "gameManager.h"
 #include "box.h"
+#include "player.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +22,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void moveCharactor(Player, int);
 
 private:
     Ui::MainWindow *ui;

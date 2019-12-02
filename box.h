@@ -4,11 +4,13 @@
 #include <QGraphicsPixmapItem>
 
 class Box : public QGraphicsPixmapItem {
-    public:
+public:
     Box();
     Box(const Box &);
-    public slots:
+public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+private:
+
 };
 
 #endif // BOX_H

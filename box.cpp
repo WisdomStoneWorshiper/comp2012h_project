@@ -9,6 +9,6 @@ Box::Box(const Box &box){
 }
 
 void Box::mousePressEvent(QGraphicsSceneMouseEvent *event){
-    setPos(x()-10,y());
+    setPos(x()+10,y());
     qDebug()<<x()<<" "<<y();
 }

@@ -17,7 +17,8 @@ using namespace std;
 class GameManager{
 public:
     GameManager();
-    void init(int);
+    ~GameManager();
+    void init(int, list<Box>, list<Player>);
 
 private:
     list<Player> playerList;

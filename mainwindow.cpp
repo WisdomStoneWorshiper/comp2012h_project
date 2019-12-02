@@ -11,8 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     bool ok=false;
     int numOfPlayer=QInputDialog::getInt(this,"","Plaese input number of player (2-6)",3,2,6,1,&ok);
-    if (ok)
-        gm->init(numOfPlayer);
+    if (ok){
+        //gm->init(numOfPlayer);
+    }
    // for (int i=1;i<3;++i){
         Box *b=new Box();
         gameField.push_back(*b);

@@ -19,11 +19,12 @@ public:
     GameManager();
     ~GameManager();
     void init(int, list<Box>, list<Player>);
-
+    int rollDice();
 private:
     list<Player> playerList;
     list<Box> gameField;
     int numOfPlayer;
+    Player currentPlayer;
 };
 
 #endif // GAMEMANAGER_H

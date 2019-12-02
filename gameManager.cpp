@@ -6,7 +6,11 @@ GameManager::GameManager(){
 
 }
 
-void GameManager::init(int num){
+void GameManager::init(int num,  list<Box> boxList, list<Player> playerList){
     numOfPlayer=num;
+
+}
+
+int GameManager::rollDice(){
 
 }

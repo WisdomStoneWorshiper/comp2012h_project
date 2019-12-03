@@ -15,11 +15,14 @@ public:
     Box(const Box &);
     ~Box();
     void queueUp(Player);
-    QString getName;
+    Player movePlayer();
+    QString getName();
+    unsigned getId();
 
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 private:
+    unsigned id;
     QString name;
     queue<Player> playerOnThisBox;
 

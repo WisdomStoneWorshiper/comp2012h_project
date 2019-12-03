@@ -12,10 +12,10 @@ public:
     Color getColor();
     unsigned getPropertyPrice();
     unsigned getRentOfProperty();
-    Player getOwner();
-    void changeOwner(Player);
-    void addComputers(int);
-    void addVendingMachines(int);
+    Player*& getOwner();
+    void changeOwner(Player*);
+    void addComputers(unsigned);
+    void addVendingMachines(unsigned);
 private:
     Color propertyColor;
     unsigned numOfComputers;
@@ -24,7 +24,7 @@ private:
     unsigned rentOfProperty;
     const unsigned addictionRentPerComputer=200, addictionRentPerVendingMachines=100;
     bool mortgage;
-    Player owner;
+    Player* owner;
 };
 
 #endif // PROPERTY_H

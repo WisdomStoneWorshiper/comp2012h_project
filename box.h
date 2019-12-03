@@ -14,8 +14,8 @@ public:
     Box();
     Box(const Box &);
     ~Box();
-    void queueUp(Player);
-    Player movePlayer();
+    virtual void queueUp(Player);
+    Player* movePlayer();
     QString getName();
     unsigned getId();
 
@@ -25,7 +25,6 @@ private:
     unsigned id;
     QString name;
     queue<Player> playerOnThisBox;
-
 };
 
 #endif // BOX_H

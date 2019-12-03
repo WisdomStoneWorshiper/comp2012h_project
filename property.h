@@ -7,7 +7,7 @@ enum Color{Red, Blue, Yellow, Green};
 
 class Property : public Box{
 public:
-    Property();
+    Property(Color, unsigned, unsigned);
     ~Property();
     Color getColor();
     unsigned getPropertyPrice();

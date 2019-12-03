@@ -20,7 +20,8 @@ SOURCES += \
     charactor.cpp \
     gameManager.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    property.cpp
 
 HEADERS += \
     banker.h \

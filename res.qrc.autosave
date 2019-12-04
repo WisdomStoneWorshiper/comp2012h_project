@@ -2,10 +2,10 @@
     <qresource prefix="/img">
         <file>nonProperty/CenterImage.png</file>
         <file>nonProperty/email.png</file>
-        <file>nonProperty/freeParking.png</file>
-        <file>nonProperty/Jail2302.png</file>
-        <file>nonProperty/startpoint.png</file>
-        <file>nonProperty/VisitJail.png</file>
+        <file>nonProperty/nonProperty_freeParking.png</file>
+        <file>nonProperty/nonProperty_Jail2302.png</file>
+        <file>nonProperty/nonProperty_startpoint.png</file>
+        <file>nonProperty/nonProperty_VisitJail.png</file>
         <file>propertyAsset/BBQSite.png</file>
         <file>propertyAsset/BBQSiteB.png</file>
         <file>propertyAsset/BBQSiteW.png</file>
@@ -21,19 +21,21 @@
         <file>propertyAsset/Library.png</file>
         <file>propertyAsset/LibraryB.png</file>
         <file>propertyAsset/LibraryW.png</file>
-        <file>propertyAsset/LSKCampus.png</file>
+        <file>propertyAsset/LSKCampus902518pt.png</file>
         <file>propertyAsset/LSKCampusB.png</file>
         <file>propertyAsset/LSKCampusW.png</file>
         <file>propertyAsset/MarineLab.png</file>
         <file>propertyAsset/MarineLabB.png</file>
         <file>propertyAsset/MarineLabW.png</file>
+        <file>propertyAsset/nonProperty_freeParking.png</file>
+        <file>propertyAsset/nonProperty_Jail2302.png</file>
+        <file>propertyAsset/nonProperty_VisitJail.png</file>
         <file>propertyAsset/PresidnetLodge.png</file>
         <file>propertyAsset/PresidnetLodgeB.png</file>
         <file>propertyAsset/PresidnetLodgeW.png</file>
-        <file>propertyAsset/SportHall.png</file>
+        <file>propertyAsset/SportHall_9025_18pt_Arial.png</file>
         <file>propertyAsset/SportHallB.png</file>
         <file>propertyAsset/SportHallW.png</file>
-        <file>propertyAsset/SwimmingPool.png</file>
         <file>propertyAsset/SwimmingPoolB.png</file>
         <file>propertyAsset/SwimmingPoolW.png</file>
         <file>propertyAsset/UniBar.png</file>
@@ -48,5 +50,6 @@
         <file>character/character4.png</file>
         <file>character/character5.png</file>
         <file>character/character6.png</file>
+        <file>propertyAsset/SwimmingPool.png</file>
     </qresource>
 </RCC>

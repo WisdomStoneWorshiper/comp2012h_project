@@ -18,13 +18,14 @@ class GameManager{
 public:
     GameManager();
     ~GameManager();
-    void init(int, list<Box>, list<Player>);
+    void init(int, list<Box*>, list<Player*>);
+    void setCurrentPlayer(Player);
     int rollDice();
 private:
     list<Player*> playerList;
     list<Box*> gameField;
     int numOfPlayer;
-    Player currentPlayer;
+    Player* currentPlayer;
 };
 
 #endif // GAMEMANAGER_H

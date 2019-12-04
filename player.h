@@ -5,16 +5,17 @@
 
 using namespace std;
 
-class Player: public Charactor{
+class Player : public Charactor{
 
 public:
-    Player(const unsigned short);
+    Player(const Player& p) {}
+    /*Player(const unsigned short);
     int get_position();
     float get_gpa();
     int get_money();
     Player& operator+(int);
     Player& operator-(int);
-
+*/
 private:
     enum SCHOOL{ENGINEERING,SCIENCE,BUSSINESS, HUMANITIES};
     enum STATE{NORMAL, IMPRISONMENT};

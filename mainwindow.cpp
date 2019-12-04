@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         b->setPixmap(QPixmap(path));
 
-        scene->addItem(*b);
+        scene->addItem(b);
 
         qDebug()<<b->x()<<" "<<b->y();
    // }

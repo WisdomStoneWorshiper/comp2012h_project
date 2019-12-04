@@ -5,17 +5,18 @@
 #include <QString>
 #include <queue>
 
-#include "player.h"
+//#include "player.h"
 
 using namespace std;
 
 class Box : public QGraphicsPixmapItem {
 public:
+    Box();
     Box(unsigned, QString);
     Box(const Box &);
     ~Box();
-    virtual void queueUp(Player);
-    Player* movePlayer();
+//    virtual void queueUp(Player);
+//    Player* movePlayer();
     QString getName();
     unsigned getId();
 
@@ -24,7 +25,7 @@ public slots:
 private:
     unsigned id;
     QString name;
-    queue<Player> playerOnThisBox;
+    //queue<Player> playerOnThisBox;
 };
 
 #endif // BOX_H

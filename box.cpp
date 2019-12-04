@@ -1,6 +1,6 @@
 #include "box.h"
 #include <QDebug>
-Box::Box(QString name, unsigned id):id(id), name(name){
+Box::Box(unsigned id, QString name) :id(id), name(name){
 
 }
 

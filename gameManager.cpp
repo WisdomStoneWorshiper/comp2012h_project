@@ -6,7 +6,7 @@ GameManager::GameManager(){
 
 }
 
-void GameManager::init(int num,  list<Box> boxList, list<Player> playerList){
+void GameManager::init(int num,  list<Box*> boxList, list<Player*> playerList){
     numOfPlayer=num;
 
 }

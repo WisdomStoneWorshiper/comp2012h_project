@@ -11,7 +11,7 @@ using namespace std;
 
 class Box : public QGraphicsPixmapItem {
 public:
-    Box(QString, unsigned);
+    Box(unsigned, QString);
     Box(const Box &);
     ~Box();
     virtual void queueUp(Player);

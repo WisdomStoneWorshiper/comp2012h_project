@@ -3,6 +3,8 @@
 
 #include "charactor.h"
 
+using namespace std;
+
 class Player: public Charactor{
 
 public:

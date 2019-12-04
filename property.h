@@ -3,11 +3,13 @@
 
 #include "box.h"
 
+using namespace std;
+
 enum Color{Red, Blue, Yellow, Green};
 
-class Property : public Box{
+class Property: public Box{
 public:
-    Property(Color, unsigned, unsigned);
+    Property(QString, unsigned, Color, unsigned, unsigned);
     ~Property();
     Color getColor();
     unsigned getPropertyPrice();

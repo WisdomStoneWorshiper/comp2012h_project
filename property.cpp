@@ -1,7 +1,8 @@
 #include <property.h>
 
-Property::Property(Color color, unsigned price, unsigned rent):
-    propertyColor(color)
+Property::Property(QString name, unsigned id, Color color, unsigned price, unsigned rent):
+    Box(name,id)
+  , propertyColor(color)
   , propertyPrice(price)
   , rentOfProperty(rent)
 {

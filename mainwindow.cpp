@@ -15,13 +15,13 @@ MainWindow::MainWindow(QWidget *parent)
         //gm->init(numOfPlayer);
     }
    // for (int i=1;i<3;++i){
-        Box *b=new Box();
+        Box *b=new Box(0, "startpoint");
         gameField.push_back(*b);
-        QString path= QString::fromStdString(":/img/test1.png");
+        QString path= (":/img/nonProperty/")+(b->getName())+(".png");
 
         b->setPixmap(QPixmap(path));
 
-        scene->addItem(b);
+        scene->addItem(*b);
 
         qDebug()<<b->x()<<" "<<b->y();
    // }

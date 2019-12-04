@@ -1,0 +1,28 @@
+0 startpoint
+1 SportHall 1000 1
+2 email
+3 LSKCampus 1000 1
+4
+5 CYTBuilding 1200 1
+6 email
+7 Jail
+8 SwimmingPool 1800 1
+9 MarineLab 1800 1
+10 email
+11 
+12 email
+13 BBQSite 2000 1
+14 freeParking
+15 email
+16 FYTsportCenter 2600 1
+17 
+18 Library 2800 1
+19 email
+20 UniBar 2800 1
+21 goToJail
+22 email
+23 bridgeLink 3400 1
+24
+25 email
+26 WisdomStone 3400 1
+27 PresidnetLodge 3500 1

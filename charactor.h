@@ -10,12 +10,13 @@
 
 using namespace std;
 
-class Charactor: public QGraphicsPixmapItem
+class Charactor : public QGraphicsPixmapItem
 {
 public:
-    Charactor();
+    Charactor() {}
+    Charactor(const Charactor& c) {}
     void add_property(Property);
-    void remove_property(Property);
+    void remove_property(Property) {}
 private:
     list <Property> :: iterator sentinel;
     list <Property> owned_place;

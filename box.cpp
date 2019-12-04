@@ -17,15 +17,15 @@ void Box::mousePressEvent(QGraphicsSceneMouseEvent *event){
     qDebug()<<x()<<" "<<y();
 }
 
-void Box::queueUp(Player target){
-    playerOnThisBox.push(target);
-}
+//void Box::queueUp(Player target){
+//    playerOnThisBox.push(target);
+//}
 
-Player* Box::movePlayer(){
-    Player* target = &playerOnThisBox.front();
-    playerOnThisBox.pop();
-    return target;
-}
+//Player* Box::movePlayer(){
+//    Player* target = &playerOnThisBox.front();
+//    playerOnThisBox.pop();
+//    return target;
+//}
 
 QString Box::getName(){
     return name;

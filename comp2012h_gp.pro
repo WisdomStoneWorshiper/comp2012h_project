@@ -17,11 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     box.cpp \
-    chanceBox.cpp \
     charactor.cpp \
     gameManager.cpp \
-    gotojail.cpp \
-    jail.cpp \
     main.cpp \
     mainwindow.cpp \
     property.cpp
@@ -32,12 +29,9 @@ HEADERS += \
     card.h \
     cardDeck.h \
     chance.h \
-    chanceBox.h \
     charactor.h \
     communityChest.h \
     gameManager.h \
-    gotojail.h \
-    jail.h \
     mainwindow.h \
     nonProperty.h \
     player.h \

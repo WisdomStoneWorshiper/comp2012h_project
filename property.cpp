@@ -1,7 +1,7 @@
 #include <property.h>
 
 Property::Property(QString name, unsigned id, Color color, unsigned price, unsigned rent):
-    Box(name,id)
+    Box(id,name)
   , propertyColor(color)
   , propertyPrice(price)
   , rentOfProperty(rent)
@@ -25,13 +25,13 @@ unsigned Property:: getRentOfProperty(){
     return rentOfProperty+numOfComputers*addictionRentPerComputer+numOfVendingMachines*addictionRentPerVendingMachines;
 }
 
-Player*& Property::getOwner(){
-    return owner;
-}
+//Player*& Property::getOwner(){
+//    return owner;
+//}
 
-void Property:: changeOwner(Player* newOwner){
-    owner=newOwner;
-}
+//void Property:: changeOwner(Player* newOwner){
+//    owner=newOwner;
+//}
 
 void Property:: addComputers(unsigned number){
     numOfComputers+=number;

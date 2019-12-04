@@ -5,7 +5,6 @@
         <file>nonProperty/freeParking.png</file>
         <file>nonProperty/Jail2302.png</file>
         <file>nonProperty/startpoint.png</file>
-        <file>nonProperty/VisitJail.png</file>
         <file>propertyAsset/BBQSite.png</file>
         <file>propertyAsset/BBQSiteB.png</file>
         <file>propertyAsset/BBQSiteW.png</file>
@@ -48,5 +47,6 @@
         <file>character/character4.png</file>
         <file>character/character5.png</file>
         <file>character/character6.png</file>
+        <file>nonProperty/TakeTheClass.png</file>
     </qresource>
 </RCC>

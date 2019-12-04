@@ -8,7 +8,7 @@ class chanceBox : public Box
 
 public:
     chanceBox();
-
+    void drawEmail(Player);
 };
 
 #endif // CHANCEBOX_H

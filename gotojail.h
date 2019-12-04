@@ -6,6 +6,7 @@
 class goToJail : public Box{
 public:
     goToJail();
+    void sendToJail(Player);
 };
 
 #endif // GOTOJAIL_H

@@ -11,7 +11,7 @@ enum Color{Red, Blue, Yellow, Green};
 class Property: public Box{
 public:
     Property();
-    Property(QString, unsigned, Color, unsigned, unsigned);
+    Property(unsigned, QString, Color, unsigned, unsigned);
     ~Property();
     Color getColor();
     unsigned getPropertyPrice();

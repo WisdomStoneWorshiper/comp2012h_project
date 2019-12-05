@@ -13,14 +13,16 @@ using namespace std;
 class Charactor : public QGraphicsPixmapItem
 {
 public:
-    Charactor();
-    Charactor(Charactor&);
-    void add_property(Property);
-    void remove_property(Property);
+    Charactor(unsigned short);
+    Charactor(const Charactor&);
+    unsigned short getId();
+    void addProperty(Property*);
+    void removeProperty(Property*);
 
 protected:
-    list <Property> :: iterator sentinel;
-    list <Property> owned_place;
+    list <Property*> :: iterator sentinel;
+    list <Property*> owned_place;
+    const unsigned short id;
 };
 
 #endif // CHARACTOR_H

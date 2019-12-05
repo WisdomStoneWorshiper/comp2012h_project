@@ -10,6 +10,10 @@ class Player : public Charactor{
 public:
     Player(unsigned short);
     Player(Player&);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2e75d4f210f0d071075799ac69daeb3830c4e57d
     float getGpa();
     int getMoney();
     bool getJailPass();

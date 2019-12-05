@@ -28,6 +28,10 @@ bool Player::getJailPass(){
 }
 
 bool Player::buyProperty(Property* target){
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2e75d4f210f0d071075799ac69daeb3830c4e57d
     if(target->getPropertyPrice()>money){
         return false;
     }
@@ -35,6 +39,10 @@ bool Player::buyProperty(Property* target){
 
     addProperty(target);
     target->changeOwner(getId());
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2e75d4f210f0d071075799ac69daeb3830c4e57d
     return true;
 }
 

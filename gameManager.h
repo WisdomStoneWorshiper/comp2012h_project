@@ -17,6 +17,7 @@ using namespace std;
 class GameManager{
 public:
     GameManager();
+
     ~GameManager();
     void init(int, list<Box*>, list<Player*>);
     void setCurrentPlayer(Player);

@@ -8,8 +8,8 @@ class Dice : public QGraphicsPixmapItem
 {
 
 public:
-    Dice();
-    Dice(const Dice&);
+    //Dice();
+    //Dice(const Dice&);
     ~Dice();
     void rollingDice();
     unsigned stopRolling();

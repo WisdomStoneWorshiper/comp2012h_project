@@ -12,5 +12,5 @@ void GameManager::init(int num,  list<Box*> boxList, list<Player*> playerList){
 }
 
 int GameManager::rollDice(){
-
+    return 0;
 }

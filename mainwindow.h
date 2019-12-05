@@ -10,6 +10,7 @@
 #include "gameManager.h"
 #include "box.h"
 #include "player.h"
+//#include "dice.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,5 +35,6 @@ private:
     GameManager *gm;
     list<Box> gameField;
     QGraphicsScene *scene;
+    //Dice* d;
 };
 #endif // MAINWINDOW_H

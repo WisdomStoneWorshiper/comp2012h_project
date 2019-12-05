@@ -9,9 +9,9 @@ Property::Property(unsigned id, QString name, Color color, unsigned price, unsig
 
 }
 
-Property::Property(const Property &p){
+//Property::Property(const Property &p){
 
-}
+//}
 
 Property::~Property(){
 

@@ -4,7 +4,7 @@
 #include <QFile>
 #include <QMessageBox>
 
-//#include "dice.h"
+//
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -73,9 +73,9 @@ MainWindow::MainWindow(QWidget *parent)
                 qDebug()<<id<<" "<<(name)<<" "<<price<<" "<<rent;
             }
         }
-//        Dice* d=new Dice();
+//        d=new Dice();
 //        d->setPos(400,400);
-//        scene->addItem(d);
+        //scene->addItem(d);
         ui->gameArea->setScene(scene);
         ui->gameArea->show();
         file.close();

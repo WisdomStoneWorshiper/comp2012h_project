@@ -1,16 +1,16 @@
 #include "dice.h"
 
-Dice::Dice()
-{
-    diceTimer.setInterval(16);
-    QObject::connect(&diceTimer, &QTimer::timeout, [=](){
-        this->rollingDice();
-    });
-}
+//Dice::Dice()
+//{
+////    diceTimer.setInterval(16);
+////    QObject::connect(&diceTimer, &QTimer::timeout, [=](){
+////        this->rollingDice();
+////    });
+//}
 
-Dice::Dice(const Dice& d){
+//Dice::Dice(const Dice& d){
 
-}
+//}
 
 void Dice::rollingDice(){
     static unsigned v=0;

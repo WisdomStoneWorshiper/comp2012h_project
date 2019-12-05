@@ -13,7 +13,7 @@ public:
     float get_gpa();
     int get_money();
     unsigned short get_id();
-    bool buy_property(Property);
+    bool buy_property(Property*);
     Player& operator+(int);
     Player& operator-(int);
 

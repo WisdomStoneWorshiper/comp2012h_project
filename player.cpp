@@ -25,13 +25,13 @@ unsigned short Player::get_id(){
     return id;
 }
 
-bool Player::buy_property(Property target){
-    if(target.getPropertyPrice()>money){
+bool Player::buy_property(Property *target){
+    if(target->getPropertyPrice()>money){
         return false;
     }
-    money -= target.getPropertyPrice();
+    money -= target->getPropertyPrice();
     add_property(target);
-    target.changeOwner(get_id());
+    target->changeOwner(get_id());
     return true;
 }
 

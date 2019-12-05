@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     box.cpp \
     charactor.cpp \
+    dice.cpp \
     gameManager.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     chance.h \
     charactor.h \
     communityChest.h \
+    dice.h \
     gameManager.h \
     mainwindow.h \
     nonProperty.h \

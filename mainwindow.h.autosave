@@ -10,6 +10,7 @@
 #include "gameManager.h"
 #include "box.h"
 #include "player.h"
+//#include "dice.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,7 +33,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     GameManager *gm;
-    list<Box> gameField;
+    //Dice* d;
     QGraphicsScene *scene;
 };
 #endif // MAINWINDOW_H

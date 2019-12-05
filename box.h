@@ -21,7 +21,7 @@ public:
     QString getName();
     unsigned getId();
 
-public slots:
+private slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 private:
     unsigned id;

@@ -1,0 +1,10 @@
+#ifndef CARDDECK_H
+#define CARDDECK_H
+#include "card.h"
+
+class CardDeck{
+      Card * sentinel  ;
+
+};
+
+#endif // CARDDECK_H

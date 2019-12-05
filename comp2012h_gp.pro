@@ -24,10 +24,10 @@ SOURCES += \
     property.cpp
 
 HEADERS += \
+    CardDeck.h \
     banker.h \
     box.h \
     card.h \
-    cardDeck.h \
     chance.h \
     charactor.h \
     communityChest.h \

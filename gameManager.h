@@ -22,6 +22,8 @@ public:
     void setCurrentPlayer(Player*);
     void moveToNextPlayer();
     int rollDice();
+private slots:
+    //void on_
 private:
     list<Player*> playerList;
     list<Box*> gameField;

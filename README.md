@@ -1,1 +1,1 @@
-HI I am matt here
+How to play

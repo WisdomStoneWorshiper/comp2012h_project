@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
+#include <QFile>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,21 +15,67 @@ MainWindow::MainWindow(QWidget *parent)
     int numOfPlayer=QInputDialog::getInt(this,"","Plaese input number of player (2-6)",3,2,6,1,&ok);
     if (ok){
         //gm->init(numOfPlayer);
+        list<Box*> map;
+        QFile file(":/map_data/map.txt");
+        if(!file.open(QIODevice::ReadOnly)) {
+            QMessageBox::information(0, "error", file.errorString());
+        }
+        QTextStream fin(&file);
+
+        while (!fin.atEnd()){
+            unsigned id, price, rent;
+            QString line, name;
+            Box* b;
+            QString path;
+            fin>>id>>name;
+            if (id%7==0 || name=="email"){
+                b=new Box(id,name);
+                path=(":/img/nonProperty/")+(b->getName())+(".png");
+            }else{
+                Color c;
+                fin>>price>>rent;
+                if (id<7) c=Yellow;
+                else if (id<14) c=Blue;
+                else if (id<21) c=Green;
+                else c=Red;
+                b=new Property(id,(name),c,price,rent);
+                path=(":/img/propertyAsset/")+(b->getName())+("B.png");
+            }
+            if ( b->getId()<7){
+                b->setRotation(180);
+
+                if (b->getId()==0) b->setPos(0,0);
+                else b->setPos((b->getId())*90,0);
+            }else if (b->getId()<14){
+
+                if (b->getId()==7) b->setPos(540,-130);
+                else{
+                    b->setRotation(-90);
+                    b->setPos(540,(b->getId()-7)*90);
+                }
+            }else if (b->getId()<21){
+                if (b->getId()==14) b->setPos(540,540);
+                else b->setPos(630-(b->getId()-13)*90,540);
+            } else {
+                b->setRotation(90);
+                if (b->getId()==21) b->setPos(0,540);
+                else b->setPos(0,630-(b->getId()-20)*90);
+            }
+            map.push_back(b);
+            b->setPixmap(QPixmap(path));
+            scene->addItem(b);
+
+            if (id%7==0 || name=="email"){
+                qDebug()<<id<<" "<<(name);
+            }else {
+                qDebug()<<id<<" "<<(name)<<" "<<price<<" "<<rent;
+            }
+        }
+        ui->gameArea->setScene(scene);
+        ui->gameArea->show();
+        file.close();
     }
-   // for (int i=1;i<3;++i){
-        Box *b=new Box(0, "startpoint");
-        gameField.push_back(*b);
-        QString path= (":/img/nonProperty/")+(b->getName())+(".png");
 
-        b->setPixmap(QPixmap(path));
-
-        scene->addItem(b);
-
-        qDebug()<<b->x()<<" "<<b->y();
-   // }
-    ui->gameArea->setScene(scene);
-    ui->gameArea->show();
-    b->setPos(0,0);
 }
 
 

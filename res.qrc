@@ -48,5 +48,21 @@
         <file>character/character5.png</file>
         <file>character/character6.png</file>
         <file>nonProperty/TakeTheClass.png</file>
+        <file>propertyAsset/AmericanDiner.png</file>
+        <file>propertyAsset/AmericanDinerB.png</file>
+        <file>propertyAsset/AmericanDinerW.png</file>
+        <file>propertyAsset/Ebeneezers.png</file>
+        <file>propertyAsset/EbeneezersB.png</file>
+        <file>propertyAsset/EbeneezersW.png</file>
+        <file>propertyAsset/GoldenRiceBowl.png</file>
+        <file>propertyAsset/GoldenRiceBowlB.png</file>
+        <file>propertyAsset/GoldenRiceBowlW.png</file>
+        <file>propertyAsset/HungryKorean.png</file>
+        <file>propertyAsset/HungryKoreanB.png</file>
+        <file>propertyAsset/HungryKoreanW.png</file>
+        <file>nonProperty/Jail.png</file>
+    </qresource>
+    <qresource prefix="/map_data">
+        <file>map.txt</file>
     </qresource>
 </RCC>

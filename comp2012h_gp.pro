@@ -21,6 +21,7 @@ SOURCES += \
     gameManager.cpp \
     main.cpp \
     mainwindow.cpp \
+    player.cpp \
     property.cpp
 
 HEADERS += \

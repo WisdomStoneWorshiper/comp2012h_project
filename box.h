@@ -4,6 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QString>
 #include <queue>
+#include <fstream>
 
 //#include "player.h"
 

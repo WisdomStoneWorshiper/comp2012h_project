@@ -1,37 +1,42 @@
 #include "player.h"
 
-Player::Player(unsigned short id_num):id(id_num){
+Player::Player(unsigned short id_num):Charactor(id_num){
     money = 10000;
     gpa = 0.0;
     state = NORMAL;
+    jail_pass = false;
 };
 
-Player::Player(Player& player):id(player.get_id()){
-    gpa=player.get_gpa();
-    money=player.get_money();
+Player::Player(Player& player):Charactor(player.getId()){
+    gpa=player.getGpa();
+    money=player.getMoney();
     state=player.state;
     owned_place=player.owned_place;
+    jail_pass =  player.getJailPass();
 }
 
-float Player::get_gpa(){
+float Player::getGpa(){
     return gpa;
 }
 
-int Player::get_money(){
+int Player::getMoney(){
     return money;
 }
 
-unsigned short Player::get_id(){
-    return id;
+bool Player::getJailPass(){
+    return jail_pass;
 }
 
-bool Player::buy_property(Property *target){
+bool Player::buyProperty(Property* target){
+
     if(target->getPropertyPrice()>money){
         return false;
     }
     money -= target->getPropertyPrice();
-    add_property(target);
-    target->changeOwner(get_id());
+
+    addProperty(target);
+    target->changeOwner(getId());
+
     return true;
 }
 

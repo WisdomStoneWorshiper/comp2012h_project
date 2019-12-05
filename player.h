@@ -10,18 +10,18 @@ class Player : public Charactor{
 public:
     Player(unsigned short);
     Player(Player&);
-    float get_gpa();
-    int get_money();
-    unsigned short get_id();
-    bool buy_property(Property);
+    float getGpa();
+    int getMoney();
+    bool getJailPass();
+    bool buyProperty(Property*);
     Player& operator+(int);
     Player& operator-(int);
 
 private:
     enum SCHOOL{ENGINEERING,SCIENCE,BUSSINESS, HUMANITIES};
     enum STATE{NORMAL, IMPRISONMENT};
+    bool jail_pass;
     unsigned short position;
-    const unsigned short id;
     float gpa;
     int money;
     SCHOOL school;

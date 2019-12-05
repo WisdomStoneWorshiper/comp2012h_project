@@ -25,13 +25,13 @@ unsigned Property:: getRentOfProperty(){
     return rentOfProperty+numOfComputers*addictionRentPerComputer+numOfVendingMachines*addictionRentPerVendingMachines;
 }
 
-//Player*& Property::getOwner(){
-//    return owner;
-//}
+unsigned Property::getOwnerId(){
+    return ownerId;
+}
 
-//void Property:: changeOwner(Player* newOwner){
-//    owner=newOwner;
-//}
+void Property:: changeOwner(unsigned newOwnerId){
+    ownerId=newOwnerId;
+}
 
 void Property:: addComputers(unsigned number){
     numOfComputers+=number;

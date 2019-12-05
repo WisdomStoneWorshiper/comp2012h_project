@@ -8,7 +8,7 @@ Charactor::Charactor(const Charactor& charactor):id(charactor.id){
     owned_place=charactor.owned_place;
 }
 
-unsigned short Charactor::getId(){
+unsigned short Charactor::getId() const{
     return id;
 }
 

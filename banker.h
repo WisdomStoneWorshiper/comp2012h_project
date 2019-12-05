@@ -5,6 +5,14 @@
 
 class Banker: public Charactor{
 
+public:
+    //Banker();
+    Banker(unsigned short);
+    Banker(const Banker&);
+    void addMortgage(Property*);
+    void foreclosure(Property*);
+private:
+    list <Property*> mortgage_list;
 };
 
 #endif // BANKER_H

@@ -15,9 +15,8 @@ public:
     int getMoney() const;
     bool getJailPass() const;
     QString getName() const;
-
     bool buyProperty(Property*);
-
+    void changeJailPass();
     Player& operator+(int);
     Player& operator-(int);
 

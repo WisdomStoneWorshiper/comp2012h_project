@@ -15,7 +15,7 @@ class Charactor : public QGraphicsPixmapItem
 public:
     Charactor(unsigned short);
     Charactor(const Charactor&);
-    unsigned short getId();
+    unsigned short getId() const;
     void addProperty(Property*);
     void removeProperty(Property*);
 

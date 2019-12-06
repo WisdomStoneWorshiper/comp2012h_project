@@ -8,6 +8,7 @@ using namespace std;
 class Player : public Charactor{
 
 public:
+
     Player(unsigned short, QString);
     Player(const Player&);
     float getGpa() const;

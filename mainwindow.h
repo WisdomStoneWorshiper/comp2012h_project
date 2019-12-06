@@ -7,9 +7,14 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 
+#include <QFile>
+#include <QMessageBox>
+
 #include "gameManager.h"
 #include "box.h"
 #include "player.h"
+#include "dice.h"
+#include "rolldicewindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,11 +28,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void moveCharactor(Player, int);
-
+private slots:
+    void on_rollDiceBtn_clicked();
+    void on_buyBtn_clicked();
+    void on_buildBtn_clicked();
+    void on_endBtn_clicked();
+    void on_tradeBtn_clicked();
 private:
     Ui::MainWindow *ui;
     GameManager *gm;
     list<Box> gameField;
     QGraphicsScene *scene;
+    RollDiceWindow* d;
 };
 #endif // MAINWINDOW_H

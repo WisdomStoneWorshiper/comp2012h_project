@@ -33,12 +33,15 @@ QString Player::getName() const{
     return user_name;
 }
 bool Player::buyProperty(Property* target){
+
     if(target->getPropertyPrice()>money){
         return false;
     }
     money -= target->getPropertyPrice();
+
     addProperty(target);
     target->changeOwner(getId());
+
     return true;
 }
 

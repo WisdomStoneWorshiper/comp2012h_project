@@ -4,9 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QString>
 #include <queue>
-#include <fstream>
 
-//#include "player.h"
 
 using namespace std;
 
@@ -21,7 +19,7 @@ public:
     QString getName();
     unsigned getId();
 
-public slots:
+private slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 private:
     unsigned id;

@@ -85,6 +85,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::on_rollDiceBtn_clicked(){
     d=new RollDiceWindow(this);
     d->show();
+
 }
 
 void MainWindow::on_buyBtn_clicked(){

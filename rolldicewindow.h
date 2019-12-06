@@ -5,6 +5,8 @@
 #include <QKeyEvent>
 #include <QMovie>
 #include <QGraphicsScene>
+#include <cstdlib>
+#include <ctime>
 
 namespace Ui {
 class RollDiceWindow;
@@ -18,10 +20,11 @@ public:
     explicit RollDiceWindow(QWidget *parent = nullptr);
     ~RollDiceWindow();
     void keyPressEvent(QKeyEvent *) override ;
+    unsigned getValue();
 private:
     Ui::RollDiceWindow *ui;
     QMovie* dice;
-    QGraphicsScene *scene;
+    unsigned v;
 };
 
 #endif // ROLLDICEWINDOW_H

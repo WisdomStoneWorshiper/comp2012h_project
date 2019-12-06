@@ -3,8 +3,7 @@
 
 RollDiceWindow::RollDiceWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::RollDiceWindow),
-    scene(new QGraphicsScene())
+    ui(new Ui::RollDiceWindow)
 {
     ui->setupUi(this);
     dice=new QMovie(":/img/dice/rollingDice.gif");
@@ -20,7 +19,13 @@ RollDiceWindow::~RollDiceWindow()
 void RollDiceWindow::keyPressEvent(QKeyEvent *e){
     if (e->key()==Qt::Key_Space){
         dice->stop();
-        dice->setFileName(":/img/dice/dice1.png");
+        srand (time(NULL));
+        v=rand() % 6 + 1;
+        dice->setFileName((":/img/dice/dice"+QString(v)+".png"));
         dice->start();
     }
+}
+
+unsigned RollDiceWindow::getValue(){
+    return v;
 }

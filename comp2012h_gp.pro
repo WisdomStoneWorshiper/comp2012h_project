@@ -24,7 +24,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     player.cpp \
-    property.cpp
+    property.cpp \
+    rolldicewindow.cpp
 
 HEADERS += \
     CardDeck.h \
@@ -39,10 +40,12 @@ HEADERS += \
     mainwindow.h \
     nonProperty.h \
     player.h \
-    property.h
+    property.h \
+    rolldicewindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    rolldicewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

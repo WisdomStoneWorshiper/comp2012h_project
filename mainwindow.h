@@ -7,10 +7,14 @@
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 
+#include <QFile>
+#include <QMessageBox>
+
 #include "gameManager.h"
 #include "box.h"
 #include "player.h"
-//#include "dice.h"
+#include "dice.h"
+#include "rolldicewindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -35,6 +39,6 @@ private:
     GameManager *gm;
     list<Box> gameField;
     QGraphicsScene *scene;
-    //Dice* d;
+    RollDiceWindow* d;
 };
 #endif // MAINWINDOW_H

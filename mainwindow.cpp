@@ -1,10 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
-#include <QFile>
-#include <QMessageBox>
 
-//
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -73,8 +71,10 @@ MainWindow::MainWindow(QWidget *parent)
                 qDebug()<<id<<" "<<(name)<<" "<<price<<" "<<rent;
             }
         }
-//        d=new Dice();
-//        d->setPos(400,400);
+//                d=new Dice();
+
+//                //d->setPixmap(QPixmap(":/img/dice/dice6.png"));
+//                d->setPos(300,400);
         //scene->addItem(d);
         ui->gameArea->setScene(scene);
         ui->gameArea->show();
@@ -83,7 +83,8 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
-
+    d=new RollDiceWindow(this);
+    d->show();
 }
 
 void MainWindow::on_buyBtn_clicked(){

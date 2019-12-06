@@ -67,6 +67,7 @@
         <file>dice/dice4.png</file>
         <file>dice/dice5.png</file>
         <file>dice/dice6.png</file>
+        <file>dice/rollingDice.gif</file>
     </qresource>
     <qresource prefix="/map_data">
         <file>map.txt</file>

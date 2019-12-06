@@ -8,13 +8,13 @@ class Dice : public QGraphicsPixmapItem
 {
 
 public:
-    //Dice();
-    //Dice(const Dice&);
+    Dice();
+    Dice(const Dice&);
     ~Dice();
     void rollingDice();
     unsigned stopRolling();
 private:
-    QTimer diceTimer;
+    QTimer* diceTimer;
 };
 
 #endif // DICE_H

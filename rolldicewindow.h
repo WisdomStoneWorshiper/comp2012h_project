@@ -1,0 +1,27 @@
+#ifndef ROLLDICEWINDOW_H
+#define ROLLDICEWINDOW_H
+
+#include <QDialog>
+#include <QKeyEvent>
+#include <QMovie>
+#include <QGraphicsScene>
+
+namespace Ui {
+class RollDiceWindow;
+}
+
+class RollDiceWindow : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit RollDiceWindow(QWidget *parent = nullptr);
+    ~RollDiceWindow();
+    void keyPressEvent(QKeyEvent *) override ;
+private:
+    Ui::RollDiceWindow *ui;
+    QMovie* dice;
+    QGraphicsScene *scene;
+};
+
+#endif // ROLLDICEWINDOW_H

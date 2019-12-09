@@ -2,7 +2,7 @@
 #define GAMEMANAGER_H
 
 #include <list>
-#include <QGraphicsItem>
+//#include <QPropertyAnimation>
 
 #include "player.h"
 #include "banker.h"
@@ -16,8 +16,8 @@ using namespace std;
 class GameManager{
 public:
     GameManager();
-
     ~GameManager();
+    //bool findCurrentBox(Box*);
     void init(unsigned, list<Box*>, list<Player*>);
     void setCurrentPlayer(Player*);
     void moveToNextPlayer();

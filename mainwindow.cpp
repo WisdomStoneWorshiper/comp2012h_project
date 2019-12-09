@@ -101,9 +101,9 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
-
+    d->getDice()->start();
     d->show();
-
+    //
     //while ()
 }
 

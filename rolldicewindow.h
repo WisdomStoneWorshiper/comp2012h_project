@@ -6,8 +6,6 @@
 #include <QMovie>
 #include <QGraphicsScene>
 #include <QElapsedTimer>
-#include <cstdlib>
-#include <ctime>
 
 namespace Ui {
 class RollDiceWindow;

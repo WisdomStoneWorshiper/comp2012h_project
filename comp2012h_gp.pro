@@ -25,24 +25,30 @@ SOURCES += \
     mainwindow.cpp \
     player.cpp \
     property.cpp \
-    rolldicewindow.cpp
+    rolldicewindow.cpp \
+    email.cpp \
+    emailDeck.cpp \
+    emailFly.cpp \
+    emailJailPass.cpp \
+    emailMoney.cpp
 
 HEADERS += \
-    CardDeck.h \
     banker.h \
     box.h \
-    card.h \
-    chance.h \
     charactor.h \
-    communityChest.h \
     dice.h \
     gameManager.h \
     mainwindow.h \
     nonProperty.h \
     player.h \
     property.h \
-    rolldicewindow.h
-
+    rolldicewindow.h \
+    email.h \
+    emailDeck.h \
+    emailFly.h \
+    emailJailPass.h \
+    emailMoney.h
+    
 FORMS += \
     mainwindow.ui \
     rolldicewindow.ui

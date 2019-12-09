@@ -18,16 +18,17 @@ public:
     GameManager();
 
     ~GameManager();
-    void init(int, list<Box*>, list<Player*>);
+    void init(unsigned, list<Box*>, list<Player*>);
     void setCurrentPlayer(Player*);
     void moveToNextPlayer();
+    void mavePlayer(unsigned);
     int rollDice();
 private slots:
     //void on_
 private:
     list<Player*> playerList;
     list<Box*> gameField;
-    int numOfPlayer;
+    unsigned numOfPlayer;
     Player* currentPlayer;
 };
 

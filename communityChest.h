@@ -1,7 +1,7 @@
 #ifndef COMMUNITYCHEST_H
 #define COMMUNITYCHEST_H
 
-#include "card.h"
+#include "email.h"
 
 class CommunityChest : public Card{
 

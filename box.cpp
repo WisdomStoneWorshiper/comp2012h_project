@@ -34,3 +34,7 @@ QString Box::getName(){
 unsigned Box::getId(){
     return id;
 }
+
+//bool Box::findCurrentBox(Box*b){
+//    return b->getId()==id;
+//}

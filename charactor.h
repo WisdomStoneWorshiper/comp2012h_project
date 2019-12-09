@@ -19,6 +19,7 @@ public:
     void addProperty(Property*);
     void removeProperty(Property*);
 
+
 protected:
     list <Property*> :: iterator sentinel;
     list <Property*> owned_place;

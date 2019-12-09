@@ -17,12 +17,15 @@ public:
     QString getName() const;
     bool buyProperty(Property*);
     void changeJailPass();
+    unsigned short getPosition() const;
+    void setPosition(unsigned short);
     Player& operator+(int);
     Player& operator-(int);
 
 private:
     enum SCHOOL{ENGINEERING,SCIENCE,BUSSINESS, HUMANITIES};
     enum STATE{NORMAL, IMPRISONMENT};
+    unsigned short position;
     bool jail_pass;
     float gpa;
     int money;

@@ -7,7 +7,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , gm(new GameManager)
+    , gm(new GameManager())
     , scene(new QGraphicsScene())
     , d(new RollDiceWindow(this))
 {
@@ -96,19 +96,20 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gameArea->setScene(scene);
     ui->gameArea->show();
     //d=new RollDiceWindow(this);
-    connect(d,SIGNAL(changevalue(unsigned)),this,SLOT(test(unsigned)));
-
+    connect(d,SIGNAL(changevalue(unsigned)),this,SLOT(move(unsigned)));
+    gm->init(numOfPlayer,map,p_list);
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
-
+    d->getDice()->start();
     d->show();
-
+    //
     //while ()
 }
 
-void MainWindow::test (unsigned t){
+void MainWindow::move (unsigned t){
     qDebug()<<t;
+    gm->movePlayer(t);
 }
 
 void MainWindow::on_buyBtn_clicked(){

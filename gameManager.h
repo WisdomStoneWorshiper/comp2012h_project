@@ -21,7 +21,8 @@ public:
     void init(int, list<Box*>, list<Player*>);
     void setCurrentPlayer(Player*);
     void moveToNextPlayer();
-    int rollDice();
+    //int rollDice();
+    void movePlayer(unsigned);
 private slots:
     //void on_
 private:

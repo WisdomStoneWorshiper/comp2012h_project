@@ -5,8 +5,6 @@ EmailMoney::~EmailMoney(){}
 
 EmailMoney::EmailMoney(int cardOrder){
 
-  //  ++moneyCardOrder;
-
     switch (cardOrder){
         case 1:
             setMessage(getMessage()+"You got $1000 scholarship\n");
@@ -24,6 +22,13 @@ EmailMoney::EmailMoney(int cardOrder){
             setMessage(getMessage()+"Pay $1000 for Hall fee\n");
             cardIndex = 4;
             break;
+        case 5:
+            setMessage(getMessage()+"You got $200 after doing assignment for others");
+            cardIndex = 5;
+            break;
+        case 6:
+            setMessage(getMessage()+"Pay $500 for add octopus card valuse");
+            cardIndex = 6;
 
     }
 }
@@ -43,6 +48,12 @@ void EmailMoney::function(Player *p){
             break;
         case 4:
             *p-1000;
+            break;
+        case 5:
+            *p+200;
+            break;
+        case 6:
+            *p-500;
             break;
 
     }

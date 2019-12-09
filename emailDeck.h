@@ -14,7 +14,10 @@
 class EmailDeck{
 public:
     EmailDeck();
+    void shuffle();
+    Email * getEmail();
+    bool isEmpty();
 private:
-    deque<Email*> cardDeck;
-
+    deque<Email*> deck;
+    deque<Email*>:: iterator emailOrder;
 };

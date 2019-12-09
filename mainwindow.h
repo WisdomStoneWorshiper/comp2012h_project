@@ -30,7 +30,7 @@ public:
     void moveCharactor(Player, int);
 
 public slots:
-     void test(unsigned );
+     void move(unsigned );
      void on_rollDiceBtn_clicked();
      void on_buyBtn_clicked();
      void on_buildBtn_clicked();

@@ -45,6 +45,13 @@ bool Player::buyProperty(Property* target){
     return true;
 }
 
+void Player::changeJailPass(){
+    if(getJailPass() == false){
+        jail_pass = true;
+    }else{
+        jail_pass = false;
+    }
+}
 Player& Player::operator+(int a){
     money+=a;
     return *this;

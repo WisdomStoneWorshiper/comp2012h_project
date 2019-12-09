@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QMovie>
 #include <QGraphicsScene>
+#include <QElapsedTimer>
 #include <cstdlib>
 #include <ctime>
 
@@ -21,10 +22,13 @@ public:
     ~RollDiceWindow();
     void keyPressEvent(QKeyEvent *) override ;
     unsigned getValue();
+signals:
+    void changevalue(unsigned);
 private:
     Ui::RollDiceWindow *ui;
     QMovie* dice;
     unsigned v;
+    QElapsedTimer* timer;
 };
 
 #endif // ROLLDICEWINDOW_H

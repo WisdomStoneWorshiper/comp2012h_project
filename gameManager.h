@@ -3,6 +3,7 @@
 
 #include <list>
 //#include <QPropertyAnimation>
+#include <QElapsedTimer>
 
 #include "player.h"
 #include "banker.h"
@@ -23,7 +24,7 @@ public:
     void moveToNextPlayer();
     //int rollDice();
     void movePlayer(unsigned);
-
+    void playerPositionSetter(Player*,Box*);
 private slots:
     //void on_
 private:
@@ -31,6 +32,7 @@ private:
     list<Box*> gameField;
     unsigned numOfPlayer;
     Player* currentPlayer;
+    QElapsedTimer* timer;
 };
 
 #endif // GAMEMANAGER_H

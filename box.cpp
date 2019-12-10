@@ -35,6 +35,15 @@ unsigned Box::getId(){
     return id;
 }
 
-//bool Box::findCurrentBox(Box*b){
-//    return b->getId()==id;
-//}
+double Box::getP1XPosition(){
+    return p1XPosition;
+}
+
+double Box::getP1YPosition(){
+    return p1YPosition;
+}
+
+void Box::setP1Position(double x, double y){
+    p1XPosition=x;
+    p1YPosition=y;
+}

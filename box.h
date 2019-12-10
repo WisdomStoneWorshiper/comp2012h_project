@@ -18,6 +18,9 @@ public:
 //    Player* movePlayer();
     QString getName();
     unsigned getId();
+    double getP1XPosition();
+    double getP1YPosition();
+    void setP1Position(double,double);
 //    bool findCurrentBox(Box*);
 
 private slots:
@@ -25,6 +28,7 @@ private slots:
 private:
     unsigned id;
     QString name;
+    double p1XPosition,p1YPosition;
     //queue<Player> playerOnThisBox;
 };
 

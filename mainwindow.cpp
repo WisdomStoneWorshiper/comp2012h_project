@@ -40,13 +40,21 @@ MainWindow::MainWindow(QWidget *parent)
         }
         if ( b->getId()<7){
             b->setRotation(180);
-            if (b->getId()==0) b->setPos(0,0);
-            else b->setPos((b->getId())*90,0);
+            if (b->getId()==0){
+                b->setPos(0,0);
+                b->setP1Position(b->x()-130,b->y()-120);
+            }else{
+                b->setPos((b->getId())*90,0);
+                b->setP1Position(map.front()->getP1XPosition()+130+90*(b->getId()-1),map.front()->getP1YPosition());
+            }
         }else if (b->getId()<14){
-            if (b->getId()==7) b->setPos(540,-130);
-            else{
+            if (b->getId()==7){
+                b->setPos(540,-130);
+                b->setP1Position(map.back()->getP1XPosition()+110,map.back()->getP1YPosition());
+            }else{
                 b->setRotation(-90);
                 b->setPos(540,(b->getId()-7)*90);
+                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+90);
             }
         }else if (b->getId()<21){
             if (b->getId()==14) b->setPos(540,540);
@@ -84,10 +92,13 @@ MainWindow::MainWindow(QWidget *parent)
                 QString path;
                 path=((":/img/character/character")+QString::number(i)+(".png"));
                 p->setPixmap(QPixmap(path));
-                if (i<4)
-                    p->setPos(map.front()->x()-150+20*i,map.front()->y()-120);
-                else
-                    p->setPos(map.front()->x()-150+20*(i-3),map.front()->y()-70);
+//                if (i<4)
+//                    //p->setPos(map.front()->x()-150+20*i,map.front()->y()-120);
+//                    p->setPos(map.front()->getP1XPosition()+20*(i-1),map.front()->getP1YPosition());
+//                else
+//                    //p->setPos(map.front()->x()-150+20*(i-3),map.front()->y()-70);
+//                    p->setPos(map.front()->getP1XPosition()+20*(i-4),map.front()->getP1YPosition()-70);
+                gm->playerPositionSetter(p,map.front());
                 scene->addItem(p);
             }
 
@@ -101,7 +112,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
-    d->getDice()->start();
+
     d->show();
     //
     //while ()

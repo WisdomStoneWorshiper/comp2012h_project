@@ -8,7 +8,7 @@ class EmailFly : public Email{
 public:
 
     EmailFly(int cardOrder);
-    void function(Player *p) ;// player position change
+    void emailAction(Player *p) ;// player position change
     ~EmailFly();
 private:
  //    static int cardOrder ;

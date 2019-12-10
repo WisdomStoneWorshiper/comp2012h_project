@@ -18,20 +18,22 @@ EmailDeck::EmailDeck(){
 
 
 }
+EmailDeck::~EmailDeck(){
+
+    for(unsigned i = 0; deck[i]!=deck.back();++i)
+        delete deck[i];
+}
+
 
 void EmailDeck::shuffle(){ //shuffle before isEmpty function
      std::random_shuffle ( deck.begin(), deck.end() );
 }
 
-
-
-
-bool EmailDeck::isEmpty(){
+bool EmailDeck::isCompletelyUsed(){
     return emailOrder == deck.begin();
 }
 
 Email * EmailDeck ::getEmail(){
-
 
     deque<Email*>:: iterator temp;
     temp = emailOrder;

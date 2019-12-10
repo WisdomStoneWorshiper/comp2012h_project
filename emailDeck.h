@@ -16,7 +16,8 @@ public:
     EmailDeck();
     void shuffle();
     Email * getEmail();
-    bool isEmpty();
+    bool isCompletelyUsed();
+    ~EmailDeck();
 private:
     deque<Email*> deck;
     deque<Email*>:: iterator emailOrder;

@@ -18,6 +18,7 @@ public:
 //    Player* movePlayer();
     QString getName();
     unsigned getId();
+//    bool findCurrentBox(Box*);
 
 private slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

@@ -21,16 +21,12 @@ RollDiceWindow::~RollDiceWindow()
 void RollDiceWindow::keyPressEvent(QKeyEvent *e){
     if (e->key()==Qt::Key_Space){
         dice->stop();
-        srand (time(NULL));
-        unsigned temp=rand() % 6 + 1;
-        dice->setFileName((":/img/dice/dice"+QString(temp)+".png"));
-        dice->start();
         timer->restart();
         while (timer->elapsed()<2000){
         }
-        qDebug()<<timer->elapsed();
-        changevalue(temp);
+        changevalue(dice->currentFrameNumber()+1);
         this->close();
+        dice->start();
     }
 }
 
@@ -38,7 +34,3 @@ unsigned RollDiceWindow::getValue(){
     return v;
 }
 
-
-//void RollDiceWindow::changevalue(unsigned v){
-//    this->v=v;
-//}

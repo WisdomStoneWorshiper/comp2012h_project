@@ -7,6 +7,6 @@
 class EmailJailPass : public Email{
 public:
     EmailJailPass();
-    void function(Player *p) ;
+    void emailAction(Player *p) ;
     ~EmailJailPass();
 };

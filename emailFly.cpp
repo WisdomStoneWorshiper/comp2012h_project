@@ -30,7 +30,7 @@ EmailFly::EmailFly(int cardOrder){
 
 }
 
-void EmailFly::function(Player *p){ //return the id of map position
+void EmailFly::emailAction(Player *p){ //return the id of map position
     switch (cardIndex){
 //        case 1:
 

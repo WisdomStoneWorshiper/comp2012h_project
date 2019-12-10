@@ -5,7 +5,7 @@ EmailJailPass::EmailJailPass(){
         setMessage(getMessage()+"This email for escape the class");
 }
 
-void EmailJailPass::function(Player *p){
-    //p.changeJailPass()
+void EmailJailPass::emailAction(Player *p){
+    p->changeJailPass();
 }
 EmailJailPass::~EmailJailPass(){}

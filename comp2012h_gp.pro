@@ -21,6 +21,9 @@ SOURCES += \
     buildableproperty.cpp \
     charactor.cpp \
     dice.cpp \
+    emailGetJailPass.cpp \
+    emailGetMoney.cpp \
+    emailMove.cpp \
     gameManager.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -29,10 +32,7 @@ SOURCES += \
     restaurant.cpp \
     rolldicewindow.cpp \
     email.cpp \
-    emailDeck.cpp \
-    emailFly.cpp \
-    emailJailPass.cpp \
-    emailMoney.cpp
+    emailDeck.cpp
 
 HEADERS += \
     banker.h \
@@ -40,6 +40,9 @@ HEADERS += \
     buildableproperty.h \
     charactor.h \
     dice.h \
+    emailGetJailPass.h \
+    emailGetMoney.h \
+    emailMove.h \
     gameManager.h \
     mainwindow.h \
     nonProperty.h \
@@ -48,10 +51,7 @@ HEADERS += \
     restaurant.h \
     rolldicewindow.h \
     email.h \
-    emailDeck.h \
-    emailFly.h \
-    emailJailPass.h \
-    emailMoney.h
+    emailDeck.h
     
 FORMS += \
     mainwindow.ui \

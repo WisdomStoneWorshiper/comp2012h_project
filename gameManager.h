@@ -8,7 +8,8 @@
 #include "player.h"
 #include "banker.h"
 
-#include "property.h"
+#include "restaurant.h"
+#include "buildableproperty.h"
 #include "nonProperty.h"
 #include "box.h"
 
@@ -25,6 +26,10 @@ public:
     //int rollDice();
     void movePlayer(unsigned);
     void playerPositionSetter(Player*,Box*);
+    bool ableToBuy();
+    bool ableToBuild();
+    bool endTurn();
+
 private slots:
     //void on_
 private:

@@ -26,7 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
         QString path;
         fin>>id>>name;
         if (id%7==0 || name=="email"){
-            b=new Box(id,name);
+            if (id==7){
+                b=new Jail(id, name);
+            }else b=new Box(id,name);
             path=(":/img/nonProperty/")+(b->getName())+(".png");
         }else if(id==4||id==11||id==17||id==24){
             fin>>price>>rent;
@@ -56,6 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
                 jail=b;
                 b->setPos(540,-130);
                 b->setP1Position(map.back()->getP1XPosition()+90,map.back()->getP1YPosition()-50);
+                static_cast<Jail*>(jail)->setJailP1Position(jail->getP1XPosition(),jail->getP1YPosition()+40);
             }else{
                 b->setRotation(-90);
                 b->setPos(540,(b->getId()-7)*90);
@@ -119,6 +122,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         }
     }
+    p_list.front()->setinJail(true);
     gm->playerPositionSetter(p_list.front(),jail);
     ui->gameArea->setScene(scene);
     ui->gameArea->show();

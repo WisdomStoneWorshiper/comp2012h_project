@@ -77,3 +77,7 @@ Player& Player::operator-=(int a){
 bool Player:: checkInJail(){
     return inJail;
 }
+
+void Player::setinJail(bool state){
+    inJail=state;
+}

@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     banker.cpp \
     box.cpp \
+    buildableproperty.cpp \
     charactor.cpp \
     dice.cpp \
     gameManager.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
     mainwindow.cpp \
     player.cpp \
     property.cpp \
+    restaurant.cpp \
     rolldicewindow.cpp \
     email.cpp \
     emailDeck.cpp \
@@ -35,6 +37,7 @@ SOURCES += \
 HEADERS += \
     banker.h \
     box.h \
+    buildableproperty.h \
     charactor.h \
     dice.h \
     gameManager.h \
@@ -42,6 +45,7 @@ HEADERS += \
     nonProperty.h \
     player.h \
     property.h \
+    restaurant.h \
     rolldicewindow.h \
     email.h \
     emailDeck.h \

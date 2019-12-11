@@ -28,6 +28,10 @@ MainWindow::MainWindow(QWidget *parent)
         if (id%7==0 || name=="email"){
             b=new Box(id,name);
             path=(":/img/nonProperty/")+(b->getName())+(".png");
+        }else if(id==4||id==11||id==17||id==24){
+            fin>>price>>rent;
+            b=new Restaurant(id,name,price,rent);
+            path=(":/img/propertyAsset/")+(b->getName())+("B.png");
         }else{
             Color c;
             fin>>price>>rent;
@@ -35,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
             else if (id<14) c=Blue;
             else if (id<21) c=Green;
             else c=Red;
-            b=new Property(id,(name),c,price,rent);
+            b=new BuildableProperty(id,(name),c,price,rent);
             path=(":/img/propertyAsset/")+(b->getName())+("B.png");
         }
         if ( b->getId()<7){
@@ -57,12 +61,22 @@ MainWindow::MainWindow(QWidget *parent)
                 b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+90);
             }
         }else if (b->getId()<21){
-            if (b->getId()==14) b->setPos(540,540);
-            else b->setPos(630-(b->getId()-13)*90,540);
+            if (b->getId()==14){
+                b->setPos(540,540);
+                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+100);
+            }else{
+                b->setPos(630-(b->getId()-13)*90,540);
+                b->setP1Position(map.back()->getP1XPosition()-90,map.back()->getP1YPosition());
+            }
         } else {
             b->setRotation(90);
-            if (b->getId()==21) b->setPos(0,540);
-            else b->setPos(0,630-(b->getId()-20)*90);
+            if (b->getId()==21){
+                b->setPos(0,540);
+                b->setP1Position(map.back()->getP1XPosition()-130,map.back()->getP1YPosition());
+            }else{
+                b->setPos(0,630-(b->getId()-20)*90);
+                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()-90);
+            }
         }
         map.push_back(b);
         b->setPixmap(QPixmap(path));
@@ -109,6 +123,9 @@ MainWindow::MainWindow(QWidget *parent)
     //d=new RollDiceWindow(this);
     connect(d,SIGNAL(changevalue(unsigned)),this,SLOT(move(unsigned)));
     gm->init(numOfPlayer,map,p_list);
+    ui->buyBtn->setEnabled(false);
+    ui->endBtn->setEnabled(false);
+    ui->buildBtn->setEnabled(false);
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
@@ -121,6 +138,9 @@ void MainWindow::on_rollDiceBtn_clicked(){
 void MainWindow::move (unsigned t){
     qDebug()<<t;
     gm->movePlayer(t);
+    if (gm->ableToBuy()) ui->buyBtn->setEnabled(true);
+    else if(gm->ableToBuild()) ui->buildBtn->setEnabled(true);
+    ui->endBtn->setEnabled(true);
 }
 
 void MainWindow::on_buyBtn_clicked(){

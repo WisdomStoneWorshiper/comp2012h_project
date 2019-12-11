@@ -62,12 +62,12 @@ void Player::changeJailPass(){
         jail_pass = false;
     }
 }
-Player& Player::operator+(int a){
+Player& Player::operator+=(int a){
     money+=a;
     return *this;
 }
 
-Player& Player::operator-(int a){
+Player& Player::operator-=(int a){
     money-=a;
     return *this;
 }

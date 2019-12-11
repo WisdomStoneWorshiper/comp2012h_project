@@ -19,8 +19,8 @@ public:
     void changeJailPass();
     unsigned short getPosition() const;
     void setPosition(unsigned short);
-    Player& operator+(int);
-    Player& operator-(int);
+    Player& operator+=(int);
+    Player& operator-=(int);
 
 private:
     enum SCHOOL{ENGINEERING,SCIENCE,BUSSINESS, HUMANITIES};

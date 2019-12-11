@@ -16,6 +16,7 @@
 #include "rolldicewindow.h"
 #include "restaurant.h"
 #include "buildableproperty.h"
+#include "jail.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

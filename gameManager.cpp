@@ -72,7 +72,12 @@ void GameManager::playerPositionSetter(Player *p, Box *b){
         if (!p->checkInJail()){
             p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
         }else{
-            
+
+
+            if (p->getId()<4)
+                p->setPos(static_cast<Jail*>(b)->getJailP1XPosition()+20*(p->getId()-1),static_cast<Jail*>(b)->getJailP1YPosition());
+            else
+                p->setPos(static_cast<Jail*>(b)->getJailP1XPosition()+20*(p->getId()-4),static_cast<Jail*>(b)->getJailP1YPosition()-50);
         }
     }
 //    }else if (b->getId()<14){

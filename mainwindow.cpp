@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
         QMessageBox::information(0, "error", file.errorString());
     }
     QTextStream fin(&file);
-
+    Box* jail;
     while (!fin.atEnd()){
         unsigned id, price, rent;
         QString line, name;
@@ -26,7 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
         QString path;
         fin>>id>>name;
         if (id%7==0 || name=="email"){
-            b=new Box(id,name);
+            if (id==7){
+                b=new Jail(id, name);
+            }else b=new Box(id,name);
             path=(":/img/nonProperty/")+(b->getName())+(".png");
         }else if(id==4||id==11||id==17||id==24){
             fin>>price>>rent;
@@ -53,8 +55,10 @@ MainWindow::MainWindow(QWidget *parent)
             }
         }else if (b->getId()<14){
             if (b->getId()==7){
+                jail=b;
                 b->setPos(540,-130);
-                b->setP1Position(map.back()->getP1XPosition()+110,map.back()->getP1YPosition());
+                b->setP1Position(map.back()->getP1XPosition()+90,map.back()->getP1YPosition()-50);
+                static_cast<Jail*>(jail)->setJailP1Position(jail->getP1XPosition(),jail->getP1YPosition()+40);
             }else{
                 b->setRotation(-90);
                 b->setPos(540,(b->getId()-7)*90);
@@ -118,6 +122,8 @@ MainWindow::MainWindow(QWidget *parent)
 
         }
     }
+    p_list.front()->setinJail(true);
+    gm->playerPositionSetter(p_list.front(),jail);
     ui->gameArea->setScene(scene);
     ui->gameArea->show();
     //d=new RollDiceWindow(this);
@@ -144,7 +150,17 @@ void MainWindow::move (unsigned t){
 }
 
 void MainWindow::on_buyBtn_clicked(){
-
+    QMessageBox * comfirmBox=new QMessageBox();
+    comfirmBox->setText("You are gonna to buy this asset.");
+    comfirmBox->setInformativeText("After purchase, you have $");
+    comfirmBox->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+    comfirmBox->setDefaultButton(QMessageBox::Ok);
+    int choice=comfirmBox->exec();
+    if (choice==QMessageBox::Ok){
+        gm->buyAsset();
+    }
+    delete comfirmBox;
+    if (gm->checkEndTurn()) endTurn();
 }
 
 void MainWindow::on_buildBtn_clicked(){
@@ -152,14 +168,19 @@ void MainWindow::on_buildBtn_clicked(){
 }
 
 void MainWindow::on_endBtn_clicked(){
-
+    endTurn();
 }
 
 void MainWindow::on_tradeBtn_clicked(){
 
 }
 
-
+void MainWindow::endTurn(){
+    ui->buyBtn->setEnabled(false);
+    ui->endBtn->setEnabled(false);
+    ui->buildBtn->setEnabled(false);
+    gm->moveToNextPlayer();
+}
 
 MainWindow::~MainWindow()
 {

@@ -77,3 +77,19 @@ Player& Player::operator-=(int a){
 bool Player:: checkInJail(){
     return inJail;
 }
+
+void Player::setGpa(float points){
+    gpa = points;
+}
+
+void Player::setState(STATE a){
+    state = a;
+}
+
+void Player::setmoney(int a){
+    money = a;
+}
+
+void Player::setSchool(SCHOOL a){
+    school = a;
+}

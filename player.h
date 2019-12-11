@@ -7,6 +7,18 @@ using namespace std;
 
 class Player : public Charactor{
 
+
+private:
+    enum SCHOOL{ENGINEERING,SCIENCE,BUSSINESS, HUMANITIES};
+    enum STATE{NORMAL, IMPRISONMENT};
+    unsigned short position;
+    bool jail_pass, inJail;
+    float gpa;
+    int money;
+    SCHOOL school;
+    STATE state;
+    QString user_name;
+
 public:
 
     Player(unsigned short, QString);
@@ -23,17 +35,10 @@ public:
     Player& operator-=(int);
     bool checkInJail();
     void setinJail(bool);
-
-private:
-    enum SCHOOL{ENGINEERING,SCIENCE,BUSSINESS, HUMANITIES};
-    enum STATE{NORMAL, IMPRISONMENT};
-    unsigned short position;
-    bool jail_pass, inJail;
-    float gpa;
-    int money;
-    SCHOOL school;
-    STATE state;
-    QString user_name;
+    void setGpa(float);
+    void setmoney(int);
+    void setState(STATE);
+    void setSchool(SCHOOL);
 
 };
 

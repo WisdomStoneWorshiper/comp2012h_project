@@ -7,6 +7,5 @@ Restaurant::Restaurant(unsigned id, QString name, unsigned price, unsigned rent)
 }
 
 unsigned Restaurant::getRentOfProperty(unsigned numOfExtraRestaurant){
-
-
+    return Property::getRentOfProperty()+numOfExtraRestaurant*ADDITIONRENTPERRESTAURANT;
 }

@@ -14,7 +14,7 @@ public:
     ~Property();
 
     unsigned getPropertyPrice();
-    virtual unsigned getRentOfProperty() =0;
+    virtual unsigned getRentOfProperty();
     unsigned getOwnerId();
 
     void changeOwner(unsigned);

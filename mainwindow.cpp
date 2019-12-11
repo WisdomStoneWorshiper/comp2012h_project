@@ -28,6 +28,10 @@ MainWindow::MainWindow(QWidget *parent)
         if (id%7==0 || name=="email"){
             b=new Box(id,name);
             path=(":/img/nonProperty/")+(b->getName())+(".png");
+        }else if(id==4||id==11||id==17||id==24){
+            fin>>price>>rent;
+            b=new Restaurant(id,name,price,rent);
+            path=(":/img/propertyAsset/")+(b->getName())+("B.png");
         }else{
             Color c;
             fin>>price>>rent;
@@ -35,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
             else if (id<14) c=Blue;
             else if (id<21) c=Green;
             else c=Red;
-            b=new Property(id,(name),c,price,rent);
+            b=new BuildableProperty(id,(name),c,price,rent);
             path=(":/img/propertyAsset/")+(b->getName())+("B.png");
         }
         if ( b->getId()<7){
@@ -119,6 +123,9 @@ MainWindow::MainWindow(QWidget *parent)
     //d=new RollDiceWindow(this);
     connect(d,SIGNAL(changevalue(unsigned)),this,SLOT(move(unsigned)));
     gm->init(numOfPlayer,map,p_list);
+    ui->buyBtn->setEnabled(false);
+    ui->endBtn->setEnabled(false);
+    ui->buildBtn->setEnabled(false);
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
@@ -131,6 +138,9 @@ void MainWindow::on_rollDiceBtn_clicked(){
 void MainWindow::move (unsigned t){
     qDebug()<<t;
     gm->movePlayer(t);
+    if (gm->ableToBuy()) ui->buyBtn->setEnabled(true);
+    else if(gm->ableToBuild()) ui->buildBtn->setEnabled(true);
+    ui->endBtn->setEnabled(true);
 }
 
 void MainWindow::on_buyBtn_clicked(){

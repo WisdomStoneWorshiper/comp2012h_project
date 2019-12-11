@@ -12,7 +12,7 @@ Color BuildableProperty::getColor(){
 }
 
 unsigned BuildableProperty:: getRentOfProperty(){
-    return getRentOfProperty()+levelOfWifiCoverage*RENTPERLEVELOFWIFICOVERAGE+numOfVendingMachines*RENTOFVENDINGMACHINE;
+    return Property::getRentOfProperty()+levelOfWifiCoverage*RENTPERLEVELOFWIFICOVERAGE+numOfVendingMachines*RENTOFVENDINGMACHINE;
 }
 
 void BuildableProperty:: increaseWifiCoverage(){
@@ -28,4 +28,8 @@ unsigned BuildableProperty::getCostPerLevelOfWifiCoverage(){
 }
 unsigned BuildableProperty::getCostOfVendingMachine(){
     return COSTOFVENDINGMACHINE;
+}
+
+unsigned BuildableProperty::getLevelOfWifiCoverage(){
+    return levelOfWifiCoverage;
 }

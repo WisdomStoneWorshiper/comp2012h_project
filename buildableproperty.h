@@ -13,6 +13,7 @@ public:
     unsigned getRentOfProperty() override;
     unsigned getCostPerLevelOfWifiCoverage();
     unsigned getCostOfVendingMachine();
+    unsigned getLevelOfWifiCoverage();
     void increaseWifiCoverage();
     void addVendingMachines();
 private:

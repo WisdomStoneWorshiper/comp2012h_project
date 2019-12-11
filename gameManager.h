@@ -8,7 +8,8 @@
 #include "player.h"
 #include "banker.h"
 
-#include "property.h"
+#include "restaurant.h"
+#include "buildableproperty.h"
 #include "nonProperty.h"
 #include "box.h"
 

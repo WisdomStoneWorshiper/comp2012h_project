@@ -16,7 +16,9 @@ Property::~Property(){
 
 }
 
-
+unsigned Property::getRentOfProperty(){
+    return rentOfProperty;
+}
 
 unsigned Property:: getPropertyPrice(){
     return propertyPrice;

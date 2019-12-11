@@ -19,6 +19,10 @@ void GameManager::init(unsigned num,  list<Box*> boxList, list<Player*> playerLi
 void GameManager::setCurrentPlayer(Player*p){
     currentPlayer=p;
 }
+
+Player* & GameManager::getCurrentPlayer(){
+    return currentPlayer;
+}
 void GameManager::moveToNextPlayer(){
         list<Player *>::const_iterator p=find(playerList.begin(),playerList.end(),currentPlayer);
         if (currentPlayer!=playerList.back()){
@@ -76,8 +80,10 @@ void GameManager::playerPositionSetter(Player *p, Box *b){
 bool GameManager::ableToBuy(){
     list<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
                                          [&](Box* b){return b->getId()==currentPlayer->getPosition();});
-    if(typeid (*b)==typeid (BuildableProperty)||typeid (*b)==typeid (Restaurant)){
+    qDebug()<<typeid (*(*b)).name()<<' '<<typeid (BuildableProperty).name();
+    if(typeid (*(*b))==typeid (BuildableProperty)||typeid (*b)==typeid (Restaurant)){
         Property *p=static_cast<Property*>(*b);
+        qDebug()<<currentPlayer->getMoney()<<" "<<p->getPropertyPrice();
         return currentPlayer->getMoney()>=p->getPropertyPrice() && p->getOwnerId()==0;
     }
     return false;
@@ -86,7 +92,7 @@ bool GameManager::ableToBuy(){
 bool GameManager::ableToBuild(){
     list<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
                                          [&](Box* b){return b->getId()==currentPlayer->getPosition();});
-    if(typeid (*b)==typeid (BuildableProperty)){
+    if(typeid (*(*b))==typeid (BuildableProperty)){
         BuildableProperty *p=static_cast<BuildableProperty*>(*b);
         return (currentPlayer->getId()==p->getOwnerId() && currentPlayer->getMoney()>=p->getCostPerLevelOfWifiCoverage() && p->getLevelOfWifiCoverage()<4);
     }

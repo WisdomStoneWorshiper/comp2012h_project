@@ -34,8 +34,10 @@ void GameManager::movePlayer(unsigned u){
                                          [&](Box* b){return b->getId()==currentPlayer->getPosition();});
     //currentPlayer->setPos(currentPlayer->x()+100,currentPlayer->y());
     for (int i=0;i<u;++i){
-        if ((*b)->getId()==27) b=gameField.begin();
-        else ++b;
+        if ((*b)->getId()==27){
+            (*currentPlayer)+=2000;
+            b=gameField.begin();
+        }else ++b;
     }
 
     qDebug()<<"gm"<<(*b)->getName();
@@ -54,19 +56,44 @@ void GameManager::movePlayer(unsigned u){
 }
 
 void GameManager::playerPositionSetter(Player *p, Box *b){
-    if (b->getId()<7){
+    //if (b->getId()<7){
         if (p->getId()<4)
             p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
         else
             p->setPos(b->getP1XPosition()+20*(p->getId()-4),b->getP1YPosition()-50);
-    }else if (b->getId()<14){
-        if (p->getId()<4)
-            p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
-        else
-            p->setPos(b->getP1XPosition()+20*(p->getId()-4),b->getP1YPosition()-50);
-    }else if (b->getId()<21){
+//    }else if (b->getId()<14){
+//        if (p->getId()<4)
+//            p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
+//        else
+//            p->setPos(b->getP1XPosition()+20*(p->getId()-4),b->getP1YPosition()-50);
+//    }else if (b->getId()<21){
 
-    }else{
+//    }else{
 
+//    }
+}
+
+bool GameManager::ableToBuy(){
+    list<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
+                                         [&](Box* b){return b->getId()==currentPlayer->getPosition();});
+    if(typeid (*b)==typeid (BuildableProperty)||typeid (*b)==typeid (Restaurant)){
+        Property *p=static_cast<Property*>(*b);
+        return currentPlayer->getMoney()>=p->getPropertyPrice() && p->getOwnerId()==0;
     }
+    return false;
+}
+
+bool GameManager::ableToBuild(){
+    list<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
+                                         [&](Box* b){return b->getId()==currentPlayer->getPosition();});
+    if(typeid (*b)==typeid (BuildableProperty)){
+        BuildableProperty *p=static_cast<BuildableProperty*>(*b);
+        return (currentPlayer->getId()==p->getOwnerId() && currentPlayer->getMoney()>=p->getCostPerLevelOfWifiCoverage() && p->getLevelOfWifiCoverage()<4);
+    }
+    return false;
+}
+
+bool GameManager::endTurn(){
+    if(!ableToBuy()&&!ableToBuild()) return true;
+    return false;
 }

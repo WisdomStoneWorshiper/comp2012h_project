@@ -26,7 +26,9 @@ Player* & GameManager::getCurrentPlayer(){
 void GameManager::moveToNextPlayer(){
         list<Player *>::const_iterator p=find(playerList.begin(),playerList.end(),currentPlayer);
         if (currentPlayer!=playerList.back()){
-            currentPlayer=*p+1;
+            qDebug()<<"m"<<(*p)->getId();
+            currentPlayer=*(++p);
+            qDebug()<<(*p)->getId();
         }
         else
             currentPlayer=playerList.front();
@@ -61,10 +63,18 @@ void GameManager::movePlayer(unsigned u){
 
 void GameManager::playerPositionSetter(Player *p, Box *b){
     //if (b->getId()<7){
+    if (b->getName()!="Jail"){
         if (p->getId()<4)
             p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
         else
             p->setPos(b->getP1XPosition()+20*(p->getId()-4),b->getP1YPosition()-50);
+    }else{
+        if (!p->checkInJail()){
+            p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
+        }else{
+            if
+        }
+    }
 //    }else if (b->getId()<14){
 //        if (p->getId()<4)
 //            p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
@@ -81,10 +91,10 @@ bool GameManager::ableToBuy(){
     list<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
                                          [&](Box* b){return b->getId()==currentPlayer->getPosition();});
     qDebug()<<typeid (*(*b)).name()<<' '<<typeid (BuildableProperty).name();
-    if(typeid (*(*b))==typeid (BuildableProperty)||typeid (*b)==typeid (Restaurant)){
+    if(typeid (*(*b))==typeid (BuildableProperty)||typeid (*(*b))==typeid (Restaurant)){
         Property *p=static_cast<Property*>(*b);
-        qDebug()<<currentPlayer->getMoney()<<" "<<p->getPropertyPrice();
-        return currentPlayer->getMoney()>=p->getPropertyPrice() && p->getOwnerId()==0;
+        qDebug()<<currentPlayer->getMoney()<<" "<<p->getPropertyPrice()<<" "<<p->getOwnerId();
+        return (currentPlayer->getMoney()>=p->getPropertyPrice() && p->getOwnerId()==0);
     }
     return false;
 }
@@ -99,7 +109,7 @@ bool GameManager::ableToBuild(){
     return false;
 }
 
-bool GameManager::endTurn(){
+bool GameManager::checkEndTurn(){
     if(!ableToBuy()&&!ableToBuild()) return true;
     return false;
 }

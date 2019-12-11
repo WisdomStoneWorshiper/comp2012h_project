@@ -72,7 +72,7 @@ void GameManager::playerPositionSetter(Player *p, Box *b){
         if (!p->checkInJail()){
             p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
         }else{
-            if
+            
         }
     }
 //    }else if (b->getId()<14){

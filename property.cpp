@@ -5,7 +5,7 @@ Property::Property(unsigned id, QString name, unsigned price, unsigned rent):
   , propertyPrice(price)
   , rentOfProperty(rent)
 {
-
+    ownerId=0;
 }
 
 //Property::Property(const Property &p){

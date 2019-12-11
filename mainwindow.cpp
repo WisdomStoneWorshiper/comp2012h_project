@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
         QMessageBox::information(0, "error", file.errorString());
     }
     QTextStream fin(&file);
-
+    Box* jail;
     while (!fin.atEnd()){
         unsigned id, price, rent;
         QString line, name;
@@ -53,8 +53,9 @@ MainWindow::MainWindow(QWidget *parent)
             }
         }else if (b->getId()<14){
             if (b->getId()==7){
+                jail=b;
                 b->setPos(540,-130);
-                b->setP1Position(map.back()->getP1XPosition()+110,map.back()->getP1YPosition());
+                b->setP1Position(map.back()->getP1XPosition()+90,map.back()->getP1YPosition()-50);
             }else{
                 b->setRotation(-90);
                 b->setPos(540,(b->getId()-7)*90);
@@ -118,6 +119,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         }
     }
+    gm->playerPositionSetter(p_list.front(),jail);
     ui->gameArea->setScene(scene);
     ui->gameArea->show();
     //d=new RollDiceWindow(this);
@@ -151,9 +153,10 @@ void MainWindow::on_buyBtn_clicked(){
     comfirmBox->setDefaultButton(QMessageBox::Ok);
     int choice=comfirmBox->exec();
     if (choice==QMessageBox::Ok){
-
+        gm->buyAsset();
     }
     delete comfirmBox;
+    if (gm->checkEndTurn()) endTurn();
 }
 
 void MainWindow::on_buildBtn_clicked(){
@@ -161,14 +164,19 @@ void MainWindow::on_buildBtn_clicked(){
 }
 
 void MainWindow::on_endBtn_clicked(){
-
+    endTurn();
 }
 
 void MainWindow::on_tradeBtn_clicked(){
 
 }
 
-
+void MainWindow::endTurn(){
+    ui->buyBtn->setEnabled(false);
+    ui->endBtn->setEnabled(false);
+    ui->buildBtn->setEnabled(false);
+    gm->moveToNextPlayer();
+}
 
 MainWindow::~MainWindow()
 {

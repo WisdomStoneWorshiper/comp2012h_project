@@ -20,11 +20,11 @@ SOURCES += \
     box.cpp \
     buildableproperty.cpp \
     charactor.cpp \
-    dice.cpp \
     emailGetJailPass.cpp \
     emailGetMoney.cpp \
     emailMove.cpp \
     gameManager.cpp \
+    jail.cpp \
     main.cpp \
     mainwindow.cpp \
     player.cpp \
@@ -39,13 +39,12 @@ HEADERS += \
     box.h \
     buildableproperty.h \
     charactor.h \
-    dice.h \
     emailGetJailPass.h \
     emailGetMoney.h \
     emailMove.h \
     gameManager.h \
+    jail.h \
     mainwindow.h \
-    nonProperty.h \
     player.h \
     property.h \
     restaurant.h \

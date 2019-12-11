@@ -5,7 +5,7 @@ EmailFly::~EmailFly(){}
 
 EmailFly::EmailFly(int cardOrder){
 
-   //++cardOrder;
+
 
     switch (cardOrder){
         case 1:
@@ -17,11 +17,11 @@ EmailFly::EmailFly(int cardOrder){
             cardIndex =2;
             break;
         case 3:
-            setMessage(getMessage()+"Adance to UniBar\n");
+            setMessage(getMessage()+"Comp2012h class gathering!\nAdance to UniBar\n");
             cardIndex =3;
             break;
         case 4:
-            setMessage(getMessage()+"Adance to PresidnetLodge\n");
+            setMessage(getMessage()+"Invite Letter from President!\nAdance to PresidnetLodge\n");
             cardIndex =4;
             break;
 
@@ -30,7 +30,7 @@ EmailFly::EmailFly(int cardOrder){
 
 }
 
-void EmailFly::function(Player *p){ //return the id of map position
+void EmailFly::emailAction(Player *p){ //return the id of map position
     switch (cardIndex){
 //        case 1:
 
@@ -39,6 +39,10 @@ void EmailFly::function(Player *p){ //return the id of map position
 //        case 3:
 
 //        case 4:
+
+//        case 5:
+
+//        case 6:
 
     }
 

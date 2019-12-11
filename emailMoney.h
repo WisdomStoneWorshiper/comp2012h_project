@@ -7,11 +7,11 @@
 class EmailMoney : public Email{
 public:
     EmailMoney(int cardOrder);
-    void function(Player *p) override;
-     ~EmailMoney();
+    void emailAction(Player *p) override;
+     ~EmailMoney() override;
 private:
-//    static int moneyCardOrder;
+
 
     int cardIndex;
 };
-//int EmailMoney::moneyCardOrder = 0;
+

@@ -9,7 +9,7 @@ public:
     Email();
     QString getMessage() const;
     void setMessage(QString);
-    virtual void function(Player *p) =0;
+    virtual void emailAction(Player *p) =0;
     virtual ~ Email() =0;
 private:
     QString message;

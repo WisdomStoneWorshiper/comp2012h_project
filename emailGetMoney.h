@@ -7,7 +7,7 @@
 class EmailGetMoney : public Email{
 public:
     EmailGetMoney(int emailOrder);
-    void emailAction(Player *p) override;
+    void emailAction(Player *p) override; //Increase or decrease player money
      ~EmailGetMoney() override;
 private:
 

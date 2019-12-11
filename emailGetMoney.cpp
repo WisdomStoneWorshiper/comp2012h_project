@@ -64,5 +64,6 @@ void EmailGetMoney::emailAction(Player *p){
             if(p->getGpa()>3)
                 *p+=1000;
             break;
+
     }
 }

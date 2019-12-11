@@ -144,7 +144,16 @@ void MainWindow::move (unsigned t){
 }
 
 void MainWindow::on_buyBtn_clicked(){
+    QMessageBox * comfirmBox=new QMessageBox();
+    comfirmBox->setText("You are gonna to buy this asset.");
+    comfirmBox->setInformativeText("After purchase, you have $");
+    comfirmBox->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+    comfirmBox->setDefaultButton(QMessageBox::Ok);
+    int choice=comfirmBox->exec();
+    if (choice==QMessageBox::Ok){
 
+    }
+    delete comfirmBox;
 }
 
 void MainWindow::on_buildBtn_clicked(){

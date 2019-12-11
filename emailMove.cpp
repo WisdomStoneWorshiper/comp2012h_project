@@ -1,9 +1,9 @@
-#include "emailFly.h"
+#include "emailMove.h"
 
 
-EmailFly::~EmailFly(){}
+EmailMove::~EmailMove(){}
 
-EmailFly::EmailFly(int cardOrder){
+EmailMove::EmailMove(int cardOrder){
 
 
 
@@ -30,19 +30,20 @@ EmailFly::EmailFly(int cardOrder){
 
 }
 
-void EmailFly::emailAction(Player *p){ //return the id of map position
+void EmailMove::emailAction(Player *p){ //return the id of map position
     switch (cardIndex){
-//        case 1:
-
-//        case 2:
-
-//        case 3:
-
-//        case 4:
-
-//        case 5:
-
-//        case 6:
+        case 1:
+            p->setPosition(7);
+            break;
+        case 2:
+            p->setPosition(0);
+            break;
+        case 3:
+            p->setPosition(20);
+            break;
+        case 4:
+            p->setPosition(27);
+            break;
 
     }
 

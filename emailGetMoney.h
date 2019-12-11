@@ -4,14 +4,12 @@
 #endif // EMAILMONEY_H
 #include "email.h"
 
-class EmailMoney : public Email{
+class EmailGetMoney : public Email{
 public:
-    EmailMoney(int cardOrder);
+    EmailGetMoney(int emailOrder);
     void emailAction(Player *p) override;
-     ~EmailMoney() override;
+     ~EmailGetMoney() override;
 private:
 
-
-    int cardIndex;
+    int emailIndex;
 };
-

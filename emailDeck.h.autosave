@@ -8,7 +8,7 @@
 #include "deque" //double end queue
 
 
-//create 4fly 4money 1pass
+//Totalcreate 4fly 4money 1pass
 
 
 class EmailDeck{

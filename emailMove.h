@@ -4,12 +4,12 @@
 #endif // EMAILFLY_H
 #include "email.h"
 
-class EmailFly : public Email{
+class EmailMove : public Email{
 public:
 
-    EmailFly(int cardOrder);
+    EmailMove(int cardOrder);
     void emailAction(Player *p) ;// player position change
-    ~EmailFly();
+    ~EmailMove();
 private:
  //    static int cardOrder ;
      int cardIndex;

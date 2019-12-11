@@ -5,28 +5,26 @@
 
 using namespace std;
 
-enum Color{Red, Blue, Yellow, Green};
 
+//const unsigned RENTPERLEVELOFWIFICOVERAGE=200, RENTOFVENDINGMACHINE=100;
 class Property: public Box{
 public:
-    Property(unsigned, QString, Color, unsigned, unsigned);
+    Property(unsigned, QString, unsigned, unsigned);
     //Property(const Property &);
     ~Property();
-    Color getColor();
+
     unsigned getPropertyPrice();
-    unsigned getRentOfProperty();
+    virtual unsigned getRentOfProperty() =0;
     unsigned getOwnerId();
+
     void changeOwner(unsigned);
-    void addComputers(unsigned);
-    void addVendingMachines(unsigned);
+
 
 private:
-    Color propertyColor;
-    unsigned numOfComputers;
-    unsigned numOfVendingMachines;
+
     unsigned propertyPrice;
     unsigned rentOfProperty;
-    const unsigned addictionRentPerComputer=200, addictionRentPerVendingMachines=100;
+
     bool mortgage;
     unsigned ownerId;
 };

@@ -57,12 +57,22 @@ MainWindow::MainWindow(QWidget *parent)
                 b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+90);
             }
         }else if (b->getId()<21){
-            if (b->getId()==14) b->setPos(540,540);
-            else b->setPos(630-(b->getId()-13)*90,540);
+            if (b->getId()==14){
+                b->setPos(540,540);
+                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+100);
+            }else{
+                b->setPos(630-(b->getId()-13)*90,540);
+                b->setP1Position(map.back()->getP1XPosition()-90,map.back()->getP1YPosition());
+            }
         } else {
             b->setRotation(90);
-            if (b->getId()==21) b->setPos(0,540);
-            else b->setPos(0,630-(b->getId()-20)*90);
+            if (b->getId()==21){
+                b->setPos(0,540);
+                b->setP1Position(map.back()->getP1XPosition()-130,map.back()->getP1YPosition());
+            }else{
+                b->setPos(0,630-(b->getId()-20)*90);
+                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()-90);
+            }
         }
         map.push_back(b);
         b->setPixmap(QPixmap(path));

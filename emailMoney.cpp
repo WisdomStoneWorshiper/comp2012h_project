@@ -35,7 +35,7 @@ EmailMoney::EmailMoney(int cardOrder){
 
 
 
-void EmailMoney::function(Player *p){
+void EmailMoney::emailAction(Player *p){
     switch (cardIndex){
         case 1:
             *p+1000;

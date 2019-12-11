@@ -103,3 +103,15 @@ bool GameManager::endTurn(){
     if(!ableToBuy()&&!ableToBuild()) return true;
     return false;
 }
+
+void GameManager::buyAsset(){
+    list<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
+                                         [&](Box* b){return b->getId()==currentPlayer->getPosition();});
+    if(typeid (*(*b))==typeid (BuildableProperty)){
+        BuildableProperty *p=static_cast<BuildableProperty*>(*b);
+        currentPlayer->buyProperty(p);
+    }else{
+        Restaurant *r=static_cast<Restaurant*>(*b);
+        currentPlayer->buyProperty(r);
+    }
+}

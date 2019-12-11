@@ -29,7 +29,8 @@ public:
     bool ableToBuy();
     bool ableToBuild();
     bool endTurn();
-
+    Player* & getCurrentPlayer();
+    void buyAsset();
 private slots:
     //void on_
 private:

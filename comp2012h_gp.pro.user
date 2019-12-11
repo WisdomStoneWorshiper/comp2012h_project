@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<!-- Written by QtCreator 4.10.2, 2019-12-09T17:02:02. -->
+<qtcreator>
+ <data>
+  <variable>EnvironmentId</variable>
+  <value type="QByteArray">{b0a52b13-dc18-418d-a89f-78c2c1bc11c5}</value>
+=======
+<!-- Written by QtCreator 4.10.0, 2019-12-10T15:11:06. -->
+<qtcreator>
+ <data>
+  <variable>EnvironmentId</variable>
+  <value type="QByteArray">{e0f6e0cd-0358-4cb5-84df-71679acfed76}</value>
+>>>>>>> master
+=======
 <!-- Written by QtCreator 4.10.0, 2019-12-11T15:03:13. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
   <value type="QByteArray">{71cb3e63-24f4-447b-b4a4-efb7795aa214}</value>
+>>>>>>> master
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -69,7 +85,15 @@
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/chanyuiming/Documents/compgp/build-comp2012h_gp-Desktop_Qt_5_12_5_clang_64bit-Debug</value>
+=======
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/tatwo/Desktop/build-comp2012h_gp-Desktop_Qt_5_12_5_MinGW_32_bit-Debug</value>
+>>>>>>> master
+=======
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/lkl/build-comp2012h_gp-Desktop_Qt_5_12_5_clang_64bit-Debug</value>
+>>>>>>> master
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -125,7 +149,15 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/chanyuiming/Documents/compgp/build-comp2012h_gp-Desktop_Qt_5_12_5_clang_64bit-Release</value>
+=======
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/tatwo/Desktop/build-comp2012h_gp-Desktop_Qt_5_12_5_MinGW_32_bit-Release</value>
+>>>>>>> master
+=======
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/lkl/build-comp2012h_gp-Desktop_Qt_5_12_5_clang_64bit-Release</value>
+>>>>>>> master
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -181,7 +213,15 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.2">
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/chanyuiming/Documents/compgp/build-comp2012h_gp-Desktop_Qt_5_12_5_clang_64bit-Profile</value>
+=======
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/tatwo/Desktop/build-comp2012h_gp-Desktop_Qt_5_12_5_MinGW_32_bit-Profile</value>
+>>>>>>> master
+=======
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/lkl/build-comp2012h_gp-Desktop_Qt_5_12_5_clang_64bit-Profile</value>
+>>>>>>> master
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -304,8 +344,17 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">comp2012h_gp</value>
+<<<<<<< HEAD
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+<<<<<<< HEAD
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/chanyuiming/Documents/compgp/comp2012h_project/comp2012h_gp.pro</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/tatwo/Desktop/comp2012h_project/comp2012h_gp.pro</value>
+>>>>>>> master
+=======
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">comp2012h_gp2</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/lkl/program/c++/comp2012h_project/comp2012h_gp.pro</value>
+>>>>>>> master
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
@@ -316,7 +365,15 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/chanyuiming/Documents/compgp/build-comp2012h_gp-Desktop_Qt_5_12_5_clang_64bit-Debug/comp2012h_gp.app/Contents/MacOS</value>
+=======
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/tatwo/Desktop/build-comp2012h_gp-Desktop_Qt_5_12_5_MinGW_32_bit-Debug</value>
+>>>>>>> master
+=======
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/lkl/build-comp2012h_gp-Desktop_Qt_5_12_5_clang_64bit-Debug/comp2012h_gp.app/Contents/MacOS</value>
+>>>>>>> master
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

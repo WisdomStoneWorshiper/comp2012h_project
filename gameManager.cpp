@@ -73,6 +73,7 @@ void GameManager::playerPositionSetter(Player *p, Box *b){
             p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
         }else{
 
+
             if (p->getId()<4)
                 p->setPos(static_cast<Jail*>(b)->getJailP1XPosition()+20*(p->getId()-1),static_cast<Jail*>(b)->getJailP1YPosition());
             else

@@ -80,4 +80,20 @@ bool Player:: checkInJail(){
 
 void Player::setinJail(bool state){
     inJail=state;
+
+void Player::setGpa(float points){
+    gpa = points;
+}
+
+void Player::setState(STATE a){
+    state = a;
+}
+
+void Player::setmoney(int a){
+    money = a;
+}
+
+void Player::setSchool(SCHOOL a){
+    school = a;
+
 }

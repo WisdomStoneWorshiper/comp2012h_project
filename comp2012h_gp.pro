@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     banker.cpp \
     box.cpp \
+    boxinfo.cpp \
     charactor.cpp \
     dice.cpp \
     gameManager.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
 HEADERS += \
     banker.h \
     box.h \
+    boxinfo.h \
     charactor.h \
     dice.h \
     gameManager.h \
@@ -50,6 +52,7 @@ HEADERS += \
     emailMoney.h
     
 FORMS += \
+    boxinfo.ui \
     mainwindow.ui \
     rolldicewindow.ui
 

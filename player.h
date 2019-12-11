@@ -21,12 +21,14 @@ public:
     void setPosition(unsigned short);
     Player& operator+=(int);
     Player& operator-=(int);
+    bool checkInJail();
+    void setinJail(bool);
 
 private:
     enum SCHOOL{ENGINEERING,SCIENCE,BUSSINESS, HUMANITIES};
     enum STATE{NORMAL, IMPRISONMENT};
     unsigned short position;
-    bool jail_pass;
+    bool jail_pass, inJail;
     float gpa;
     int money;
     SCHOOL school;

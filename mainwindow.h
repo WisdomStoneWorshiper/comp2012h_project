@@ -13,7 +13,6 @@
 #include "gameManager.h"
 #include "box.h"
 #include "player.h"
-#include "dice.h"
 #include "rolldicewindow.h"
 #include "restaurant.h"
 #include "buildableproperty.h"
@@ -30,7 +29,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void moveCharactor(Player, int);
-
+    void endTurn();
 public slots:
      void move(unsigned );
      void on_rollDiceBtn_clicked();

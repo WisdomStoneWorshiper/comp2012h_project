@@ -7,6 +7,7 @@ Player::Player(unsigned short id_num, QString name):Charactor(id_num){
     state = NORMAL;
     jail_pass = false;
     user_name = name;
+    inJail=false;
 };
 
 Player::Player(const Player& player):Charactor(player.getId()){
@@ -17,6 +18,7 @@ Player::Player(const Player& player):Charactor(player.getId()){
     jail_pass =  player.getJailPass();
     user_name = player.getName();
     position = player.position;
+    inJail=player.inJail;
 }
 
 float Player::getGpa() const{
@@ -70,4 +72,8 @@ Player& Player::operator+=(int a){
 Player& Player::operator-=(int a){
     money-=a;
     return *this;
+}
+
+bool Player:: checkInJail(){
+    return inJail;
 }

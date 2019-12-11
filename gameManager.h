@@ -10,7 +10,7 @@
 
 #include "restaurant.h"
 #include "buildableproperty.h"
-#include "nonProperty.h"
+#include "jail.h"
 #include "box.h"
 
 using namespace std;
@@ -28,7 +28,7 @@ public:
     void playerPositionSetter(Player*,Box*);
     bool ableToBuy();
     bool ableToBuild();
-    bool endTurn();
+    bool checkEndTurn();
     Player* & getCurrentPlayer();
     void buyAsset();
 private slots:

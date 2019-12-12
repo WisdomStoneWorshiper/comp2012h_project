@@ -17,7 +17,7 @@ public:
     unsigned short getId() const;
     void addProperty(Property*);
     void removeProperty(Property*);
-
+    list <Property*> getOwnedPropertyList();
 
 protected:
     list <Property*> owned_place;

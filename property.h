@@ -12,19 +12,17 @@ public:
     Property(unsigned, QString, unsigned, unsigned);
     //Property(const Property &);
     ~Property();
-
+    QString getBoxInfo() override;
     unsigned getPropertyPrice();
     virtual unsigned getRentOfProperty();
     unsigned getOwnerId();
-
+    bool getMortgage();
+    void setMortgage(bool);
     void changeOwner(unsigned);
 
-
 private:
-
     unsigned propertyPrice;
     unsigned rentOfProperty;
-
     bool mortgage;
     unsigned ownerId;
 };

@@ -12,6 +12,12 @@
 #include "buildableproperty.h"
 #include "jail.h"
 #include "box.h"
+#include "emailDeck.h"
+#include "emailMove.h"
+#include "emailGetJailPass.h"
+#include "emailGetMoney.h"
+#include <QMessageBox>
+
 
 using namespace std;
 
@@ -31,6 +37,8 @@ public:
     bool checkEndTurn();
     Player* & getCurrentPlayer();
     void buyAsset();
+    void emailAction(list<Box*>::const_iterator);
+    QString getCurrentPlayerInfo();
 private slots:
     //void on_
 private:
@@ -38,7 +46,9 @@ private:
     list<Box*> gameField;
     unsigned numOfPlayer;
     Player* currentPlayer;
+    Banker* banker;
     QElapsedTimer* timer;
+    EmailDeck* deck;
 };
 
 #endif // GAMEMANAGER_H

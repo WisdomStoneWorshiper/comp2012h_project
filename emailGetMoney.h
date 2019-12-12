@@ -1,7 +1,7 @@
 #ifndef EMAILMONEY_H
 #define EMAILMONEY_H
 
-#endif // EMAILMONEY_H
+
 #include "email.h"
 
 class EmailGetMoney : public Email{
@@ -13,3 +13,4 @@ private:
 
     int emailIndex;
 };
+#endif // EMAILMONEY_H

@@ -9,6 +9,7 @@ public:
     //Banker();
     Banker(unsigned short);
     Banker(const Banker&);
+    ~Banker();
     void addMortgage(Property*);
     void foreclosure(Property*);
 private:

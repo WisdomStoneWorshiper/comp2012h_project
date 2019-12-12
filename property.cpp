@@ -16,6 +16,14 @@ Property::~Property(){
 
 }
 
+QString Property::getBoxInfo(){
+    return (Box::getBoxInfo()
+            +"\nPrice: " + QString::number(propertyPrice)
+            +"\nMortgage value: " + QString::number(propertyPrice/2)
+            +"\nIn mortgage?" + (mortgage?"Yes":"No")
+            +"\nOwner player id:" + (ownerId==0?"Banker":"Player"+QString::number(ownerId)));
+}
+
 unsigned Property::getRentOfProperty(){
     return rentOfProperty;
 }
@@ -24,7 +32,13 @@ unsigned Property:: getPropertyPrice(){
     return propertyPrice;
 }
 
+bool Property::getMortgage(){
+    return mortgage;
+}
 
+void Property::setMortgage(bool m){
+    mortgage=m;
+}
 
 unsigned Property::getOwnerId(){
     return ownerId;

@@ -33,3 +33,12 @@ unsigned BuildableProperty::getCostOfVendingMachine(){
 unsigned BuildableProperty::getLevelOfWifiCoverage(){
     return levelOfWifiCoverage;
 }
+
+QString BuildableProperty::getBoxInfo(){
+    return (Property::getBoxInfo()
+            + "\nRent price without anything: " + QString::number(Property::getRentOfProperty())
+            +"\nExtra rent with each of level of wifi coverage: "+QString::number(RENTPERLEVELOFWIFICOVERAGE)
+            +"\nExtra rent with vending Machine: " + QString::number(RENTOFVENDINGMACHINE)
+            +"\nColor: "+(propertyColor==Red?"Red":(propertyColor==Blue?"Blue":(propertyColor==Yellow?"Yellow":"Green")))
+            );
+}

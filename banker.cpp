@@ -10,6 +10,10 @@ Banker::Banker(const Banker& b):Charactor(b.getId()){
     owned_place = b.owned_place;
 }
 
+Banker::~Banker(){
+    mortgage_list.clear();
+}
+
 void Banker::addMortgage(Property * name){
     mortgage_list.push_back(name);
 }
@@ -17,3 +21,4 @@ void Banker::addMortgage(Property * name){
 void Banker::foreclosure(Property * name){
     mortgage_list.remove(name);
 }
+

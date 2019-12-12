@@ -9,10 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , gm(new GameManager())
     , scene(new QGraphicsScene())
-    , d(new RollDiceWindow(this))
+    , d(new RollDiceWindow())
 {
     ui->setupUi(this);
-    list<Box*> map;
+    vector<Box*> map;
     QFile file(":/map_data/map.txt");
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "error", file.errorString());
@@ -98,7 +98,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
     file.close();
     bool ok=false;
-    list<Player*> p_list;
+    vector<Player*> p_list;
     unsigned numOfPlayer=QInputDialog::getInt(this,"","Plaese input number of player (2-6)",3,2,6,1,&ok);
     if (ok){
         //gm->init(numOfPlayer);
@@ -140,25 +140,41 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
-
+    //d=new RollDiceWindow();
     d->show();
+    //move(1);
     ui->rollDiceBtn->setEnabled(false);
     //
     //while ()
 }
 
 void MainWindow::move (unsigned t){
+    if (gm->getCurrentPlayer()->checkInJail()){
+        gm->getCurrentPlayer()->saveJailDice(t);
+        if (gm->getCurrentPlayer()->checkInJail()==false){
+            gm->movePlayer(0);
+        }
+    }else{
     qDebug()<<t;
     gm->movePlayer(t);
+    //delete d;
     qDebug()<<"m1";
     ui->endBtn->setEnabled(true);
     qDebug()<<"m2";
-    ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
+    //ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
     qDebug()<<"m3";
-    if (gm->ableToBuy()) ui->buyBtn->setEnabled(true);
-    else if(gm->ableToBuild()) ui->buildBtn->setEnabled(true);
-    else if (gm->checkEndTurn()) endTurn();
+    if (gm->ableToBuy()){
+        qDebug()<<"m5";
+        ui->buyBtn->setEnabled(true);
+    }else if(gm->ableToBuild()){
+        qDebug()<<"m6";
+        ui->buildBtn->setEnabled(true);
+    }else if (gm->checkEndTurn()){
+        qDebug()<<"m7";
+        endTurn();
+    }
     qDebug()<<"m4";
+    }
 }
 
 void MainWindow::on_buyBtn_clicked(){
@@ -188,12 +204,25 @@ void MainWindow::on_tradeBtn_clicked(){
 }
 
 void MainWindow::endTurn(){
-    ui->rollDiceBtn->setEnabled(true);
-    ui->buyBtn->setEnabled(false);
-    ui->endBtn->setEnabled(false);
-    ui->buildBtn->setEnabled(false);
+    qDebug()<<"e3";
+    if (ui->rollDiceBtn->isEnabled()==false)
+        ui->rollDiceBtn->setEnabled(true);
+    qDebug()<<"e4";
+    if (ui->buyBtn->isEnabled())
+        ui->buyBtn->setDisabled(true);
+    qDebug()<<"e5";
+    if (ui->buildBtn->isEnabled())
+        ui->endBtn->setDisabled(true);
+    qDebug()<<"e6";
+    if(ui->endBtn->isEnabled())
+        ui->buildBtn->setDisabled(true);
+    qDebug()<<"e7";
+    qDebug()<<gm->getCurrentPlayer()->getId();
+    qDebug()<<"e8"<<gm->getCurrentPlayerInfo();
     gm->moveToNextPlayer();
+    qDebug()<<"e1"<<gm->getCurrentPlayerInfo();
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
+    qDebug()<<"e2";
 }
 
 MainWindow::~MainWindow()

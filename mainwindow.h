@@ -41,7 +41,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     GameManager *gm;
-    list<Box> gameField;
+    vector<Box> gameField;
     QGraphicsScene *scene;
     RollDiceWindow* d;
 };

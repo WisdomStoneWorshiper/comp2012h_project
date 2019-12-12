@@ -3,7 +3,7 @@
 
 EmailMove::~EmailMove(){}
 
-EmailMove::EmailMove(int cardOrder){
+EmailMove::EmailMove(int cardOrder){//assign corresponding emailIndex by the emailOrder from emailDeck
 
 
 
@@ -33,8 +33,8 @@ EmailMove::EmailMove(int cardOrder){
 void EmailMove::emailAction(Player *p){ //return the id of map position
     switch (cardIndex){
         case 1:
-            p->setinJail(true);
             p->setPosition(7);
+            p->setinJail(true);
             break;
         case 2:
             p->setPosition(0);

@@ -8,6 +8,8 @@ Player::Player(unsigned short id_num, QString name):Charactor(id_num){
     jail_pass = false;
     user_name = name;
     inJail=false;
+    jailDiceCount[0]=0;
+    jailDiceCount[1]=0;
 };
 
 Player::Player(const Player& player):Charactor(player.getId()){
@@ -53,7 +55,7 @@ unsigned short Player::getPosition() const{
     return position;
 }
 
-void Player::setPosition(unsigned short pos){
+void Player::setPosition(unsigned pos){
     position = pos;
 }
 
@@ -96,5 +98,48 @@ void Player::setmoney(int a){
 
 void Player::setSchool(SCHOOL a){
     school = a;
+
+}
+
+void Player::setNumOfRestaurant(unsigned int r){
+    numOfRestaurant=r;
+}
+
+unsigned Player::getNumOfRestaurant(){
+    return numOfRestaurant;
+}
+
+void Player::saveJailDice(unsigned num){
+    QMessageBox* jailMessage=new QMessageBox();
+
+    if (jailDiceCount[0]==0){
+        jailDiceCount[0]=num;
+        jailMessage->setText("You still in jail");
+    }else if(jailDiceCount[0]!=0){
+        if(jailDiceCount[0]==num){
+            inJail==false;
+            jailDiceCount[0]=0;
+            jailMessage->setText("You release now");
+        }else{
+            jailDiceCount[1]=num;
+            jailMessage->setText("You still in jail");
+        }
+    }else{
+        if(!(jailDiceCount[0]==num||jailDiceCount[1]==num)){
+            //inJail==false;
+            //jailDiceCount[0]=jailDiceCount[1]=0;
+            money-=500;
+            jailMessage->setText("You release now but you need to pay $500 fine");
+        }else{
+            jailMessage->setText("You release now");
+        }
+        inJail==false;
+        jailDiceCount[0]=jailDiceCount[1]=0;
+    }
+    int ok=jailMessage->exec();
+    if (ok==QMessageBox::Ok){
+        delete jailMessage;
+    }
+    //jailDiceCount[0]=jailDiceCount[1]=0;
 
 }

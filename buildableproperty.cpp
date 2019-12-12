@@ -4,7 +4,8 @@ BuildableProperty::BuildableProperty(unsigned id, QString name, Color color, uns
     Property(id,name, price, rent)
     , propertyColor(color)
 {
-
+    levelOfWifiCoverage=0;
+    numOfVendingMachines=0;
 }
 
 Color BuildableProperty::getColor(){
@@ -12,7 +13,7 @@ Color BuildableProperty::getColor(){
 }
 
 unsigned BuildableProperty:: getRentOfProperty(){
-    return Property::getRentOfProperty()+levelOfWifiCoverage*RENTPERLEVELOFWIFICOVERAGE+numOfVendingMachines*RENTOFVENDINGMACHINE;
+    return (Property::getRentOfProperty())+levelOfWifiCoverage*RENTPERLEVELOFWIFICOVERAGE+numOfVendingMachines*RENTOFVENDINGMACHINE;
 }
 
 void BuildableProperty:: increaseWifiCoverage(){

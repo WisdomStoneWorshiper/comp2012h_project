@@ -1,8 +1,7 @@
 #include "gameManager.h"
 #include <QDebug>
 
-GameManager::GameManager():timer(new QElapsedTimer())
-                           , deck(new EmailDeck())
+GameManager::GameManager():deck(new EmailDeck())
                            , banker(new Banker(0))
 {
 
@@ -22,18 +21,6 @@ void GameManager::init(unsigned num,  list<Box*> boxList, list<Player*> playerLi
     this->playerList=playerList;
     currentPlayer=this->playerList.front();
     deck->shuffle();
-//    if (deck==nullptr){
-//        deck=new EmailDeck();
-//        //deck->shuffle();
-//    }else{
-//        //deck->shuffle();
-//    }
-//    if(banker==nullptr)
-//        banker=new Banker(0);
-//    else{
-//        delete banker;
-//        banker=new Banker(0);
-//    }
 }
 
 void GameManager::setCurrentPlayer(Player*p){
@@ -71,53 +58,90 @@ void GameManager::movePlayer(unsigned u){
     qDebug()<<"gm"<<(*b)->getName();
     playerPositionSetter(currentPlayer,*b);
     currentPlayer->setPosition((*b)->getId());
+    QMessageBox* rentMessage=new QMessageBox();
+    //emailContent->setInformativeText(e->getMessage());
+    rentMessage->setStandardButtons(QMessageBox::Ok);
+    rentMessage->setDefaultButton(QMessageBox::Ok);
+    qDebug()<<"t1";
     if(typeid (*(*b))==typeid (BuildableProperty)){
+        qDebug()<<"t2";
+        BuildableProperty *bp=static_cast<BuildableProperty*>(*b);
+        qDebug()<<"t3";
+        if(bp->getOwnerId()!=0 && bp->getOwnerId()!=currentPlayer->getId() && !bp->getMortgage()){
+            qDebug()<<"t4";
+            currentPlayer-=bp->getRentOfProperty();
+            qDebug()<<"t5";
+            list<Player*>::const_iterator owner=find_if(playerList.begin(),playerList.end(),
+                                       [&](Player* p){return p->getId()==bp->getOwnerId();});
+            qDebug()<<"t6";
+            *(*owner)+=(bp->getRentOfProperty());
+            qDebug()<<"t7";
+            rentMessage->setInformativeText("You have to pay $"+QString::number(bp->getRentOfProperty())+"for rent.");
+            qDebug()<<"t8";
+            int choice=rentMessage->exec();
+            if (choice==QMessageBox::Ok){
 
-        BuildableProperty *p=static_cast<BuildableProperty*>(*b);
-        if(p->getOwnerId()!=0 && p->getOwnerId()!=currentPlayer->getId() && !p->getMortgage()){
-            currentPlayer-=p->getRentOfProperty();
+            }
         }
     }else if (typeid (*(*b))==typeid (Restaurant)){
+        qDebug()<<"t2";
         Restaurant *r=static_cast<Restaurant*>(*b);
+        qDebug()<<"t3";
         if(r->getOwnerId()!=0 && r->getOwnerId()!=currentPlayer->getId() && !r->getMortgage()){
+            qDebug()<<"t4";
             list<Player*>::const_iterator owner=find_if(playerList.begin(),playerList.end(),
                                        [&](Player* p){return p->getId()==r->getOwnerId();});
-            unsigned numOfRestaurant=count_if((*owner)->getOwnedPropertyList().begin(),(*owner)->getOwnedPropertyList().end(),
+            qDebug()<<"t5";
+            int numOfRestaurant=count_if((*owner)->getOwnedPropertyList().begin(),(*owner)->getOwnedPropertyList().end(),
                                               [&](Property* p){return typeid (*p)==typeid (Restaurant);});
+            qDebug()<<"t5.1";
             currentPlayer-=r->getRentOfProperty(numOfRestaurant-1);
+            qDebug()<<"t6";
+            *(*owner)+=r->getRentOfProperty(numOfRestaurant-1);
+            qDebug()<<"t7";
+            rentMessage->setInformativeText("You have to pay $"+QString::number(r->getRentOfProperty(numOfRestaurant-1))+"for rent.");
+            qDebug()<<"t8";
+            int choice=rentMessage->exec();
+            if (choice==QMessageBox::Ok){
+
+            }
         }
     }else if(QString::compare((*b)->getName(),"Email",Qt::CaseInsensitive)==0){
         emailAction(b);
-        if (currentPlayer->getPosition()>(*b)->getId()){
-            movePlayer(currentPlayer->getPosition()-(*b)->getId());
-        }else if(currentPlayer->getPosition()<(*b)->getId()){
-
-        }
     }else if(QString::compare((*b)->getName(),"TakeTheClass",Qt::CaseInsensitive)==0){
         currentPlayer->setinJail(true);
         movePlayer(14);
     }
+    delete rentMessage;
+    qDebug()<<"t9";
 }
 
 void GameManager::playerPositionSetter(Player *p, Box *b){
     //if (b->getId()<7){
+    qDebug()<<"p1";
     if (b->getName()!="Jail"){
-        if (p->getId()<4)
+        qDebug()<<"p2";
+        if (p->getId()<4){
+            qDebug()<<"p3"<<b->getP1XPosition()<<b->getP1YPosition();
             p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
-        else
+        }else
             p->setPos(b->getP1XPosition()+20*(p->getId()-4),b->getP1YPosition()-50);
+        qDebug()<<"p4";
     }else{
-        if (!p->checkInJail()){
+        qDebug()<<"p5";
+        if (!(p->checkInJail())){
+            qDebug()<<"p6"<<b->getP1XPosition()<<b->getP1YPosition();
             p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
         }else{
-
-
+            qDebug()<<"p7";
             if (p->getId()<4)
                 p->setPos(static_cast<Jail*>(b)->getJailP1XPosition()+20*(p->getId()-1),static_cast<Jail*>(b)->getJailP1YPosition());
             else
                 p->setPos(static_cast<Jail*>(b)->getJailP1XPosition()+20*(p->getId()-4),static_cast<Jail*>(b)->getJailP1YPosition()-50);
+            qDebug()<<"p8";
         }
     }
+    qDebug()<<"p9";
 }
 
 bool GameManager::ableToBuy(){
@@ -171,10 +195,12 @@ void GameManager::emailAction(list<Box*>::const_iterator oldLocation){
     }
     list<Box*>::const_iterator newLocation=find_if(gameField.begin(),gameField.end(),
                                          [&](Box* b){return b->getId()==currentPlayer->getPosition();});
-
+    qDebug()<<"et1";
     if ((*oldLocation)->getId()<(*newLocation)->getId()){
+        qDebug()<<"et2";
         playerPositionSetter(currentPlayer,*newLocation);
     }else if((*oldLocation)->getId()>(*newLocation)->getId()){
+        qDebug()<<"et3";
         currentPlayer+=2000;
         playerPositionSetter(currentPlayer,*newLocation);
     }

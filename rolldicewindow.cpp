@@ -16,6 +16,9 @@ RollDiceWindow::RollDiceWindow(QWidget *parent) :
 RollDiceWindow::~RollDiceWindow()
 {
     delete ui;
+    delete dice;
+    delete timer;
+
 }
 
 void RollDiceWindow::keyPressEvent(QKeyEvent *e){
@@ -24,9 +27,12 @@ void RollDiceWindow::keyPressEvent(QKeyEvent *e){
         timer->restart();
         while (timer->elapsed()<2000){
         }
-        changevalue(dice->currentFrameNumber()+1);
+        unsigned temp=dice->currentFrameNumber()+1;
+
         this->close();
         dice->start();
+        qDebug()<<"r"<<temp;
+        changevalue(temp);
     }
 }
 

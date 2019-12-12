@@ -62,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
             }else if (b->getId()==8){
                 b->setRotation(-90);
                 b->setPos(540,(b->getId()-7)*90);
-                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+70);
+                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+130);
             }else{
                 b->setRotation(-90);
                 b->setPos(540,(b->getId()-7)*90);
@@ -150,10 +150,15 @@ void MainWindow::on_rollDiceBtn_clicked(){
 void MainWindow::move (unsigned t){
     qDebug()<<t;
     gm->movePlayer(t);
+    qDebug()<<"m1";
+    ui->endBtn->setEnabled(true);
+    qDebug()<<"m2";
+    ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
+    qDebug()<<"m3";
     if (gm->ableToBuy()) ui->buyBtn->setEnabled(true);
     else if(gm->ableToBuild()) ui->buildBtn->setEnabled(true);
     else if (gm->checkEndTurn()) endTurn();
-    ui->endBtn->setEnabled(true);
+    qDebug()<<"m4";
 }
 
 void MainWindow::on_buyBtn_clicked(){

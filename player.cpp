@@ -80,6 +80,7 @@ bool Player:: checkInJail(){
 
 void Player::setinJail(bool state){
     inJail=state;
+}
 
 void Player::setGpa(float points){
     gpa = points;

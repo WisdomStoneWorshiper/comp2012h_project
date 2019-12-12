@@ -9,11 +9,11 @@ EmailMove::EmailMove(int cardOrder){
 
     switch (cardOrder){
         case 1:
-            setMessage(getMessage()+"Go take the class now!\n");
+            setMessage(getMessage()+"You have a make up class\nGo take the class now!\n");
             cardIndex =1;
             break;
         case 2:
-            setMessage(getMessage()+"Adance to Starting Point\n");
+            setMessage(getMessage()+"Go to school entry (starting point)\n");
             cardIndex =2;
             break;
         case 3:
@@ -23,6 +23,10 @@ EmailMove::EmailMove(int cardOrder){
         case 4:
             setMessage(getMessage()+"Invite Letter from President!\nAdance to PresidnetLodge\n");
             cardIndex =4;
+            break;
+        case 5:
+            setMessage(getMessage()+"You are the representive of your department !\nAdance to Swimming Pool\n");
+            cardIndex =5;
             break;
 
     }
@@ -44,7 +48,9 @@ void EmailMove::emailAction(Player *p){ //return the id of map position
         case 4:
             p->setPosition(27);
             break;
-
+        case 5:
+            p->setPosition(8);
+            break;
     }
 
 }

@@ -14,6 +14,7 @@
 class EmailDeck{
 public:
     EmailDeck();
+    int myrandom(int i); //function for random
     void shuffle();//shuffle before the dequee isCompletelyUsed
     Email * getEmail();
     bool isCompletelyUsed ()const ;  //check if the double end queue go back to the first

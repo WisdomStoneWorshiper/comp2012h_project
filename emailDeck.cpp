@@ -2,7 +2,7 @@
 
 EmailDeck::EmailDeck(){
 
-        for(int i =1; i<=4 ; ++i){
+        for(int i =1; i<=5 ; ++i){
             EmailMove * p = new EmailMove(i);
             deck.push_back(p);
         }
@@ -20,11 +20,13 @@ EmailDeck::~EmailDeck(){
 
     for(unsigned i = 0; deck[i]!=deck.back();++i)
         delete deck[i];
+
+    delete deck.back();
 }
 
-
 void EmailDeck::shuffle(){ //shuffle before the dequee isCompletelyUsed
-     std::random_shuffle ( deck.begin(), deck.end() );
+     std::random_shuffle ( deck.begin(), deck.end());
+     emailOrder = deck.begin();
 }
 
 bool EmailDeck::isCompletelyUsed()const { //check if the double end queue go back to the first

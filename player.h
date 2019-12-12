@@ -22,6 +22,7 @@ private:
     QString user_name;
     unsigned numOfRestaurant;
     int jailDiceCount[2];
+    QMessageBox msgBox;
 public:
 
     Player(unsigned short, QString);
@@ -45,6 +46,9 @@ public:
     void setNumOfRestaurant(unsigned);
     unsigned getNumOfRestaurant();
     void saveJailDice(unsigned);
+    QString getPlayerInfo();
+public slots:
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
 };
 
 #endif // PLAYER_H

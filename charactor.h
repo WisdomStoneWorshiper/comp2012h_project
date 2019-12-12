@@ -17,10 +17,10 @@ public:
     unsigned short getId() const;
     void addProperty(Property*);
     void removeProperty(Property*);
-    vector <Property*> getOwnedPropertyList();
+    list <Property*> getOwnedPropertyList();
 
 protected:
-    vector <Property*> owned_place;
+    list <Property*> owned_place;
     const unsigned short id;
 };
 

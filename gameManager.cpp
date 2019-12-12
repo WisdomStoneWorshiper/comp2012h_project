@@ -130,6 +130,13 @@ void GameManager::movePlayer(unsigned u){
 void GameManager::playerPositionSetter(Player *p, Box *b){
     //if (b->getId()<7){
     qDebug()<<p->getId()<<b->getName();
+    if (currentPlayer->getJailPass() && p->checkInJail()){
+        currentPlayer->setinJail(false);
+        currentPlayer->changeJailPass();
+        QMessageBox* usePassMsg=new QMessageBox();
+        usePassMsg->setText("You have used the pass");
+        usePassMsg->exec();
+    }
     if (!(p->checkInJail())){
         qDebug()<<"p2";
         if (p->getId()<4){
@@ -170,7 +177,7 @@ bool GameManager::ableToBuy(){
     return false;
 }
 
-bool GameManager::ableToBuild(){
+bool GameManager::ableToIncreaseWifi(){
     //vector<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
       //                                   [&](Box* target){return target->getId()==currentPlayer->getPosition();});
     Box* b=gameField[currentPlayer->getPosition()];
@@ -181,8 +188,17 @@ bool GameManager::ableToBuild(){
     return false;
 }
 
+bool GameManager::ableToAddVendingMachine(){
+    Box* b=gameField[currentPlayer->getPosition()];
+    if(typeid ((*b))==typeid (BuildableProperty)){
+        BuildableProperty *p=static_cast<BuildableProperty*>(b);
+        return (currentPlayer->getId()==p->getOwnerId() && currentPlayer->getMoney()>=p->getCostOfVendingMachine() && p->getNumOfVendingMachines()<1 && p->getLevelOfWifiCoverage()==4);
+    }
+    return false;
+}
+
 bool GameManager::checkEndTurn(){
-    if(!ableToBuy()&&!ableToBuild()) return true;
+    if(!ableToBuy()&&!ableToIncreaseWifi()) return true;
     return false;
 }
 
@@ -198,6 +214,18 @@ void GameManager::buyAsset(){
         currentPlayer->buyProperty(r);
         currentPlayer->setNumOfRestaurant(currentPlayer->getNumOfRestaurant()+1);
     }
+}
+
+void GameManager::build(){
+    BuildableProperty* bp=static_cast<BuildableProperty*>(gameField[currentPlayer->getPosition()]);
+    if (ableToAddVendingMachine()){
+        (*currentPlayer)-=bp->getCostOfVendingMachine();
+        bp->addVendingMachines();
+    }else if (ableToIncreaseWifi()){
+        (*currentPlayer)-=bp->getCostPerLevelOfWifiCoverage();
+        bp->increaseWifiCoverage();
+    }
+
 }
 
 void GameManager::emailAction(Box* oldLocation){
@@ -218,6 +246,13 @@ void GameManager::emailAction(Box* oldLocation){
     Box* newLocation=gameField[currentPlayer->getPosition()];
     qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     qDebug()<<"et1";
+    if (currentPlayer->getJailPass()){
+        currentPlayer->setinJail(false);
+        currentPlayer->changeJailPass();
+        QMessageBox* usePassMsg=new QMessageBox();
+        usePassMsg->setText("You have used the pass");
+        usePassMsg->exec();
+    }
     if (oldLocation->getId()<(newLocation)->getId()){
         qDebug()<<"et2";
         qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
@@ -238,12 +273,21 @@ QString GameManager::getCurrentPlayerInfo(){
               +"\n$: "+QString::number(currentPlayer->getMoney())
               +"\nJail Pass on hand? "+((currentPlayer->getJailPass())?"Yes":"No"));
 
-    return ("Player id: "+QString::number(currentPlayer->getId())
-            +"\nPlayer name: "+currentPlayer->getName()
-            +"\n$: "+QString::number(currentPlayer->getMoney())
-            +"\nJail Pass on hand? "+((currentPlayer->getJailPass())?"Yes":"No"));
+    return (currentPlayer->getPlayerInfo());
 }
 
-void GameManager::inJailAction(){
-
+unsigned GameManager::getMoneyAfterBuy(){
+    return currentPlayer->getMoney()-static_cast<Property*>(gameField[currentPlayer->getPosition()])->getPropertyPrice();
 }
+
+unsigned GameManager::getMoneyAfterBuild(){
+    BuildableProperty* target=static_cast<BuildableProperty*>(gameField[currentPlayer->getPosition()]);
+    if (ableToAddVendingMachine())
+        return currentPlayer->getMoney()-target->getCostOfVendingMachine();
+    else
+        return currentPlayer->getMoney()-target->getCostPerLevelOfWifiCoverage();
+}
+
+//void GameManager::inJailAction(){
+
+//}

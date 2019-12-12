@@ -8,6 +8,14 @@ BuildableProperty::BuildableProperty(unsigned id, QString name, Color color, uns
     numOfVendingMachines=0;
 }
 
+BuildableProperty::BuildableProperty(const BuildableProperty &bp):Property(bp)
+                                                                , propertyColor(bp.propertyColor)
+                                                                , levelOfWifiCoverage(bp.levelOfWifiCoverage)
+                                                                , numOfVendingMachines(bp.numOfVendingMachines)
+{
+
+}
+
 Color BuildableProperty::getColor(){
     return propertyColor;
 }
@@ -33,6 +41,10 @@ unsigned BuildableProperty::getCostOfVendingMachine(){
 
 unsigned BuildableProperty::getLevelOfWifiCoverage(){
     return levelOfWifiCoverage;
+}
+
+unsigned BuildableProperty::getNumOfVendingMachines(){
+    return numOfVendingMachines;
 }
 
 QString BuildableProperty::getBoxInfo(){

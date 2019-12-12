@@ -9,11 +9,13 @@ class BuildableProperty : public Property
 {
 public:
     BuildableProperty(unsigned, QString, Color, unsigned, unsigned);
+    BuildableProperty(const BuildableProperty &);
     Color getColor();
     unsigned getRentOfProperty() override;
     unsigned getCostPerLevelOfWifiCoverage();
     unsigned getCostOfVendingMachine();
     unsigned getLevelOfWifiCoverage();
+    unsigned getNumOfVendingMachines();
     void increaseWifiCoverage();
     void addVendingMachines();
     QString getBoxInfo() override;

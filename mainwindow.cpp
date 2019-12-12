@@ -154,6 +154,7 @@ void MainWindow::move (unsigned t){
         if (gm->getCurrentPlayer()->checkInJail()==false){
             gm->movePlayer(0);
         }
+        endTurn();
     }else{
     qDebug()<<t;
     gm->movePlayer(t);
@@ -166,7 +167,7 @@ void MainWindow::move (unsigned t){
     if (gm->ableToBuy()){
         qDebug()<<"m5";
         ui->buyBtn->setEnabled(true);
-    }else if(gm->ableToBuild()){
+    }else if(gm->ableToIncreaseWifi()||gm->ableToAddVendingMachine()){
         qDebug()<<"m6";
         ui->buildBtn->setEnabled(true);
     }else if (gm->checkEndTurn()){
@@ -179,8 +180,8 @@ void MainWindow::move (unsigned t){
 
 void MainWindow::on_buyBtn_clicked(){
     QMessageBox * comfirmBox=new QMessageBox();
-    comfirmBox->setText("You are gonna to buy this asset.");
-    comfirmBox->setInformativeText("After purchase, you have $");
+    comfirmBox->setText("You are gonna buy this asset.");
+    comfirmBox->setInformativeText("After purchase, you have $"+QString::number(gm->getMoneyAfterBuy()));
     comfirmBox->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
     comfirmBox->setDefaultButton(QMessageBox::Ok);
     int choice=comfirmBox->exec();
@@ -192,7 +193,23 @@ void MainWindow::on_buyBtn_clicked(){
 }
 
 void MainWindow::on_buildBtn_clicked(){
-
+    QMessageBox * comfirmBox=new QMessageBox();
+    //comfirmBox->setText("You are gonna to buy this asset.");
+   // comfirmBox->setInformativeText("After purchase, you have $"+QString::number(gm->getMoneyAfterBuy())+" left");
+    comfirmBox->setInformativeText("After purchase, you have $"+QString::number(gm->getMoneyAfterBuild())+" left");
+    comfirmBox->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+    comfirmBox->setDefaultButton(QMessageBox::Ok);
+    if (gm->ableToAddVendingMachine()){
+        comfirmBox->setText("You are gonna add vending machine");
+    } else if (gm->ableToIncreaseWifi()){
+        comfirmBox->setText("You are gonna increase wifi level");
+    }
+    int choice=comfirmBox->exec();
+    if (choice==QMessageBox::Ok){
+        gm->build();
+    }
+    delete comfirmBox;
+    endTurn();
 }
 
 void MainWindow::on_endBtn_clicked(){

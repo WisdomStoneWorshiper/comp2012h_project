@@ -7,6 +7,7 @@ class Restaurant : public Property
 {
 public:
     Restaurant(unsigned, QString, unsigned, unsigned);
+    Restaurant(const Restaurant &);
     unsigned getRentOfProperty(unsigned);
     QString getBoxInfo() override;
 private:

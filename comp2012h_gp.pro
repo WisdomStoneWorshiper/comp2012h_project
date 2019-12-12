@@ -53,6 +53,7 @@ HEADERS += \
     emailDeck.h
     
 FORMS += \
+    boxinfo.ui \
     mainwindow.ui \
     rolldicewindow.ui
 

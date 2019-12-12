@@ -6,6 +6,7 @@ Property::Property(unsigned id, QString name, unsigned price, unsigned rent):
   , rentOfProperty(rent)
 {
     ownerId=0;
+    mortgage=false;
 }
 
 //Property::Property(const Property &p){

@@ -2,7 +2,7 @@
 
 EmailGetJailPass::EmailGetJailPass(){
 
-        setMessage(getMessage()+"This email for escape the class\n");
+        setMessage(getMessage()+"\nAccording to your outstanding mid-term result,\nyou don't need to attend the make up class!\n\nYou got an \"Escape Pass\" :)");
 }
 
 void EmailGetJailPass::emailAction(Player *p){

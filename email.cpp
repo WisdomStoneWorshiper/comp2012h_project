@@ -1,7 +1,7 @@
 #include "email.h"
 
 Email::Email(){
-    message = "You got an Email from Desmond!!\n";
+    message = "You got an Email from CSE\n";
 }
 
 QString Email::getMessage () const {

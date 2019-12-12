@@ -14,6 +14,7 @@ EmailDeck::EmailDeck(){
         deck.push_back(new EmailGetJailPass);
 
         emailOrder = deck.begin();
+
 }
 EmailDeck::~EmailDeck(){
 

@@ -7,25 +7,26 @@ EmailMove::EmailMove(int cardOrder){//assign corresponding emailIndex by the ema
 
 
 
+
     switch (cardOrder){
         case 1:
-            setMessage(getMessage()+"You have a make up class\nGo take the class now!\n");
+            setMessage(getMessage()+"\nDear student,\n\nJust a gentle reminder that a make-up class will be conducted Now at Rm 2304.\nThanks, and see you. :)\n\nBest,\nDesmond ");
             cardIndex =1;
             break;
         case 2:
-            setMessage(getMessage()+"Go to school entry (starting point)\n");
+            setMessage(getMessage()+"\nGo to school entry (starting point)\n");
             cardIndex =2;
             break;
         case 3:
-            setMessage(getMessage()+"Comp2012h class gathering!\nAdance to UniBar\n");
+            setMessage(getMessage()+"\nDear student,\n\nComp2012h class gathering are held on UniBar,\n\nCome join us\nAdance to UniBar\nThanks, and see you. :)\n\nBest,\nDesmond");
             cardIndex =3;
             break;
         case 4:
-            setMessage(getMessage()+"Invite Letter from President!\nAdance to PresidnetLodge\n");
+            setMessage(getMessage()+"\nInvite Letter from President!\nAdance to PresidnetLodge\n");
             cardIndex =4;
             break;
         case 5:
-            setMessage(getMessage()+"You are the representive of your department !\nAdance to Swimming Pool\n");
+            setMessage(getMessage()+"\nYou are the representive of your department !\nAdance to Swimming Pool\n");
             cardIndex =5;
             break;
 

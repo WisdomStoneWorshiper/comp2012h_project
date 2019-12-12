@@ -20,7 +20,7 @@ void GameManager::init(unsigned num,  vector<Box*> boxList, vector<Player*> play
     gameField=boxList;
     this->playerList=playerList;
     currentPlayer=this->playerList.front();
-    //deck->shuffle();
+    deck->shuffle();
 }
 
 //void GameManager::setCurrentPlayer(Player*p){
@@ -75,20 +75,21 @@ void GameManager::movePlayer(unsigned u){
         qDebug()<<"t3";
         if(bp->getOwnerId()!=0 && bp->getOwnerId()!=currentPlayer->getId() && !bp->getMortgage()){
             qDebug()<<"t4";
-            currentPlayer-=bp->getRentOfProperty();
+            (*currentPlayer)-=bp->getRentOfProperty();
             qDebug()<<"t5";
            // vector<Player*>::const_iterator owner=find_if(playerList.begin(),playerList.end(),
              //                          [&](Player* p){return p->getId()==bp->getOwnerId();});
             Player* owner=playerList[bp->getOwnerId()-1];
-            qDebug()<<"t6";
+            qDebug()<<"rent"<<currentPlayer->getId()<<owner->getId()<<bp->getName()<<bp->getId();
             (*owner)+=(bp->getRentOfProperty());
             qDebug()<<"t7";
             rentMessage->setInformativeText("You have to pay $"+QString::number(bp->getRentOfProperty())+"for rent.");
             qDebug()<<"t8";
-            int choice=rentMessage->exec();
-            if (choice==QMessageBox::Ok){
+            rentMessage->exec();
+//            int choice=rentMessage->exec();
+//            if (choice==QMessageBox::Ok){
 
-            }
+//            }
         }
     }else if (typeid ((*b))==typeid (Restaurant)){
         qDebug()<<"t2";
@@ -103,17 +104,18 @@ void GameManager::movePlayer(unsigned u){
 //            int numOfRestaurant=count_if((*owner)->getOwnedPropertyList().begin(),(*owner)->getOwnedPropertyList().end(),
 //                                              [&](Property* p){return typeid (*p)==typeid (Restaurant);});
             unsigned numOfRestaurant=owner->getNumOfRestaurant();
-            qDebug()<<"t5.1";
-            currentPlayer-=r->getRentOfProperty(numOfRestaurant-1);
+            qDebug()<<"rent"<<currentPlayer->getId()<<owner->getId()<<r->getName()<<r->getId();
+            (*currentPlayer)-=r->getRentOfProperty(numOfRestaurant-1);
             qDebug()<<"t6";
             (*owner)+=r->getRentOfProperty(numOfRestaurant-1);
             qDebug()<<"t7";
             rentMessage->setInformativeText("You have to pay $"+QString::number(r->getRentOfProperty(numOfRestaurant-1))+"for rent.");
             qDebug()<<"t8";
-            int choice=rentMessage->exec();
-            if (choice==QMessageBox::Ok){
+            rentMessage->exec();
+//            int choice=rentMessage->exec();
+//            if (choice==QMessageBox::Ok){
 
-            }
+//            }
         }
     }else if(QString::compare((b)->getName(),"Email",Qt::CaseInsensitive)==0){
         emailAction(b);
@@ -204,20 +206,26 @@ void GameManager::emailAction(Box* oldLocation){
     emailContent->setInformativeText(e->getMessage());
     emailContent->setStandardButtons(QMessageBox::Ok);
     emailContent->setDefaultButton(QMessageBox::Ok);
+    //emailContent->exec();
+    qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     int choice=emailContent->exec();
     if (choice==QMessageBox::Ok){
         e->emailAction(currentPlayer);
     }
+    qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     //vector<Box*>::const_iterator newLocation=find_if(gameField.begin(),gameField.end(),
       //                                   [&](Box* b){return b->getId()==currentPlayer->getPosition();});
     Box* newLocation=gameField[currentPlayer->getPosition()];
+    qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     qDebug()<<"et1";
     if (oldLocation->getId()<(newLocation)->getId()){
         qDebug()<<"et2";
+        qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
         playerPositionSetter(currentPlayer,newLocation);
     }else if(oldLocation->getId()>(newLocation)->getId()){
         qDebug()<<"et3";
-        currentPlayer+=2000;
+        (*currentPlayer)+=2000;
+        qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
         playerPositionSetter(currentPlayer,newLocation);
     }
     delete emailContent;

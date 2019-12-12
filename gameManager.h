@@ -2,6 +2,7 @@
 #define GAMEMANAGER_H
 
 #include <list>
+#include <vector>
 //#include <QPropertyAnimation>
 #include <QElapsedTimer>
 
@@ -14,20 +15,20 @@
 #include "box.h"
 #include "emailDeck.h"
 #include "emailMove.h"
-#include "emailGetJailPass.h"
+//#include "emailGetJailPass.h"
 #include "emailGetMoney.h"
 #include <QMessageBox>
 
 
-using namespace std;
+//using namespace std;
 
 class GameManager{
 public:
     GameManager();
     ~GameManager();
     //bool findCurrentBox(Box*);
-    void init(unsigned, list<Box*>, list<Player*>);
-    void setCurrentPlayer(Player*);
+    void init(unsigned, vector<Box*>, vector<Player*>);
+    //void setCurrentPlayer(Player*);
     void moveToNextPlayer();
     //int rollDice();
     void movePlayer(unsigned);
@@ -37,13 +38,14 @@ public:
     bool checkEndTurn();
     Player* & getCurrentPlayer();
     void buyAsset();
-    void emailAction(list<Box*>::const_iterator);
+    void emailAction(Box*);
     QString getCurrentPlayerInfo();
+    void inJailAction();
 private slots:
     //void on_
 private:
-    list<Player*> playerList;
-    list<Box*> gameField;
+    vector<Player*> playerList;
+    vector<Box *> gameField;
     unsigned numOfPlayer;
     Player* currentPlayer;
     Banker* banker;

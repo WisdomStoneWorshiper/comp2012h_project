@@ -1,5 +1,5 @@
 #include "box.h"
-#include <QDebug>
+//#include <QDebug>
 Box::Box(unsigned id, QString name) :id(id), name(name){
 
 }

@@ -1,7 +1,7 @@
 #ifndef CHARACTOR_H
 #define CHARACTOR_H
 
-#include <vector>
+//#include <vector>
 #include <list>
 #include <QGraphicsPixmapItem>
 
@@ -17,10 +17,10 @@ public:
     unsigned short getId() const;
     void addProperty(Property*);
     void removeProperty(Property*);
-    list <Property*> getOwnedPropertyList();
+    vector <Property*> getOwnedPropertyList();
 
 protected:
-    list <Property*> owned_place;
+    vector <Property*> owned_place;
     const unsigned short id;
 };
 

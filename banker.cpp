@@ -19,6 +19,6 @@ void Banker::addMortgage(Property * name){
 }
 
 void Banker::foreclosure(Property * name){
-    mortgage_list.remove(name);
+    //mortgage_list.remove(name);
 }
 

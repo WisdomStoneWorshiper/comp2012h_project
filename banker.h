@@ -13,7 +13,7 @@ public:
     void addMortgage(Property*);
     void foreclosure(Property*);
 private:
-    list <Property*> mortgage_list;
+    vector <Property*> mortgage_list;
 };
 
 #endif // BANKER_H

@@ -4,7 +4,8 @@ BuildableProperty::BuildableProperty(unsigned id, QString name, Color color, uns
     Property(id,name, price, rent)
     , propertyColor(color)
 {
-
+    levelOfWifiCoverage=0;
+    numOfVendingMachines=0;
 }
 
 Color BuildableProperty::getColor(){
@@ -12,7 +13,7 @@ Color BuildableProperty::getColor(){
 }
 
 unsigned BuildableProperty:: getRentOfProperty(){
-    return Property::getRentOfProperty()+levelOfWifiCoverage*RENTPERLEVELOFWIFICOVERAGE+numOfVendingMachines*RENTOFVENDINGMACHINE;
+    return (Property::getRentOfProperty())+levelOfWifiCoverage*RENTPERLEVELOFWIFICOVERAGE+numOfVendingMachines*RENTOFVENDINGMACHINE;
 }
 
 void BuildableProperty:: increaseWifiCoverage(){
@@ -32,4 +33,13 @@ unsigned BuildableProperty::getCostOfVendingMachine(){
 
 unsigned BuildableProperty::getLevelOfWifiCoverage(){
     return levelOfWifiCoverage;
+}
+
+QString BuildableProperty::getBoxInfo(){
+    return (Property::getBoxInfo()
+            + "\nRent price without anything: " + QString::number(Property::getRentOfProperty())
+            +"\nExtra rent with each of level of wifi coverage: "+QString::number(RENTPERLEVELOFWIFICOVERAGE)
+            +"\nExtra rent with vending Machine: " + QString::number(RENTOFVENDINGMACHINE)
+            +"\nColor: "+(propertyColor==Red?"Red":(propertyColor==Blue?"Blue":(propertyColor==Yellow?"Yellow":"Green")))
+            );
 }

@@ -13,19 +13,37 @@ Box::~Box(){
 }
 
 void Box::mousePressEvent(QGraphicsSceneMouseEvent *event){
-    setPos(x()+10,y());
-    qDebug()<<x()<<" "<<y();
+
+   // setPos(x()+10,y());
+    msgBox.setText(this->getBoxInfo());
+   // qDebug()<<this->getBoxInfo();
+   // qDebug()<<"I am ready!"<<msgBox.text()<<"done";
+    msgBox.exec();
+    QGraphicsItem::mousePressEvent(event);
+
+  //  QMessageBox * boxContent=new QMessageBox();
+   // qDebug()<<this->getName();
+
+   // boxContent->setInformativeText(this->getBoxInfo());
+ //   boxContent->setText(this->getBoxInfo());
+  //  boxContent->setStandardButtons(QMessageBox::Ok);
+
+  //  boxContent->setDefaultButton(QMessageBox::Ok);
+
+  //  boxContent->exec();
+  //  delete boxContent;
+ //   qDebug()<<"delete";
+  //  int choice=boxContent->exec();
+
+   // if (choice==QMessageBox::Ok){
+   //     qDebug()<<"delete";
+       // delete boxContent;
+  //  }
+
 }
-
-//void Box::queueUp(Player target){
-//    playerOnThisBox.push(target);
-//}
-
-//Player* Box::movePlayer(){
-//    Player* target = &playerOnThisBox.front();
-//    playerOnThisBox.pop();
-//    return target;
-//}
+QString Box::getBoxInfo(){
+    return (name);
+}
 
 QString Box::getName(){
     return name;

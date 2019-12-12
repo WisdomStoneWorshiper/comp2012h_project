@@ -12,21 +12,24 @@ EmailDeck::EmailDeck(){
             deck.push_back(p);
         }
 
-        deck.push_back(new EmailGetJailPass);
+        deck.push_back(new EmailGetJailPass());
 
         emailOrder = deck.begin();
 }
+
 EmailDeck::~EmailDeck(){
 
-    for(unsigned i = 0; deck[i]!=deck.back();++i)
-        delete deck[i];
 
-    delete deck.back();
+//    for(unsigned i = 0; deck[i]!=deck.back();++i)
+//        delete deck[i];
+    deck.clear();
 }
 
+int random_seed (int i) {return rand()%i;}
+
 void EmailDeck::shuffle(){ //shuffle before the dequee isCompletelyUsed
-     std::random_shuffle ( deck.begin(), deck.end());
-     emailOrder = deck.begin();
+     random_shuffle ( deck.begin(), deck.end(), random_seed );
+
 }
 
 bool EmailDeck::isCompletelyUsed()const { //check if the double end queue go back to the first

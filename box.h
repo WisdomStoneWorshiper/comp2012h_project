@@ -4,6 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QString>
 #include <queue>
+#include <QMessageBox>
 
 
 using namespace std;
@@ -21,14 +22,16 @@ public:
     double getP1XPosition();
     double getP1YPosition();
     void setP1Position(double,double);
+    virtual QString getBoxInfo();
 //    bool findCurrentBox(Box*);
 
 private slots:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+   void mousePressEvent(QGraphicsSceneMouseEvent *event);
 private:
     unsigned id;
     QString name;
     double p1XPosition,p1YPosition;
+    QMessageBox msgBox;
     //queue<Player> playerOnThisBox;
 };
 

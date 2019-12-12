@@ -57,8 +57,12 @@ MainWindow::MainWindow(QWidget *parent)
             if (b->getId()==7){
                 jail=b;
                 b->setPos(540,-130);
-                b->setP1Position(map.back()->getP1XPosition()+90,map.back()->getP1YPosition()-50);
+                b->setP1Position(map.back()->getP1XPosition()+110,map.back()->getP1YPosition()-50);
                 static_cast<Jail*>(jail)->setJailP1Position(jail->getP1XPosition(),jail->getP1YPosition()+40);
+            }else if (b->getId()==8){
+                b->setRotation(-90);
+                b->setPos(540,(b->getId()-7)*90);
+                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+130);
             }else{
                 b->setRotation(-90);
                 b->setPos(540,(b->getId()-7)*90);
@@ -122,8 +126,8 @@ MainWindow::MainWindow(QWidget *parent)
 
         }
     }
-    p_list.front()->setinJail(true);
-    gm->playerPositionSetter(p_list.front(),jail);
+//    p_list.front()->setinJail(true);
+//    gm->playerPositionSetter(p_list.front(),jail);
     ui->gameArea->setScene(scene);
     ui->gameArea->show();
     //d=new RollDiceWindow(this);
@@ -132,11 +136,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->buyBtn->setEnabled(false);
     ui->endBtn->setEnabled(false);
     ui->buildBtn->setEnabled(false);
+    ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
 
     d->show();
+    ui->rollDiceBtn->setEnabled(false);
     //
     //while ()
 }
@@ -144,9 +150,15 @@ void MainWindow::on_rollDiceBtn_clicked(){
 void MainWindow::move (unsigned t){
     qDebug()<<t;
     gm->movePlayer(t);
+    qDebug()<<"m1";
+    ui->endBtn->setEnabled(true);
+    qDebug()<<"m2";
+    ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
+    qDebug()<<"m3";
     if (gm->ableToBuy()) ui->buyBtn->setEnabled(true);
     else if(gm->ableToBuild()) ui->buildBtn->setEnabled(true);
-    ui->endBtn->setEnabled(true);
+    else if (gm->checkEndTurn()) endTurn();
+    qDebug()<<"m4";
 }
 
 void MainWindow::on_buyBtn_clicked(){
@@ -160,7 +172,7 @@ void MainWindow::on_buyBtn_clicked(){
         gm->buyAsset();
     }
     delete comfirmBox;
-    if (gm->checkEndTurn()) endTurn();
+    endTurn();
 }
 
 void MainWindow::on_buildBtn_clicked(){
@@ -176,14 +188,19 @@ void MainWindow::on_tradeBtn_clicked(){
 }
 
 void MainWindow::endTurn(){
+    ui->rollDiceBtn->setEnabled(true);
     ui->buyBtn->setEnabled(false);
     ui->endBtn->setEnabled(false);
     ui->buildBtn->setEnabled(false);
     gm->moveToNextPlayer();
+    ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete d;
+    delete gm;
+    delete scene;
 }
 

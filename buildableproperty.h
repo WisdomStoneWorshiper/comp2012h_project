@@ -16,6 +16,7 @@ public:
     unsigned getLevelOfWifiCoverage();
     void increaseWifiCoverage();
     void addVendingMachines();
+    QString getBoxInfo() override;
 private:
     Color propertyColor;
     unsigned levelOfWifiCoverage;

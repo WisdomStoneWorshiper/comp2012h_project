@@ -26,11 +26,12 @@ public:
 //    bool findCurrentBox(Box*);
 
 private slots:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+   void mousePressEvent(QGraphicsSceneMouseEvent *event);
 private:
     unsigned id;
     QString name;
     double p1XPosition,p1YPosition;
+    QMessageBox msgBox;
     //queue<Player> playerOnThisBox;
 };
 

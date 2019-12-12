@@ -20,7 +20,7 @@ void GameManager::init(unsigned num,  vector<Box*> boxList, vector<Player*> play
     gameField=boxList;
     this->playerList=playerList;
     currentPlayer=this->playerList.front();
-    //deck->shuffle();
+    deck->shuffle();
 }
 
 //void GameManager::setCurrentPlayer(Player*p){

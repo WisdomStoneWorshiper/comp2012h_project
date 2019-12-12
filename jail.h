@@ -6,6 +6,7 @@
 class Jail : public Box{
 public:
     Jail(unsigned, QString);
+    Jail(const Jail &);
     double getJailP1XPosition();
     double getJailP1YPosition();
     void setJailP1Position(double, double);

@@ -4,6 +4,13 @@ Jail::Jail(unsigned id, QString name):Box(id,name){
 
 }
 
+Jail::Jail(const Jail & j):Box(j)
+                            , jailP1XPosition(j.jailP1XPosition)
+                            , jailP1YPosition(j.jailP1YPosition)
+{
+
+}
+
 double Jail::getJailP1XPosition(){
     return jailP1XPosition;
 }

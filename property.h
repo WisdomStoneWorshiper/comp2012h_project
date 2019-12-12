@@ -10,7 +10,7 @@ using namespace std;
 class Property: public Box{
 public:
     Property(unsigned, QString, unsigned, unsigned);
-    //Property(const Property &);
+    Property(const Property &);
     ~Property();
     QString getBoxInfo() override;
     unsigned getPropertyPrice();

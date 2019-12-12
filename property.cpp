@@ -9,9 +9,14 @@ Property::Property(unsigned id, QString name, unsigned price, unsigned rent):
     mortgage=false;
 }
 
-//Property::Property(const Property &p){
+Property::Property(const Property &p):Box(p)
+                                    , propertyPrice(p.propertyPrice)
+                                    , rentOfProperty(p.rentOfProperty)
+                                    , mortgage(p.mortgage)
+                                    , ownerId(p.ownerId)
+{
 
-//}
+}
 
 Property::~Property(){
 

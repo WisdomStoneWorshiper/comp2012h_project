@@ -4,8 +4,16 @@ Box::Box(unsigned id, QString name) :id(id), name(name){
 
 }
 
-Box::Box(const Box &box){
-
+Box::Box(const Box &box):id(box.id)
+                        , name(box.name)
+                        , p1XPosition(box.p1XPosition)
+                        , p1YPosition(box.p1YPosition)
+                        //, msgBox(box.msgBox)
+{
+    this->setPos(box.pos());
+    this->setRotation(box.rotation());
+    this->setPixmap(box.pixmap());
+    //this->msgBox(box.msgBox);
 }
 
 Box::~Box(){

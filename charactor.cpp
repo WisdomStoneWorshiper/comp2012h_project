@@ -17,9 +17,9 @@ void Charactor::addProperty(Property* name){
 }
 
 void Charactor::removeProperty(Property* name){
-    //owned_place.remove(name);
+    owned_place.remove(name);
 }
 
-vector <Property*> Charactor::getOwnedPropertyList(){
+list <Property*> Charactor::getOwnedPropertyList(){
     return owned_place;
 }

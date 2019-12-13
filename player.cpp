@@ -13,6 +13,7 @@ Player::Player(unsigned short id_num, QString name):Charactor(id_num){
     inJail=false;
     jailDiceCount[0]=0;
     jailDiceCount[1]=0;
+    losed=false;
 };
 
 Player::Player(const Player& player):Charactor(player){
@@ -52,10 +53,9 @@ int Player::getMoney() const{
 
 bool Player::getJailPass() const{
     qDebug()<<"c10";
-//    qDebug()<<this->jail_pass;
-//    if(jail_pass==0)
-//        return 0;
-    return jail_pass;
+    //macbook user can't return jail_pass, don't know do what
+    //return jail_pass;
+    return 1;
 }
 
 QString Player::getName() const{
@@ -168,4 +168,12 @@ void Player::saveJailDice(unsigned num){
     }
     //jailDiceCount[0]=jailDiceCount[1]=0;
 
+}
+
+bool Player::checkLosed(){
+    return losed;
+}
+
+void Player::setLosed(){
+    losed=true;
 }

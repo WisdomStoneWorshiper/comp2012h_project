@@ -8,9 +8,6 @@ Property::Property(unsigned id, QString name, unsigned price, unsigned rent):
 {
     ownerId=0;
     mortgage=false;
-    canMortgage=true;
-    mortgageBtn=proMsgBox.addButton(("Mortgage"), QMessageBox::ActionRole);
-    proMsgBox.addButton(QMessageBox::Ok);
 }
 
 Property::Property(const Property &p):Box(p)
@@ -58,11 +55,9 @@ void Property:: changeOwner(unsigned newOwnerId){
     ownerId=newOwnerId;
 }
 
-bool Property::getCanMortgage(){
-    return canMortgage;
-}
-void Property::setCanMortgage(bool action){
-    canMortgage=action;
+void Property::resetter(){
+    mortgage=false;
+    ownerId=0;
 }
 
 //void Property::mousePressEvent(QGraphicsSceneMouseEvent *event) {

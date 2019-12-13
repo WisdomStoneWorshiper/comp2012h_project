@@ -247,6 +247,14 @@ void MainWindow::trade(Player *seller, Property* target, unsigned price){
 }
 
 void MainWindow::endTurn(){
+    if (gm->winner()!=-1){
+        QMessageBox* winMsg=new QMessageBox();
+        winMsg->setText("Congrat!\nPlayer"+QString::number(gm->winner())+" win the game");
+        winMsg->exec();
+    }
+    if (gm->checkBankrupt()){
+        scene->removeItem(gm->getCurrentPlayer());
+    }
     qDebug()<<"e3";
     if (ui->rollDiceBtn->isEnabled()==false)
         ui->rollDiceBtn->setEnabled(true);
@@ -284,5 +292,8 @@ void MainWindow::on_mortgageBtn_clicked()
 }
 
 void MainWindow::mortgage(Property* target, Mod mod){
-
+    if (mod==Apply)
+        gm->mortgageAction(target,0);
+    else
+        gm->mortgageAction(target,1);
 }

@@ -40,15 +40,23 @@ void GameManager::moveToNextPlayer(){
 //        vector<Player *>::const_iterator p=find_if(playerList.begin(),playerList.end(),
 //                                                 [&](Player* q){ qDebug()<<q->getId()<<currentPlayer->getId();
 //                return q->getId()==currentPlayer->getId();});
+    if (checkBankrupt()){
+        vector<Player*>::const_iterator loser=find_if(playerList.begin(),playerList.end(),
+                                                      [&](const Player* target){return target->getId()==currentPlayer->getId();});
+        for (int i=0;i<currentPlayer->getOwnedPropertyList().size();++i){
+            Property* target=static_cast<Property*>(gameField[currentPlayer->getOwnedPropertyList()[i]]);
+            target->resetter();
+        }
+    }
+
+    do{
         if (currentPlayer!=playerList[numOfPlayer-1]){
-//            qDebug()<<"m"<<(*p)->getId();
-//            currentPlayer=*p;
-//            qDebug()<<currentPlayer->getId();
-//            qDebug()<<(*p)->getId();
             currentPlayer=playerList[currentPlayer->getId()];
         }
         else
             currentPlayer=playerList[0];
+    }while (currentPlayer->checkLosed()) ;
+
 }
 
 void GameManager::movePlayer(unsigned u){
@@ -314,7 +322,7 @@ void GameManager::tradeAction(Player* seller,Property*targetProperty,unsigned pr
     (*seller)+=price;
 }
 
-void GameManager::mortgageAction(Property *target, Mod mod){
+void GameManager::mortgageAction(Property *target, int mod){
     if (mod==Apply){
         target->setMortgage(true);
         (*currentPlayer)+=target->getPropertyPrice()/2;
@@ -322,4 +330,21 @@ void GameManager::mortgageAction(Property *target, Mod mod){
         target->setMortgage(false);
         (*currentPlayer)-=target->getPropertyPrice()/2*1.1;
     }
+}
+
+bool GameManager::checkBankrupt(){
+    return currentPlayer->getMoney()<0;
+}
+
+int GameManager::winner(){
+    int alivePlayerId=0, totalPlayerAlive=0;
+    for (int i=0;i<playerList.size();++i){
+        if (playerList[i]->checkLosed()==false && totalPlayerAlive>0){
+            return -1;
+        }else if (playerList[i]->checkLosed()==false){
+            alivePlayerId=playerList[i]->getId();
+            ++totalPlayerAlive;
+        }
+    }
+    return alivePlayerId;
 }

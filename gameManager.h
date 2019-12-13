@@ -50,7 +50,9 @@ public:
     vector<Box *> getGameField() const;
     void tradeAction(Player*,Property*,unsigned);
     enum Mod{Apply, Pay};
-    void mortgageAction(Property *, Mod);
+    void mortgageAction(Property *, int);
+    bool checkBankrupt();
+    int winner();
 private slots:
     //void on_
     void mortgageAction(unsigned,unsigned);

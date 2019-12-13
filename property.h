@@ -21,7 +21,7 @@ public:
     bool getMortgage();
     void setMortgage(bool);
     void changeOwner(unsigned);
-
+    virtual void resetter();
 //signals:
 //    void doMortgage(unsigned propertyId,unsigned ownerId);
 //private slots:

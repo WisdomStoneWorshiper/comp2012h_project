@@ -49,6 +49,8 @@ public:
     vector<Player*> getPlayerList() const;
     vector<Box *> getGameField() const;
     void tradeAction(Player*,Property*,unsigned);
+    enum Mod{Apply, Pay};
+    void mortgageAction(Property *, Mod);
 private slots:
     //void on_
     void mortgageAction(unsigned,unsigned);

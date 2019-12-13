@@ -41,6 +41,8 @@ void TradeWindow::init(Player* buyer){
             ui->sellerBox->addItem(playerList[target]->getName());
         }
     }
+    ui->sellerBox->clear();
+    ui->propertyBox->clear();
 }
 
 void TradeWindow::on_sellerBox_activated(const QString &sellerName)

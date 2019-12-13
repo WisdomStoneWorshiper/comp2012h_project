@@ -53,6 +53,7 @@ public:
     void mortgageAction(Property *, int);
     bool checkBankrupt();
     int winner();
+    bool haveArrestToSell();
 private slots:
     //void on_
     void mortgageAction(unsigned,unsigned);

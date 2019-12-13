@@ -143,7 +143,7 @@ void Player::saveJailDice(unsigned num){
         jailMessage->setText("You still in jail");
     }else if(jailDiceCount[0]!=0 && jailDiceCount[1]==0){
         if(jailDiceCount[0]==num){
-            inJail==false;
+            inJail=false;
             jailDiceCount[0]=0;
             jailMessage->setText("You release now");
         }else{
@@ -159,7 +159,7 @@ void Player::saveJailDice(unsigned num){
         }else{
             jailMessage->setText("You release now");
         }
-        inJail==false;
+        inJail=false;
         jailDiceCount[0]=jailDiceCount[1]=0;
     }
     int ok=jailMessage->exec();

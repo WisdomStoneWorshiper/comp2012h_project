@@ -41,12 +41,16 @@ void GameManager::moveToNextPlayer(){
 //                                                 [&](Player* q){ qDebug()<<q->getId()<<currentPlayer->getId();
 //                return q->getId()==currentPlayer->getId();});
     if (checkBankrupt()){
-        vector<Player*>::const_iterator loser=find_if(playerList.begin(),playerList.end(),
-                                                      [&](const Player* target){return target->getId()==currentPlayer->getId();});
+        //vector<Player*>::const_iterator loser=find_if(playerList.begin(),playerList.end(),
+          //                                            [&](const Player* target){return target->getId()==currentPlayer->getId();});
+        QMessageBox* loseMsg=new QMessageBox();
+        loseMsg->setText("Player"+QString::number(currentPlayer->getId())+" bankrupted! sosad");
+        loseMsg->exec();
         for (int i=0;i<currentPlayer->getOwnedPropertyList().size();++i){
             Property* target=static_cast<Property*>(gameField[currentPlayer->getOwnedPropertyList()[i]]);
             target->resetter();
         }
+        delete loseMsg;
     }
 
     do{
@@ -347,4 +351,10 @@ int GameManager::winner(){
         }
     }
     return alivePlayerId;
+}
+
+bool GameManager::haveArrestToSell(){
+    if (currentPlayer->getOwnedPropertyList().size()>0)
+        return true;
+    return false;
 }

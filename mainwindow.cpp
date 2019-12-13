@@ -206,8 +206,11 @@ void MainWindow::on_buyBtn_clicked(){
     if (choice==QMessageBox::Ok){
         gm->buyAsset();
     }
+    //the following line maybe crash, if crashed comment it
+    ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
     delete comfirmBox;
-    endTurn();
+    if (gm->checkBankrupt()==false)
+        endTurn();
 }
 
 void MainWindow::on_buildBtn_clicked(){
@@ -226,12 +229,31 @@ void MainWindow::on_buildBtn_clicked(){
     if (choice==QMessageBox::Ok){
         gm->build();
     }
+    //the following line maybe crash, if crashed comment it
+    ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
     delete comfirmBox;
-    endTurn();
+    if (gm->checkBankrupt()==false)
+        endTurn();
 }
 
 void MainWindow::on_endBtn_clicked(){
-    endTurn();
+    if (gm->checkBankrupt()){
+        QMessageBox* checkMsg=new QMessageBox();
+        checkMsg->setText("You are going to bankrupt\nAre you sure to end this turn without trying to sell the asset?");
+        checkMsg->setStandardButtons(QMessageBox::No|QMessageBox::Yes);
+        checkMsg->setDefaultButton(QMessageBox::No);
+        int choice=checkMsg->exec();
+        //here maybe crash
+        //if crashed change whole function to endTurn(); only and comment the rest of the part
+        if (choice==QMessageBox::No){
+            delete checkMsg;
+            return;
+        }else{
+            delete checkMsg;
+            endTurn();
+        }
+    }else
+        endTurn();
 }
 
 void MainWindow::on_tradeBtn_clicked(){

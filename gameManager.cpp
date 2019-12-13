@@ -310,3 +310,13 @@ void GameManager::tradeAction(Player* seller,Property*targetProperty,unsigned pr
     (*currentPlayer)-=price;
     (*seller)+=price;
 }
+
+void GameManager::mortgageAction(Property *target, Mod mod){
+    if (mod==Apply){
+        target->setMortgage(true);
+        (*currentPlayer)+=target->getPropertyPrice()/2;
+    }else if (mod==Pay){
+        target->setMortgage(false);
+        (*currentPlayer)-=target->getPropertyPrice()/2*1.1;
+    }
+}

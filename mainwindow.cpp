@@ -145,6 +145,8 @@ MainWindow::MainWindow(QWidget *parent)
     qDebug()<<"w5";
     t=new TradeWindow(p_list,map);
     connect(t,SIGNAL(doTrade(Player* ,Property*,unsigned)),this,SLOT(trade(Player*,Property*,unsigned)));
+    m=new MortgageWindow(p_list,map);
+    connect(m,SIGNAL(doMortgage(Property*, Mod)),this,SLOT(mortgage(Property*, Mod)));
     qDebug()<<"w6";
     ui->buyBtn->setEnabled(false);
     qDebug()<<"w7";
@@ -274,3 +276,13 @@ MainWindow::~MainWindow()
     delete scene;
 }
 
+
+void MainWindow::on_mortgageBtn_clicked()
+{
+    m->init(gm->getCurrentPlayer());
+    m->show();
+}
+
+void MainWindow::mortgage(Property* target, Mod mod){
+
+}

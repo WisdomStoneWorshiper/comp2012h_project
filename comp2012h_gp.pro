@@ -27,6 +27,7 @@ SOURCES += \
     jail.cpp \
     main.cpp \
     mainwindow.cpp \
+    mortgagewindow.cpp \
     player.cpp \
     property.cpp \
     restaurant.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     gameManager.h \
     jail.h \
     mainwindow.h \
+    mortgagewindow.h \
     player.h \
     property.h \
     restaurant.h \
@@ -56,6 +58,7 @@ HEADERS += \
     
 FORMS += \
     mainwindow.ui \
+    mortgagewindow.ui \
     rolldicewindow.ui \
     tradewindow.ui
 

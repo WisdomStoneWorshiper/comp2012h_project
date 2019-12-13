@@ -86,6 +86,3 @@ void Property::setCanMortgage(bool action){
 //    }
 //}
 
-QPushButton* Property::getMortgageBtn(){
-    return mortgageBtn;
-}

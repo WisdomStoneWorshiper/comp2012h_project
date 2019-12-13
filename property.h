@@ -21,9 +21,7 @@ public:
     bool getMortgage();
     void setMortgage(bool);
     void changeOwner(unsigned);
-    bool getCanMortgage();
-    void setCanMortgage(bool);
-    QPushButton* getMortgageBtn();
+
 //signals:
 //    void doMortgage(unsigned propertyId,unsigned ownerId);
 //private slots:
@@ -33,9 +31,7 @@ private:
     unsigned rentOfProperty;
     bool mortgage;
     unsigned ownerId;
-    bool canMortgage;
-    QMessageBox proMsgBox;
-    QPushButton* mortgageBtn;
+
 };
 
 #endif // PROPERTY_H

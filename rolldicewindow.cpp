@@ -36,6 +36,7 @@ void RollDiceWindow::keyPressEvent(QKeyEvent *e){
     }
 }
 
+
 unsigned RollDiceWindow::getValue(){
     return v;
 }

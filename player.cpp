@@ -55,7 +55,7 @@ bool Player::getJailPass() const{
 //    qDebug()<<this->jail_pass;
 //    if(jail_pass==0)
 //        return 0;
-    return 0;
+    return jail_pass;
 }
 
 QString Player::getName() const{
@@ -83,10 +83,13 @@ void Player::setPosition(unsigned pos){
 }
 
 void Player::changeJailPass(){
-    if(getJailPass() == false){
+    if(jail_pass==false){
+        qDebug()<<" Player::gainJailPass() true\n";
+          qDebug()<<this->getPlayerInfo();
         jail_pass = true;
     }else{
         jail_pass = false;
+          qDebug()<<" Player::gainJailPass() false";
     }
 }
 Player& Player::operator+=(int a){

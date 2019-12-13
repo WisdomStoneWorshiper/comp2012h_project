@@ -14,3 +14,4 @@ void Email::setMessage(QString s){
 Email::~ Email(){
 
 }
+

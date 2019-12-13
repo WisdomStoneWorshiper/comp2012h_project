@@ -38,19 +38,24 @@ EmailMove::EmailMove(int cardOrder){//assign corresponding emailIndex by the ema
 void EmailMove::emailAction(Player *p){ //return the id of map position
     switch (cardIndex){
         case 1:
+            setMessage("\n"+p->getPlayerInfo()+"\n");
             p->setPosition(7);
             p->setinJail(true);
             break;
         case 2:
+            setMessage("\n"+p->getPlayerInfo()+"\n");
             p->setPosition(0);
             break;
         case 3:
+            setMessage("\n"+p->getPlayerInfo()+"\n");
             p->setPosition(20);
             break;
         case 4:
+            setMessage("\n"+p->getPlayerInfo()+"\n");
             p->setPosition(27);
             break;
         case 5:
+         setMessage("\n"+p->getPlayerInfo()+"\n");
             p->setPosition(8);
             break;
     }

@@ -37,7 +37,7 @@ void Player::mousePressEvent(QGraphicsSceneMouseEvent *event){
 }
 
 QString Player::getPlayerInfo(){
-    return ("Player id: "+QString::number(this->getId())
+    return ("Player Id: "+QString::number(this->getId())
                 +"\nPlayer name: "+this->getName()
                 +"\n$: "+QString::number(this->getMoney())
                 +"\nJail Pass on hand? "+((this->getJailPass())?"Yes":"No"));
@@ -55,7 +55,7 @@ bool Player::getJailPass() const{
     qDebug()<<"c10";
     //macbook user can't return jail_pass, don't know do what
     //return jail_pass;
-    return 1;
+    return jail_pass;
 }
 
 QString Player::getName() const{
@@ -84,12 +84,12 @@ void Player::setPosition(unsigned pos){
 
 void Player::changeJailPass(){
     if(jail_pass==false){
-        qDebug()<<" Player::gainJailPass() true\n";
+        qDebug()<<" Player::changeJailPass() true\n";
           qDebug()<<this->getPlayerInfo();
         jail_pass = true;
     }else{
         jail_pass = false;
-          qDebug()<<" Player::gainJailPass() false";
+          qDebug()<<" Player::changeJailPass() false";
     }
 }
 Player& Player::operator+=(int a){
@@ -140,24 +140,28 @@ void Player::saveJailDice(unsigned num){
 
     if (jailDiceCount[0]==0){
         jailDiceCount[0]=num;
-        jailMessage->setText("You still in jail");
+        jailMessage->setText("Fail to Roll a SIX, \n\nYou still in jail");
     }else if(jailDiceCount[0]!=0 && jailDiceCount[1]==0){
         if(jailDiceCount[0]==num){
             inJail==false;
             jailDiceCount[0]=0;
-            jailMessage->setText("You release now");
+            jailMessage->setText("You will be released in next round");
+            setinJail(NORMAL);
         }else{
             jailDiceCount[1]=num;
-            jailMessage->setText("You still in jail");
+            jailMessage->setText("Fail to Roll a SIX, \n\nYou still in jail");
+
         }
     }else{
         if(!(jailDiceCount[0]==num||jailDiceCount[1]==num)){
             //inJail==false;
             //jailDiceCount[0]=jailDiceCount[1]=0;
             money-=500;
-            jailMessage->setText("You release now but you need to pay $500 fine");
+            jailMessage->setText("You have been the jail 3 round already\n\nYou will be released in next round but you need to pay $500 fine now");
+            setinJail(NORMAL);
         }else{
-            jailMessage->setText("You release now");
+            jailMessage->setText("You roll a SIX!\n\nYou will be released in next round");
+            setinJail(NORMAL);
         }
         inJail==false;
         jailDiceCount[0]=jailDiceCount[1]=0;

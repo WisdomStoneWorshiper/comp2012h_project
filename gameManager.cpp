@@ -21,6 +21,12 @@ void GameManager::init(unsigned num,  vector<Box*> boxList, vector<Player*> play
     this->playerList=playerList;
     currentPlayer=this->playerList.front();
     deck->shuffle();
+//    for (vector<Box*>::const_iterator target=gameField.begin();target!=gameField.end();++target){
+//        if(typeid ((*target))==typeid (BuildableProperty)|| (typeid ((*target))==typeid (Restaurant))){
+//            Property* temp=static_cast<Property*>(*target);
+//            Box::connect(temp,SIGNAL(doMortgage(unsigned ,unsigned)),SLOT(mortgageAction(unsigned,unsigned)));
+//        }
+//    }
 }
 
 //void GameManager::setCurrentPlayer(Player*p){
@@ -130,6 +136,8 @@ void GameManager::movePlayer(unsigned u){
 void GameManager::playerPositionSetter(Player *p, Box *b){
     //if (b->getId()<7){
     qDebug()<<p->getId()<<b->getName();
+    qDebug()<<currentPlayer->getJailPass();
+    qDebug()<<"c9";
     if (currentPlayer->getJailPass() && p->checkInJail()){
         currentPlayer->setinJail(false);
         currentPlayer->changeJailPass();
@@ -288,6 +296,17 @@ unsigned GameManager::getMoneyAfterBuild(){
         return currentPlayer->getMoney()-target->getCostPerLevelOfWifiCoverage();
 }
 
-//void GameManager::inJailAction(){
+vector<Player*> GameManager::getPlayerList() const{
+    return playerList;
+}
 
-//}
+vector<Box*> GameManager::getGameField() const{
+    return gameField;
+}
+
+void GameManager::tradeAction(Player* seller,Property*targetProperty,unsigned price){
+    currentPlayer->addProperty(targetProperty);
+    seller->removeProperty(targetProperty);
+    (*currentPlayer)-=price;
+    (*seller)+=price;
+}

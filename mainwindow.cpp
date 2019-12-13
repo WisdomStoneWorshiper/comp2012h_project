@@ -2,8 +2,6 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 
-
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -109,18 +107,25 @@ MainWindow::MainWindow(QWidget *parent)
             bool ok=false;
             QString p_name=QInputDialog::getText(this,"",QString("Plaese input player %1 name").arg(QString::number(i)),QLineEdit::Normal,"", &ok);
             if (ok){
+                qDebug()<<"c1";
                 Player* p=new Player(i,p_name);
+                 qDebug()<<"c3";
                 p_list.push_back(p);
+                 qDebug()<<"c4";
                 QString path;
                 path=((":/img/character/character")+QString::number(i)+(".png"));
+                 qDebug()<<"c5";
                 p->setPixmap(QPixmap(path));
+                 qDebug()<<"c6";
 //                if (i<4)
 //                    //p->setPos(map.front()->x()-150+20*i,map.front()->y()-120);
 //                    p->setPos(map.front()->getP1XPosition()+20*(i-1),map.front()->getP1YPosition());
 //                else
 //                    //p->setPos(map.front()->x()-150+20*(i-3),map.front()->y()-70);
 //                    p->setPos(map.front()->getP1XPosition()+20*(i-4),map.front()->getP1YPosition()-70);
-                gm->playerPositionSetter(p,map.front());
+                 qDebug()<<"c7";
+                gm->playerPositionSetter(p_list.back(),map.front());
+                 qDebug()<<"c8";
                 scene->addItem(p);
             }
 
@@ -128,14 +133,25 @@ MainWindow::MainWindow(QWidget *parent)
     }
 //    p_list.front()->setinJail(true);
 //    gm->playerPositionSetter(p_list.front(),jail);
+    qDebug()<<"w1";
     ui->gameArea->setScene(scene);
+    qDebug()<<"w2";
     ui->gameArea->show();
+    qDebug()<<"w3";
     //d=new RollDiceWindow(this);
     connect(d,SIGNAL(changevalue(unsigned)),this,SLOT(move(unsigned)));
+    qDebug()<<"w4";
     gm->init(numOfPlayer,map,p_list);
+    qDebug()<<"w5";
+    t=new TradeWindow(p_list,map);
+    connect(t,SIGNAL(doTrade(Player* ,Property*,unsigned)),this,SLOT(trade(Player*,Property*,unsigned)));
+    qDebug()<<"w6";
     ui->buyBtn->setEnabled(false);
+    qDebug()<<"w7";
     ui->endBtn->setEnabled(false);
+    qDebug()<<"w8";
     ui->buildBtn->setEnabled(false);
+    qDebug()<<"w9";
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
 
@@ -217,7 +233,15 @@ void MainWindow::on_endBtn_clicked(){
 }
 
 void MainWindow::on_tradeBtn_clicked(){
+//    Tradewindow* tw=new Tradewindow(gm->getCurrentPlayer(),gm->getPlayerList(),gm->getGameField());
+//    //connect(tw,SIGNAL(tradeAction(Property*, unsigned)),this,SLOT(trade(Property*, unsigned)));
+//    tw->show();
+    t->init(gm->getCurrentPlayer());
+    t->show();
+}
 
+void MainWindow::trade(Player *seller, Property* target, unsigned price){
+    gm->tradeAction(seller,target,price);
 }
 
 void MainWindow::endTurn(){

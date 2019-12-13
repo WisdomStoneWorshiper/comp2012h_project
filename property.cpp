@@ -1,4 +1,5 @@
 #include <property.h>
+#include <QDebug>
 
 Property::Property(unsigned id, QString name, unsigned price, unsigned rent):
     Box(id,name)
@@ -7,6 +8,9 @@ Property::Property(unsigned id, QString name, unsigned price, unsigned rent):
 {
     ownerId=0;
     mortgage=false;
+    canMortgage=true;
+    mortgageBtn=proMsgBox.addButton(("Mortgage"), QMessageBox::ActionRole);
+    proMsgBox.addButton(QMessageBox::Ok);
 }
 
 Property::Property(const Property &p):Box(p)
@@ -52,4 +56,36 @@ unsigned Property::getOwnerId(){
 
 void Property:: changeOwner(unsigned newOwnerId){
     ownerId=newOwnerId;
+}
+
+bool Property::getCanMortgage(){
+    return canMortgage;
+}
+void Property::setCanMortgage(bool action){
+    canMortgage=action;
+}
+
+//void Property::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+//    if (canMortgage==false)
+//        Box::mousePressEvent(event);
+//    else{
+//        proMsgBox.setText(this->getBoxInfo());
+////        msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::Ok);
+////        msgBox.button(QMessageBox::Yes)->setText("h");
+//        mortgageBtn->setText("Mortgage");
+//        int choice=proMsgBox.exec();
+//        if (choice==QMessageBox::ActionRole){
+//            qDebug()<<"good";
+//            doMortgage(this->getId(),ownerId);
+//        }else{
+//             qDebug()<<"bad";
+//        }
+
+//        //connect(mortgageButton,SIGNAL(released()),,)
+//        QGraphicsItem::mousePressEvent(event);
+//    }
+//}
+
+QPushButton* Property::getMortgageBtn(){
+    return mortgageBtn;
 }

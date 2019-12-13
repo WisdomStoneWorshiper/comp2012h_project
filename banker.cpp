@@ -6,19 +6,21 @@ Banker::Banker(unsigned short num):Charactor(num){
 }
 
 Banker::Banker(const Banker& b):Charactor(b.getId()){
-    mortgage_list = b.mortgage_list;
-    owned_place = b.owned_place;
+    mortgageId_list = b.mortgageId_list;
+    owned_place_id_list = b.owned_place_id_list;
 }
 
 Banker::~Banker(){
-    mortgage_list.clear();
+    mortgageId_list.clear();
 }
 
 void Banker::addMortgage(Property * name){
-    mortgage_list.push_back(name);
+    mortgageId_list.push_back(name->getId());
 }
 
 void Banker::foreclosure(Property * name){
-    //mortgage_list.remove(name);
+    vector<unsigned> ::const_iterator targetId=find_if(mortgageId_list.begin(),mortgageId_list.end(),
+                                                       [&](const unsigned& id){return id==name->getId();});
+    mortgageId_list.erase(targetId);
 }
 

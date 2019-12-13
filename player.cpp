@@ -1,11 +1,14 @@
 #include "player.h"
+#include <QDebug>
 
 Player::Player(unsigned short id_num, QString name):Charactor(id_num){
     money = 10000;
     position = 0;
     gpa = 0.0;
     state = NORMAL;
+    qDebug()<<"c2";
     jail_pass = false;
+    qDebug()<<"c3"<<jail_pass;
     user_name = name;
     inJail=false;
     jailDiceCount[0]=0;
@@ -16,8 +19,8 @@ Player::Player(const Player& player):Charactor(player){
     gpa=player.getGpa();
     money=player.getMoney();
     state=player.state;
-    owned_place=player.owned_place;
-    jail_pass =  player.getJailPass();
+    owned_place_id_list=player.owned_place_id_list;
+    jail_pass=player.jail_pass;
     user_name = player.getName();
     position = player.position;
     inJail=player.inJail;
@@ -48,7 +51,11 @@ int Player::getMoney() const{
 }
 
 bool Player::getJailPass() const{
-    return jail_pass;
+    qDebug()<<"c10";
+//    qDebug()<<this->jail_pass;
+//    if(jail_pass==0)
+//        return 0;
+    return 0;
 }
 
 QString Player::getName() const{

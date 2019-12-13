@@ -17,11 +17,16 @@ class RollDiceWindow : public QDialog
 
 public:
     explicit RollDiceWindow(QWidget *parent = nullptr);
-    ~RollDiceWindow();
+    ~RollDiceWindow() override;
     void keyPressEvent(QKeyEvent *) override ;
     unsigned getValue();
+
+
 signals:
     void changevalue(unsigned);
+
+
+
 private:
     Ui::RollDiceWindow *ui;
     QMovie* dice;

@@ -142,7 +142,7 @@ void GameManager::playerPositionSetter(Player *p, Box *b){
         currentPlayer->setinJail(false);
         currentPlayer->changeJailPass();
         QMessageBox* usePassMsg=new QMessageBox();
-        usePassMsg->setText("You have used the pass");
+        usePassMsg->setText("Lucky! You have a \"Escape Pass\", You can leave in next round\n\nYou have used the \"Escape Pass\"");
         usePassMsg->exec();
     }
     if (!(p->checkInJail())){
@@ -254,13 +254,16 @@ void GameManager::emailAction(Box* oldLocation){
     Box* newLocation=gameField[currentPlayer->getPosition()];
     qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     qDebug()<<"et1";
-    if (currentPlayer->getJailPass()){
-        currentPlayer->setinJail(false);
-        currentPlayer->changeJailPass();
-        QMessageBox* usePassMsg=new QMessageBox();
-        usePassMsg->setText("You have used the pass");
-        usePassMsg->exec();
-    }
+
+//    if (currentPlayer->getJailPass()){
+
+//        currentPlayer->setinJail(false);
+//        currentPlayer->changeJailPass();
+//        QMessageBox* usePassMsg=new QMessageBox();
+//        usePassMsg->setText("You have used the pass");
+//        usePassMsg->exec();
+//    }
+
     if (oldLocation->getId()<(newLocation)->getId()){
         qDebug()<<"et2";
         qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();

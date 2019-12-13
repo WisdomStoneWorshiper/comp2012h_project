@@ -14,6 +14,7 @@ Box::Box(const Box &box):id(box.id)
     this->setRotation(box.rotation());
     this->setPixmap(box.pixmap());
     //this->msgBox(box.msgBox);
+
 }
 
 Box::~Box(){

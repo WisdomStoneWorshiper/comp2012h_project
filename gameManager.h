@@ -23,6 +23,7 @@
 //using namespace std;
 
 class GameManager{
+
 public:
     GameManager();
     ~GameManager();
@@ -45,8 +46,12 @@ public:
    // void inJailAction();
     unsigned getMoneyAfterBuy();
     unsigned getMoneyAfterBuild();
+    vector<Player*> getPlayerList() const;
+    vector<Box *> getGameField() const;
+    void tradeAction(Player*,Property*,unsigned);
 private slots:
     //void on_
+    void mortgageAction(unsigned,unsigned);
 private:
     vector<Player*> playerList;
     vector<Box *> gameField;

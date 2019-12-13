@@ -9,7 +9,8 @@
 
 using namespace std;
 
-class Box : public QGraphicsPixmapItem {
+class Box : public QGraphicsPixmapItem{
+    //Q_OBJECT
 public:
     Box();
     Box(unsigned, QString);
@@ -25,12 +26,13 @@ public:
     virtual QString getBoxInfo();
 //    bool findCurrentBox(Box*);
 
-private slots:
+protected slots:
    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 private:
     unsigned id;
     QString name;
     double p1XPosition,p1YPosition;
+protected:
     QMessageBox msgBox;
     //queue<Player> playerOnThisBox;
 };

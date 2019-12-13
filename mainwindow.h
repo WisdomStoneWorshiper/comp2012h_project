@@ -17,6 +17,7 @@
 #include "restaurant.h"
 #include "buildableproperty.h"
 #include "jail.h"
+#include "tradewindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,6 +34,7 @@ public:
     void endTurn();
 public slots:
      void move(unsigned );
+     void trade(Player*,Property*,unsigned);
      void on_rollDiceBtn_clicked();
      void on_buyBtn_clicked();
      void on_buildBtn_clicked();
@@ -44,5 +46,6 @@ private:
     vector<Box> gameField;
     QGraphicsScene *scene;
     RollDiceWindow* d;
+    TradeWindow* t;
 };
 #endif // MAINWINDOW_H

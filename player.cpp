@@ -12,7 +12,7 @@ Player::Player(unsigned short id_num, QString name):Charactor(id_num){
     jailDiceCount[1]=0;
 };
 
-Player::Player(const Player& player):Charactor(player.getId()){
+Player::Player(const Player& player):Charactor(player){
     gpa=player.getGpa();
     money=player.getMoney();
     state=player.state;
@@ -21,6 +21,22 @@ Player::Player(const Player& player):Charactor(player.getId()){
     user_name = player.getName();
     position = player.position;
     inJail=player.inJail;
+}
+
+void Player::mousePressEvent(QGraphicsSceneMouseEvent *event){
+
+    msgBox.setText(this->getPlayerInfo());
+   // qDebug()<<this->getBoxInfo();
+   // qDebug()<<"I am ready!"<<msgBox.text()<<"done";
+    msgBox.exec();
+    QGraphicsItem::mousePressEvent(event);
+}
+
+QString Player::getPlayerInfo(){
+    return ("Player id: "+QString::number(this->getId())
+                +"\nPlayer name: "+this->getName()
+                +"\n$: "+QString::number(this->getMoney())
+                +"\nJail Pass on hand? "+((this->getJailPass())?"Yes":"No"));
 }
 
 float Player::getGpa() const{

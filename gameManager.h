@@ -34,13 +34,17 @@ public:
     void movePlayer(unsigned);
     void playerPositionSetter(Player*,Box*);
     bool ableToBuy();
-    bool ableToBuild();
+    bool ableToIncreaseWifi();
+    bool ableToAddVendingMachine();
     bool checkEndTurn();
     Player* & getCurrentPlayer();
     void buyAsset();
+    void build();
     void emailAction(Box*);
     QString getCurrentPlayerInfo();
-    void inJailAction();
+   // void inJailAction();
+    unsigned getMoneyAfterBuy();
+    unsigned getMoneyAfterBuild();
 private slots:
     //void on_
 private:

@@ -14,7 +14,8 @@ private:
     enum SCHOOL{ENGINEERING,SCIENCE,BUSSINESS, HUMANITIES};
     enum STATE{NORMAL, IMPRISONMENT};
     unsigned short position;
-    bool jail_pass, inJail;
+    bool jail_pass;
+    bool inJail;
     float gpa;
     int money;
     SCHOOL school;

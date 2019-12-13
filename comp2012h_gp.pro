@@ -32,7 +32,8 @@ SOURCES += \
     restaurant.cpp \
     rolldicewindow.cpp \
     email.cpp \
-    emailDeck.cpp
+    emailDeck.cpp \
+    tradewindow.cpp
 
 HEADERS += \
     banker.h \
@@ -50,12 +51,13 @@ HEADERS += \
     restaurant.h \
     rolldicewindow.h \
     email.h \
-    emailDeck.h
+    emailDeck.h \
+    tradewindow.h
     
 FORMS += \
-    boxinfo.ui \
     mainwindow.ui \
-    rolldicewindow.ui
+    rolldicewindow.ui \
+    tradewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

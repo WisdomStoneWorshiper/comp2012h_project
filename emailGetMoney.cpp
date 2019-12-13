@@ -8,31 +8,31 @@ EmailGetMoney::EmailGetMoney(int emailOrder){ //assign corresponding emailIndex 
 
     switch (emailOrder){
         case 1:
-            setMessage(getMessage()+"You got $1000 scholarship\n");
+            setMessage(getMessage()+"\nYou got $1000 scholarship\n");
             emailIndex = 1;
             break;
         case 2:
-            setMessage(getMessage()+"You got $500 refund from SU \n");
+            setMessage(getMessage()+"\nYou got $500 refund from SU \n");
             emailIndex = 2;
             break;
         case 3:
-            setMessage(getMessage()+"Pay $500 for printing quota\n");
+            setMessage(getMessage()+"\nPay $500 for printing quota\n");
             emailIndex = 3;
             break;
         case 4:
-            setMessage(getMessage()+"Pay $1000 for Hall fee\n");
+            setMessage(getMessage()+"\nPay $1000 for Hall fee\n");
             emailIndex = 4;
             break;
         case 5:
-            setMessage(getMessage()+"You got $200 after doing assignment for others");
+            setMessage(getMessage()+"\nYou got $200 ");
             emailIndex = 5;
             break;
         case 6:
-            setMessage(getMessage()+"Pay $500 for add octopus card valuse");
+            setMessage(getMessage()+"\nPay $500 for add octopus card valuse");
             emailIndex = 6;
             break;
         case 7:
-            setMessage(getMessage()+"$1000 Scholarship from Desmond for students who have 3.0 GPA or above\n");
+            setMessage(getMessage()+"\n$1000 Scholarship from Desmond for students who have 3.0 GPA or above\n");
             emailIndex = 7;
             break;
     }

@@ -1,5 +1,5 @@
 #include "emailDeck.h"
-
+#include <QDebug>
 EmailDeck::EmailDeck(){ 
         for(int i =1; i<=5 ; ++i){
             EmailMove * p = new EmailMove(i);
@@ -29,11 +29,13 @@ EmailDeck::~EmailDeck(){
 void EmailDeck::shuffle(){ //shuffle before the dequee isCompletelyUsed
 
      std::random_shuffle ( deck.begin(), deck.end() );
-
+     emailOrder = deck.begin();
+     qDebug()<<"do shuffle";
 }
 
 bool EmailDeck::isCompletelyUsed()const { //check if the double end queue go back to the first
-    return emailOrder == deck.begin();
+    return emailOrder == deck.end();
+    qDebug()<<"the deck completely Used ";
 }
 
 Email * EmailDeck ::getEmail(){

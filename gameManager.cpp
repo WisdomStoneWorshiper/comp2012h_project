@@ -138,8 +138,22 @@ void GameManager::movePlayer(unsigned u){
     }else if(QString::compare((b)->getName(),"Email",Qt::CaseInsensitive)==0){
         emailAction(b);
     }else if(QString::compare((b)->getName(),"TakeTheClass",Qt::CaseInsensitive)==0){
+
+        QMessageBox popUpContent;
+        popUpContent.setInformativeText("According to your disappointing mid-term result\n"
+                                         "\n"
+                                         "You have to take the make-up class now\n"
+                                         "\n"
+                                         "Roll the dice with 6 help you esacpe the class\n"
+                                         "\n"
+                                         "Or pay $500 after you fail 3 round in rolling 6");
+        popUpContent.setStandardButtons(QMessageBox::Ok);
+        popUpContent.setDefaultButton(QMessageBox::Ok);
+        popUpContent.exec();
+
         currentPlayer->setinJail(true);
         movePlayer(14);
+
     }
     delete rentMessage;
     qDebug()<<"t9";
@@ -150,12 +164,14 @@ void GameManager::playerPositionSetter(Player *p, Box *b){
     qDebug()<<p->getId()<<b->getName();
     qDebug()<<currentPlayer->getJailPass();
     qDebug()<<"c9";
+
     if (currentPlayer->getJailPass() && p->checkInJail()){
         currentPlayer->setinJail(false);
         currentPlayer->changeJailPass();
-        QMessageBox* usePassMsg=new QMessageBox();
-        usePassMsg->setText("Lucky! You have a \"Escape Pass\", You can leave in next round\n\nYou have used the \"Escape Pass\"");
-        usePassMsg->exec();
+
+        QMessageBox usePassMsg;
+        usePassMsg.setText("Lucky! You have a \"Escape Pass\", You can leave in next round\n\nNow You have no \"Escape Pass\"");
+        usePassMsg.exec();
     }
     if (!(p->checkInJail())){
         qDebug()<<"p2";
@@ -249,8 +265,12 @@ void GameManager::build(){
 }
 
 void GameManager::emailAction(Box* oldLocation){
+
+
+
     Email * e=deck->getEmail();
     QMessageBox * emailContent=new QMessageBox();
+
     emailContent->setInformativeText(e->getMessage());
     emailContent->setStandardButtons(QMessageBox::Ok);
     emailContent->setDefaultButton(QMessageBox::Ok);
@@ -258,8 +278,14 @@ void GameManager::emailAction(Box* oldLocation){
     qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     int choice=emailContent->exec();
     if (choice==QMessageBox::Ok){
+
         e->emailAction(currentPlayer);
     }
+
+    if(deck->isCompletelyUsed()){
+        deck->shuffle();
+    }else qDebug()<<"not completely Used the deck";
+
     qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     //vector<Box*>::const_iterator newLocation=find_if(gameField.begin(),gameField.end(),
       //                                   [&](Box* b){return b->getId()==currentPlayer->getPosition();});

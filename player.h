@@ -29,6 +29,7 @@ private:
 public:
     Player(unsigned short, QString);
     Player(const Player&);
+    ~Player();
     unsigned short getId() const;
     void addProperty(Property*);
     void removeProperty(Property*);
@@ -49,7 +50,7 @@ public:
     unsigned getNumOfRestaurant();
     void jailAction(unsigned);
     QString getPlayerInfo() const;
-    bool checkLosed();
+    bool checkLosed() const;
     void setLosed();
 
 public slots:

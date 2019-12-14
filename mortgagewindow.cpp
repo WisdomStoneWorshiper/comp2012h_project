@@ -13,6 +13,8 @@ MortgageWindow::MortgageWindow(const vector<Player*> &playerList, const vector<B
 MortgageWindow::~MortgageWindow()
 {
     delete ui;
+    playerList.clear();
+    gameField.clear();
 }
 
 void MortgageWindow::init(Player* currentPlayer){

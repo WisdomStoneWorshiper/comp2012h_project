@@ -26,7 +26,7 @@ class GameManager{
 public:
     GameManager();
     ~GameManager();
-    QGraphicsScene* & init(QWidget*);
+    QGraphicsScene* & init(QWidget* );
     void moveToNextPlayer();
     void movePlayer(unsigned);
     void playerPositionSetter(Player*,Box*);

@@ -2,8 +2,7 @@
 #include <QDebug>
 
 
-GameManager::GameManager():deck(new EmailDeck()),
-                           gameFieldScene(new QGraphicsScene())
+GameManager::GameManager():deck(new EmailDeck())
 {
     gameFieldScene=nullptr;
 }
@@ -26,10 +25,9 @@ GameManager::~GameManager(){
 //this function is used to initalize the game
 QGraphicsScene* & GameManager::init(QWidget* mainWin){
     //the code below is reset the game property if it is not the first game on the run time
-    if (gameFieldScene!=nullptr) {
+    if (gameFieldScene!=nullptr)
         delete gameFieldScene;
-        gameFieldScene=new QGraphicsScene();
-    }
+    gameFieldScene=new QGraphicsScene();
     if (!gameField.empty()){
         for (vector<Box*>::const_iterator target=gameField.begin();target!=gameField.end();++target){
             delete *target;
@@ -122,6 +120,7 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
         //after all property of box is setted, it pushed into a vector container
         gameField.push_back(b);
         b->setPixmap(QPixmap(path));
+        //qDebug()<<"on91";
         gameFieldScene->addItem(b);
     }
     file.close();

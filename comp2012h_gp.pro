@@ -16,10 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    banker.cpp \
     box.cpp \
     buildableproperty.cpp \
-    charactor.cpp \
     emailGetJailPass.cpp \
     emailGetMoney.cpp \
     emailMove.cpp \
@@ -37,10 +35,8 @@ SOURCES += \
     tradewindow.cpp
 
 HEADERS += \
-    banker.h \
     box.h \
     buildableproperty.h \
-    charactor.h \
     emailGetJailPass.h \
     emailGetMoney.h \
     emailMove.h \

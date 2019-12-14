@@ -1,9 +1,8 @@
 #include "gameManager.h"
 #include <QDebug>
 
-//convention constructor of GameManager
-GameManager::GameManager():deck(new EmailDeck())
-                           , banker(new Banker(0))
+
+GameManager::GameManager():deck(new EmailDeck())       
 {
     gameFieldScene=nullptr;
 }
@@ -12,7 +11,6 @@ GameManager::GameManager():deck(new EmailDeck())
 GameManager::~GameManager(){
     if (!playerList.empty()) playerList.clear();
     if (!gameField.empty()) gameField.clear();
-    if (banker!=nullptr) delete banker;
     if (deck!=nullptr) delete deck;
 }
 

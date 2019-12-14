@@ -32,7 +32,7 @@ EmailGetMoney::EmailGetMoney(int emailOrder){ //assign corresponding emailIndex 
             emailIndex = 6;
             break;
         case 7:
-            setMessage(getMessage()+"\n$1000 Scholarship from Desmond for students who have 3.0 GPA or above\n");
+            setMessage(getMessage()+"\n$1000 Scholarship from Desmond \n");
             emailIndex = 7;
             break;
     }
@@ -68,8 +68,7 @@ void EmailGetMoney::emailAction(Player *p){
             break;
         case 7:
             setMessage("\n"+p->getPlayerInfo()+"\n");
-            if(p->getGpa()>3)
-                *p+=1000;
+            *p+=1000;
             break;
 
     }

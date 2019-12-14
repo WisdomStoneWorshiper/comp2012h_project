@@ -49,7 +49,7 @@ public:
     unsigned getNumOfRestaurant();
     void jailAction(unsigned);
     QString getPlayerInfo() const;
-    bool checkLosed();
+    bool checkLosed() const;
     void setLosed();
 
 public slots:

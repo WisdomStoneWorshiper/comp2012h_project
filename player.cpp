@@ -135,7 +135,7 @@ void Player::setNumOfRestaurant(unsigned int r){
 }
 
 unsigned Player::getNumOfRestaurant(){
-    return numOfRestaurant;
+    return numOfRestaurant;//88
 }
 
 void Player::jailAction(unsigned num){

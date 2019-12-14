@@ -9,9 +9,25 @@ GameManager::GameManager():deck(new EmailDeck())
 
 //destructor of GameManager
 GameManager::~GameManager(){
-    if (!playerList.empty()) playerList.clear();
-    if (!gameField.empty()) gameField.clear();
-    if (deck!=nullptr) delete deck;
+
+    for(unsigned i=0; i < playerList.size(); i++){
+       delete playerList[i];
+    }
+
+    for(unsigned i=0; i < gameField.size(); i++){
+       delete playerList[i];
+    }
+    playerList.clear();
+    gameField.clear();
+
+//    if (!playerList.empty())
+//        playerList.clear();
+
+//    if (!gameField.empty())
+//        gameField.clear();
+
+//    if (deck!=nullptr)
+        delete deck;
 }
 
 QGraphicsScene* & GameManager::init(QWidget* mainWin){
@@ -152,6 +168,7 @@ void GameManager::movePlayer(unsigned u){
     playerPositionSetter(currentPlayer,b);
     currentPlayer->setPosition((b)->getId());
     QMessageBox* rentMessage=new QMessageBox();
+
     rentMessage->setStandardButtons(QMessageBox::Ok);
     rentMessage->setDefaultButton(QMessageBox::Ok);
     qDebug()<<"t1";

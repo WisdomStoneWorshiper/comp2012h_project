@@ -17,10 +17,13 @@ EmailDeck::EmailDeck(){
 
 }
 EmailDeck::~EmailDeck(){
+//    for(int i=0; i < deck.size(); i++){
+//        delete  deck[i];
+//    }
+    for(unsigned i = 0; deck[i]!=deck.back();++i)
+        delete deck[i];
+    delete deck.back();
 
-
-//    for(unsigned i = 0; deck[i]!=deck.back();++i)
-//        delete deck[i];
     deck.clear();
 
 }

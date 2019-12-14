@@ -46,10 +46,11 @@ public:
     void setinJail(bool);
     void setmoney(int);
     void setNumOfRestaurant(unsigned);
+    void setJail_pass(bool);
     unsigned getNumOfRestaurant();
     void jailAction(unsigned);
     QString getPlayerInfo() const;
-    bool checkLosed();
+    bool checkLosed() const;
     void setLosed();
 
 public slots:

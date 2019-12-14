@@ -1,5 +1,5 @@
-#ifndef CARD_H
-#define CARD_H
+#ifndef EMAIL_H
+#define EMAIL_H
 #include "QString"
 #include "player.h"
 
@@ -10,11 +10,9 @@ public:
     QString getMessage() const;
     void setMessage(QString);
     virtual void emailAction(Player *p) =0;
-    virtual ~Email() =0;
+    virtual ~Email();
 private:
     QString message;
-
-
 };
 
-#endif // CARD_H
+#endif // EMAIL_H

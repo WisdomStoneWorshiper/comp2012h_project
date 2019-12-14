@@ -11,7 +11,7 @@ QString Email::getMessage () const {
 void Email::setMessage(QString s){
     message = s;
 }
-Email::~ Email(){
+
+Email::~Email(){
 
 }
-

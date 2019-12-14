@@ -2,8 +2,7 @@
 #include <QDebug>
 
 
-GameManager::GameManager():deck(new EmailDeck()),
-                           gameFieldScene(new QGraphicsScene())
+GameManager::GameManager():deck(new EmailDeck())
 {
     gameFieldScene=nullptr;
 }
@@ -26,10 +25,9 @@ GameManager::~GameManager(){
 //this function is used to initalize the game
 QGraphicsScene* & GameManager::init(QWidget* mainWin){
     //the code below is reset the game property if it is not the first game on the run time
-    if (gameFieldScene!=nullptr) {
+    if (gameFieldScene!=nullptr)
         delete gameFieldScene;
-        gameFieldScene=new QGraphicsScene();
-    }
+    gameFieldScene=new QGraphicsScene();
     if (!gameField.empty()){
         for (vector<Box*>::const_iterator target=gameField.begin();target!=gameField.end();++target){
             delete *target;
@@ -49,7 +47,6 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
         QMessageBox::information(0, "error", file.errorString());
     }
     QTextStream fin(&file);
-    Box* jail;
     while (!fin.atEnd()){
         unsigned id, price, rent;
         QString line, name;
@@ -88,10 +85,9 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
             }
         }else if (b->getId()<14){
             if (b->getId()==7){
-                jail=b;
                 b->setPos(540,-130);
                 b->setP1Position(gameField.back()->getP1XPosition()+110,gameField.back()->getP1YPosition()-50);
-                static_cast<Jail*>(jail)->setJailP1Position(jail->getP1XPosition(),jail->getP1YPosition()+40);
+                static_cast<Jail*>(b)->setJailP1Position(b->getP1XPosition(),b->getP1YPosition()+40);
             }else if (b->getId()==8){
                 b->setRotation(-90);
                 b->setPos(540,(b->getId()-7)*90);
@@ -122,6 +118,7 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
         //after all property of box is setted, it pushed into a vector container
         gameField.push_back(b);
         b->setPixmap(QPixmap(path));
+        //qDebug()<<"on91";
         gameFieldScene->addItem(b);
     }
     file.close();
@@ -138,7 +135,7 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
                 QString path;
                 path=((":/img/character/character")+QString::number(i)+(".png"));
                 p->setPixmap(QPixmap(path));
-                playerPositionSetter(playerList.back(),gameField.front());
+                playerPositionSetter(p,gameField.front());
                 gameFieldScene->addItem(p);
             }
         }
@@ -252,11 +249,10 @@ void GameManager::movePlayer(unsigned u){
 }
 
 void GameManager::playerPositionSetter(Player *p, Box *b){
-    if (currentPlayer->getJailPass() && p->checkInJail()){
+    if (p->getJailPass() && p->checkInJail()){
         qDebug()<<"c11";
-        currentPlayer->setinJail(false);
-        currentPlayer->changeJailPass();
-
+        p->setinJail(false);
+        p->changeJailPass();
         QMessageBox usePassMsg;
         usePassMsg.setText("Lucky! You have a \"Escape Pass\", You can leave in next round\n\nNow You have no \"Escape Pass\"");
         usePassMsg.exec();

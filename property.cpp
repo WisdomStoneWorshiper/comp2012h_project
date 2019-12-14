@@ -61,24 +61,4 @@ void Property::resetter(){
     ownerId=0;
 }
 
-//void Property::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-//    if (canMortgage==false)
-//        Box::mousePressEvent(event);
-//    else{
-//        proMsgBox.setText(this->getBoxInfo());
-////        msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::Ok);
-////        msgBox.button(QMessageBox::Yes)->setText("h");
-//        mortgageBtn->setText("Mortgage");
-//        int choice=proMsgBox.exec();
-//        if (choice==QMessageBox::ActionRole){
-//            qDebug()<<"good";
-//            doMortgage(this->getId(),ownerId);
-//        }else{
-//             qDebug()<<"bad";
-//        }
-
-//        //connect(mortgageButton,SIGNAL(released()),,)
-//        QGraphicsItem::mousePressEvent(event);
-//    }
-//}
 

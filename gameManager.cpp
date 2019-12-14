@@ -2,7 +2,8 @@
 #include <QDebug>
 
 
-GameManager::GameManager():deck(new EmailDeck())       
+GameManager::GameManager():deck(new EmailDeck()),
+                           gameFieldScene(new QGraphicsScene())
 {
     gameFieldScene=nullptr;
 }
@@ -19,15 +20,30 @@ GameManager::~GameManager(){
     if (!playerList.empty()) playerList.clear();
     if (!gameField.empty()) gameField.clear();
     if (deck!=nullptr) delete deck;
-    delete gameFieldScene;
+    if (gameFieldScene!=nullptr) delete gameFieldScene;
 }
 
-//
+//this function is used to initalize the game
 QGraphicsScene* & GameManager::init(QWidget* mainWin){
-    if (gameFieldScene!=nullptr) delete gameFieldScene;
-    if (!gameField.empty()) gameField.clear();
-    if (!playerList.empty()) playerList.clear();
-    gameFieldScene=new QGraphicsScene();
+    //the code below is reset the game property if it is not the first game on the run time
+    if (gameFieldScene!=nullptr) {
+        delete gameFieldScene;
+        gameFieldScene=new QGraphicsScene();
+    }
+    if (!gameField.empty()){
+        for (vector<Box*>::const_iterator target=gameField.begin();target!=gameField.end();++target){
+            delete *target;
+        }
+        gameField.clear();
+    }
+    if (!playerList.empty()) {
+        for (vector<Player*>::const_iterator target=playerList.begin();target!=playerList.end();++target){
+            delete *target;
+        }
+        playerList.clear();
+    }
+    //the code below is initalizing the Box object
+    //first it load a text file contain Box property
     QFile file(":/map_data/map.txt");
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "error", file.errorString());
@@ -40,6 +56,7 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
         Box* b;
         QString path;
         fin>>id>>name;
+        //this if statement is determinating which sub-class of this box belongs to
         if (id%7==0 || name=="email"){
             if (id==7){
                 b=new Jail(id, name);
@@ -59,7 +76,8 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
             b=new BuildableProperty(id,(name),c,price,rent);
             path=(":/img/propertyAsset/")+(b->getName())+("B.png");
         }
-        if ( b->getId()<7){
+        //this if statement is setting the graphical view of the box object
+        if (b->getId()<7){
             b->setRotation(180);
             if (b->getId()==0){
                 b->setPos(0,0);
@@ -101,12 +119,14 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
                 b->setP1Position(gameField.back()->getP1XPosition(),gameField.back()->getP1YPosition()-90);
             }
         }
+        //after all property of box is setted, it pushed into a vector container
         gameField.push_back(b);
         b->setPixmap(QPixmap(path));
         gameFieldScene->addItem(b);
     }
     file.close();
     bool ok=false;
+    //this code below is initalizing player object
     numOfPlayer=QInputDialog::getInt(mainWin,"","Plaese input number of player (2-6)",3,2,6,1,&ok);
     if (ok){
         for (unsigned i=1;i<=numOfPlayer;++i){
@@ -132,7 +152,9 @@ Player* & GameManager::getCurrentPlayer(){
     return currentPlayer;
 }
 
+//this function is used to find and set current player
 void GameManager::moveToNextPlayer(){
+    //if current player bankrupted (lose the game), reset the property owned by him/her
     if (checkBankrupt()){
         QMessageBox* loseMsg=new QMessageBox();
         loseMsg->setText("Player"+QString::number(currentPlayer->getId())+" bankrupted! sosad");
@@ -142,9 +164,10 @@ void GameManager::moveToNextPlayer(){
             target->resetter();
         }
         delete loseMsg;
+        currentPlayer->setLosed();
         gameFieldScene->removeItem(currentPlayer);
     }
-
+    //find next player who is not bankrupted
     do{
         if (currentPlayer!=playerList[numOfPlayer-1]){
             currentPlayer=playerList[currentPlayer->getId()];
@@ -155,6 +178,7 @@ void GameManager::moveToNextPlayer(){
 
 }
 
+//this function is used to handle moving player
 void GameManager::movePlayer(unsigned u){
     Box* b=(gameField[(currentPlayer->getPosition()+u)%28]);
     if (currentPlayer->getPosition()>(b)->getId()) (*currentPlayer)+=2000;
@@ -228,6 +252,7 @@ void GameManager::movePlayer(unsigned u){
 
 void GameManager::playerPositionSetter(Player *p, Box *b){
     if (currentPlayer->getJailPass() && p->checkInJail()){
+        qDebug()<<"c11";
         currentPlayer->setinJail(false);
         currentPlayer->changeJailPass();
 

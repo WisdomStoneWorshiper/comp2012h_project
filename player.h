@@ -22,7 +22,8 @@ private:
     STATE state;
     QString user_name;
     unsigned numOfRestaurant;
-    int jailDiceCount[2];
+    //int jailDiceCount[2];
+    unsigned jailTurnCounter;
     QMessageBox msgBox;
     bool losed;
 public:
@@ -47,7 +48,7 @@ public:
     void setSchool(SCHOOL);
     void setNumOfRestaurant(unsigned);
     unsigned getNumOfRestaurant();
-    void saveJailDice(unsigned);
+    void jailAction(unsigned);
     QString getPlayerInfo();
     bool checkLosed();
     void setLosed();

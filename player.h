@@ -29,6 +29,7 @@ private:
 public:
     Player(unsigned short, QString);
     Player(const Player&);
+    ~Player();
     unsigned short getId() const;
     void addProperty(Property*);
     void removeProperty(Property*);

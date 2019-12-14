@@ -21,12 +21,8 @@ public:
     void keyPressEvent(QKeyEvent *) override ;
     unsigned getValue();
 
-
-
 signals:
     void changevalue(unsigned);
-
-
 
 private:
     Ui::RollDiceWindow *ui;

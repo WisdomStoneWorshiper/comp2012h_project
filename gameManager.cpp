@@ -9,6 +9,7 @@ GameManager::GameManager():deck(new EmailDeck())
 
 //destructor of GameManager
 GameManager::~GameManager(){
+<<<<<<< HEAD
 
 //    for(unsigned i=0; i < playerList.size(); i++){
 //       delete playerList[i];
@@ -28,8 +29,22 @@ GameManager::~GameManager(){
 
     if (deck!=nullptr)
         delete deck;
+=======
+    for (vector<Player*>::const_iterator target=playerList.begin();target!=playerList.end();++target){
+        delete *target;
+    }
+    for (vector<Box*>::const_iterator target=gameField.begin();target!=gameField.end();++target){
+        delete *target;
+    }
+
+    if (!playerList.empty()) playerList.clear();
+    if (!gameField.empty()) gameField.clear();
+    if (deck!=nullptr) delete deck;
+    delete gameFieldScene;
+>>>>>>> 083074d47388fe9a68dbcc2a9b675133e413c826
 }
 
+//
 QGraphicsScene* & GameManager::init(QWidget* mainWin){
     if (gameFieldScene!=nullptr) delete gameFieldScene;
     if (!gameField.empty()) gameField.clear();

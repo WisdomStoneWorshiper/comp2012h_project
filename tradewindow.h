@@ -33,6 +33,8 @@ private slots:
 
     void on_comfirmBtn_clicked();
 
+    void on_buyerBox_activated(const QString &arg1);
+
 private:
     Ui::TradeWindow *ui;
     vector<Player*> playerList;

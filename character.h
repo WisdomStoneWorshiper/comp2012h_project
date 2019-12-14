@@ -1,24 +1,22 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef CHARACTER_H
+#define CHARACTER_H
 
-#include "charactor.h"
-#include <QString>
-#include <QMessageBox>
-#include <list>
-#include <QGraphicsPixmapItem>
+#endif // CHARACTER_H
+#include "property.h"
 
 using namespace std;
 
-class Player: public QGraphicsPixmapItem{
-
-
+class Character
+{
 private:
     vector <unsigned> owned_place_id_list;
     const unsigned short id;
+    enum STATE{NORMAL, IMPRISONMENT};
     unsigned short position;
     bool jail_pass;
     bool inJail;
     int money;
+    STATE state;
     QString user_name;
     unsigned numOfRestaurant;
     int jailDiceCount[2];
@@ -26,33 +24,34 @@ private:
     bool losed;
 
 public:
-    Player(unsigned short, QString);
-    Player(const Player&);
+    Character(unsigned short, QString name);
+    Character(const Character&);
+
     unsigned short getId() const;
-    void addProperty(Property*);
-    void removeProperty(Property*);
     vector <unsigned> getOwnedPropertyList() const;
     int getMoney() const;
+    void setmoney(int);
     bool getJailPass() const;
     QString getName() const;
-    bool buyProperty(Property*);
-    void changeJailPass();
     unsigned short getPosition() const;
     void setPosition(unsigned);
-    Player& operator+=(int);
-    Player& operator-=(int);
-    bool checkInJail() const;
+    void addProperty(Property*);
+    void removeProperty(Property*);
+    bool buyProperty(Property*);
+    void changeJailPass();
+    bool checkInJail();
     void setinJail(bool);
-    void setmoney(int);
+    Character& operator+=(int);
+    Character& operator-=(int);
+
+    void setState(STATE);
+    unsigned getNumOfRestaurant() const;
     void setNumOfRestaurant(unsigned);
-    unsigned getNumOfRestaurant();
     void saveJailDice(unsigned);
-    QString getPlayerInfo() const;
-    bool checkLosed() const;
+    QString getPlayerInfo();
+    bool checkLosed();
     void setLosed();
 
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *);
 };
-
-#endif // PLAYER_H

@@ -1,11 +1,9 @@
 #include "player.h"
 #include <QDebug>
 
-Player::Player(unsigned short id_num, QString name):Charactor(id_num){
+Player::Player(unsigned short id_num, QString name): id(id_num){
     money = 10000;
     position = 0;
-    gpa = 0.0;
-    state = NORMAL;
     qDebug()<<"c2";
     jail_pass = false;
     qDebug()<<"c3"<<jail_pass;
@@ -16,15 +14,33 @@ Player::Player(unsigned short id_num, QString name):Charactor(id_num){
     losed=false;
 };
 
-Player::Player(const Player& player):Charactor(player){
-    gpa=player.getGpa();
+Player::Player(const Player& player):id(player.id){
+    owned_place_id_list = player.owned_place_id_list;
+    money = player.getMoney();
     money=player.getMoney();
-    state=player.state;
     owned_place_id_list=player.owned_place_id_list;
     jail_pass=player.jail_pass;
     user_name = player.getName();
     position = player.position;
     inJail=player.inJail;
+}
+
+unsigned short Player::getId() const{
+    return id;
+}
+
+void Player::addProperty(Property* name){
+    owned_place_id_list.push_back(name->getId());
+}
+
+void Player::removeProperty(Property* name){
+    vector<unsigned> ::const_iterator targetId=find_if(owned_place_id_list.begin(),owned_place_id_list.end(),
+                                                       [&](const unsigned& id){return id==name->getId();});
+    owned_place_id_list.erase(targetId);
+}
+
+vector <unsigned> Player::getOwnedPropertyList() const{
+    return owned_place_id_list;
 }
 
 void Player::mousePressEvent(QGraphicsSceneMouseEvent *event){
@@ -36,16 +52,13 @@ void Player::mousePressEvent(QGraphicsSceneMouseEvent *event){
     QGraphicsItem::mousePressEvent(event);
 }
 
-QString Player::getPlayerInfo(){
+QString Player::getPlayerInfo() const{
     return ("Player Id: "+QString::number(this->getId())
                 +"\nPlayer name: "+this->getName()
                 +"\n$: "+QString::number(this->getMoney())
                 +"\nJail Pass on hand? "+((this->getJailPass())?"Yes":"No"));
 }
 
-float Player::getGpa() const{
-    return gpa;
-}
 
 int Player::getMoney() const{
     return money;
@@ -102,30 +115,19 @@ Player& Player::operator-=(int a){
     return *this;
 }
 
-bool Player:: checkInJail(){
+bool Player:: checkInJail() const{
     return inJail;
 }
 
 void Player::setinJail(bool state){
-    inJail=state;
+    inJail = state;
 }
 
-void Player::setGpa(float points){
-    gpa = points;
-}
-
-void Player::setState(STATE a){
-    state = a;
-}
 
 void Player::setmoney(int a){
     money = a;
 }
 
-void Player::setSchool(SCHOOL a){
-    school = a;
-
-}
 
 void Player::setNumOfRestaurant(unsigned int r){
     numOfRestaurant=r;
@@ -146,7 +148,7 @@ void Player::saveJailDice(unsigned num){
             inJail=false;
             jailDiceCount[0]=0;
             jailMessage->setText("You will be released in next round");
-            setinJail(NORMAL);
+            setinJail(false);
         }else{
             jailDiceCount[1]=num;
             jailMessage->setText("Fail to Roll a SIX, \n\nYou still in jail");
@@ -158,10 +160,10 @@ void Player::saveJailDice(unsigned num){
             //jailDiceCount[0]=jailDiceCount[1]=0;
             money-=500;
             jailMessage->setText("You have been the jail 3 round already\n\nYou will be released in next round but you need to pay $500 fine now");
-            setinJail(NORMAL);
+            setinJail(false);
         }else{
             jailMessage->setText("You roll a SIX!\n\nYou will be released in next round");
-            setinJail(NORMAL);
+            setinJail(false);
         }
         inJail=false;
         jailDiceCount[0]=jailDiceCount[1]=0;
@@ -174,7 +176,7 @@ void Player::saveJailDice(unsigned num){
 
 }
 
-bool Player::checkLosed(){
+bool Player::checkLosed() const{
     return losed;
 }
 

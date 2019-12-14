@@ -7,7 +7,6 @@
 #include <QElapsedTimer>
 
 #include "player.h"
-#include "banker.h"
 
 #include "restaurant.h"
 #include "buildableproperty.h"
@@ -62,7 +61,6 @@ private:
     vector<Box *> gameField;
     unsigned numOfPlayer;
     Player* currentPlayer;
-    Banker* banker;
     QElapsedTimer* timer;
     EmailDeck* deck;
 };

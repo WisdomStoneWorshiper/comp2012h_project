@@ -28,7 +28,8 @@ QString Property::getBoxInfo(){
             +"\nPrice: " + QString::number(propertyPrice)
             +"\nMortgage value: " + QString::number(propertyPrice/2)
             +"\nIn mortgage?" + (mortgage?"Yes":"No")
-            +"\nOwner player id:" + (ownerId==0?"Banker":"Player"+QString::number(ownerId)));
+            +"\nOwner player Id:" + (ownerId==0?"Banker":"Player"+QString::number(ownerId))
+            +"\n");
 }
 
 unsigned Property::getRentOfProperty(){

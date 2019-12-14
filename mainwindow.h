@@ -6,7 +6,7 @@
 #include <QInputDialog>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
-
+#include <QTextStream>
 #include <QFile>
 #include <QMessageBox>
 #include <QComboBox>

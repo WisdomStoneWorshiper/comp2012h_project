@@ -39,7 +39,8 @@ QString Player::getPlayerInfo(){
     return ("Player Id: "+QString::number(this->getId())
                 +"\nPlayer name: "+this->getName()
                 +"\n$: "+QString::number(this->getMoney())
-                +"\nJail Pass on hand? "+((this->getJailPass())?"Yes":"No"));
+                +"\nJail Pass on hand? "+((this->getJailPass())?"Yes":"No")
+                +"\n\nState: " + (inJail?"Imprisonnment":"Out of Jail"));
 }
 
 float Player::getGpa() const{
@@ -54,6 +55,7 @@ bool Player::getJailPass() const{
     qDebug()<<"c10";
     //macbook user can't return jail_pass, don't know do what
     //return jail_pass;
+
     return jail_pass;
 }
 

@@ -24,6 +24,10 @@ Player::Player(const Player& player):id(player.id){
     inJail=player.inJail;
 }
 
+Player::~Player(){
+    owned_place_id_list.clear();
+}
+
 unsigned short Player::getId() const{
     return id;
 }

@@ -5,121 +5,30 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , gm(new GameManager())
-    , scene(new QGraphicsScene())
     , d(new RollDiceWindow())
 {
     ui->setupUi(this);
-    vector<Box*> map;
-    QFile file(":/map_data/map.txt");
-    if(!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "error", file.errorString());
-    }
-    QTextStream fin(&file);
-    Box* jail;
-    while (!fin.atEnd()){
-        unsigned id, price, rent;
-        QString line, name;
-        Box* b;
-        QString path;
-        fin>>id>>name;
-        if (id%7==0 || name=="email"){
-            if (id==7){
-                b=new Jail(id, name);
-            }else b=new Box(id,name);
-            path=(":/img/nonProperty/")+(b->getName())+(".png");
-        }else if(id==4||id==11||id==17||id==24){
-            fin>>price>>rent;
-            b=new Restaurant(id,name,price,rent);
-            path=(":/img/propertyAsset/")+(b->getName())+("B.png");
-        }else{
-            Color c;
-            fin>>price>>rent;
-            if (id<7) c=Yellow;
-            else if (id<14) c=Blue;
-            else if (id<21) c=Green;
-            else c=Red;
-            b=new BuildableProperty(id,(name),c,price,rent);
-            path=(":/img/propertyAsset/")+(b->getName())+("B.png");
-        }
-        if ( b->getId()<7){
-            b->setRotation(180);
-            if (b->getId()==0){
-                b->setPos(0,0);
-                b->setP1Position(b->x()-130,b->y()-120);
-            }else{
-                b->setPos((b->getId())*90,0);
-                b->setP1Position(map.front()->getP1XPosition()+130+90*(b->getId()-1),map.front()->getP1YPosition());
-            }
-        }else if (b->getId()<14){
-            if (b->getId()==7){
-                jail=b;
-                b->setPos(540,-130);
-                b->setP1Position(map.back()->getP1XPosition()+110,map.back()->getP1YPosition()-50);
-                static_cast<Jail*>(jail)->setJailP1Position(jail->getP1XPosition(),jail->getP1YPosition()+40);
-            }else if (b->getId()==8){
-                b->setRotation(-90);
-                b->setPos(540,(b->getId()-7)*90);
-                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+130);
-            }else{
-                b->setRotation(-90);
-                b->setPos(540,(b->getId()-7)*90);
-                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+90);
-            }
-        }else if (b->getId()<21){
-            if (b->getId()==14){
-                b->setPos(540,540);
-                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()+100);
-            }else{
-                b->setPos(630-(b->getId()-13)*90,540);
-                b->setP1Position(map.back()->getP1XPosition()-90,map.back()->getP1YPosition());
-            }
-        } else {
-            b->setRotation(90);
-            if (b->getId()==21){
-                b->setPos(0,540);
-                b->setP1Position(map.back()->getP1XPosition()-130,map.back()->getP1YPosition());
-            }else{
-                b->setPos(0,630-(b->getId()-20)*90);
-                b->setP1Position(map.back()->getP1XPosition(),map.back()->getP1YPosition()-90);
-            }
-        }
-        map.push_back(b);
-        b->setPixmap(QPixmap(path));
-        scene->addItem(b);
-    }
-    file.close();
-    bool ok=false;
-    vector<Player*> p_list;
-    unsigned numOfPlayer=QInputDialog::getInt(this,"","Plaese input number of player (2-6)",3,2,6,1,&ok);
-    if (ok){
-        for (unsigned i=1;i<=numOfPlayer;++i){
-
-            bool ok=false;
-            QString p_name=QInputDialog::getText(this,"",QString("Plaese input player %1 name").arg(QString::number(i)),QLineEdit::Normal,"", &ok);
-            if (ok){
-                Player* p=new Player(i,p_name);
-                p_list.push_back(p);
-                QString path;
-                path=((":/img/character/character")+QString::number(i)+(".png"));
-                p->setPixmap(QPixmap(path));
-                gm->playerPositionSetter(p_list.back(),map.front());
-                scene->addItem(p);
-            }
-
-        }
-    }
-    ui->gameArea->setScene(scene);
+    ui->gameArea->setScene(gm->init(this));
     ui->gameArea->show();
     connect(d,SIGNAL(changevalue(unsigned)),this,SLOT(move(unsigned)));
-    gm->init(numOfPlayer,map,p_list);
-    t=new TradeWindow(p_list,map);
+    t=new TradeWindow(gm->getPlayerList(),gm->getGameField());
     connect(t,SIGNAL(doTrade(Player* ,Property*,unsigned)),this,SLOT(trade(Player*,Property*,unsigned)));
-    m=new MortgageWindow(p_list,map);
+    m=new MortgageWindow(gm->getPlayerList(),gm->getGameField());
     connect(m,SIGNAL(doMortgage(Property*, Mod)),this,SLOT(mortgage(Property*, Mod)));
     ui->buyBtn->setEnabled(false);
     ui->endBtn->setEnabled(false);
     ui->buildBtn->setEnabled(false);
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
+}
+
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+    delete d;
+    delete gm;
+    delete t;
+    delete m;
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
@@ -137,7 +46,6 @@ void MainWindow::move (unsigned t){
         endTurn();
     }else{
     gm->movePlayer(t);
-//    ui->endBtn->setEnabled(true);
     if (gm->ableToBuy()){
         ui->buyBtn->setEnabled(true);
     }else if(gm->ableToIncreaseWifi()||gm->ableToAddVendingMachine()){
@@ -217,10 +125,15 @@ void MainWindow::endTurn(){
     if (gm->winner()!=-1){
         QMessageBox* winMsg=new QMessageBox();
         winMsg->setText("Congrat!\nPlayer"+QString::number(gm->winner())+" win the game");
+        QPushButton* endGame=winMsg->addButton("End Game",QMessageBox::ActionRole);
+        QPushButton* playAgain=winMsg->addButton("Play Again",QMessageBox::ActionRole);
         winMsg->exec();
-    }
-    if (gm->checkBankrupt()){
-        scene->removeItem(gm->getCurrentPlayer());
+        if (winMsg->clickedButton()==endGame){
+            exit(0);
+        }else if (winMsg->clickedButton()==playAgain){
+
+        }
+        delete winMsg;
     }
         ui->rollDiceBtn->setEnabled(true);
         ui->buyBtn->setEnabled(false);
@@ -229,15 +142,6 @@ void MainWindow::endTurn(){
     gm->moveToNextPlayer();
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-    delete d;
-    delete gm;
-    delete scene;
-}
-
 
 void MainWindow::on_mortgageBtn_clicked()
 {

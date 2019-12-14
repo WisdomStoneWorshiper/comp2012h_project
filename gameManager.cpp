@@ -1,12 +1,14 @@
 #include "gameManager.h"
 #include <QDebug>
 
+//convention constructor of GameManager
 GameManager::GameManager():deck(new EmailDeck())
                            , banker(new Banker(0))
 {
-
+    gameFieldScene=nullptr;
 }
 
+//destructor of GameManager
 GameManager::~GameManager(){
     if (!playerList.empty()) playerList.clear();
     if (!gameField.empty()) gameField.clear();
@@ -14,35 +16,117 @@ GameManager::~GameManager(){
     if (deck!=nullptr) delete deck;
 }
 
-
-void GameManager::init(unsigned num,  vector<Box*> boxList, vector<Player*> playerList){
-    numOfPlayer=num;
-    gameField=boxList;
-    this->playerList=playerList;
-    currentPlayer=this->playerList.front();
+QGraphicsScene* & GameManager::init(QWidget* mainWin){
+    if (gameFieldScene!=nullptr) delete gameFieldScene;
+    if (!gameField.empty()) gameField.clear();
+    if (!playerList.empty()) playerList.clear();
+    gameFieldScene=new QGraphicsScene();
+    QFile file(":/map_data/map.txt");
+    if(!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(0, "error", file.errorString());
+    }
+    QTextStream fin(&file);
+    Box* jail;
+    while (!fin.atEnd()){
+        unsigned id, price, rent;
+        QString line, name;
+        Box* b;
+        QString path;
+        fin>>id>>name;
+        if (id%7==0 || name=="email"){
+            if (id==7){
+                b=new Jail(id, name);
+            }else b=new Box(id,name);
+            path=(":/img/nonProperty/")+(b->getName())+(".png");
+        }else if(id==4||id==11||id==17||id==24){
+            fin>>price>>rent;
+            b=new Restaurant(id,name,price,rent);
+            path=(":/img/propertyAsset/")+(b->getName())+("B.png");
+        }else{
+            Color c;
+            fin>>price>>rent;
+            if (id<7) c=Yellow;
+            else if (id<14) c=Blue;
+            else if (id<21) c=Green;
+            else c=Red;
+            b=new BuildableProperty(id,(name),c,price,rent);
+            path=(":/img/propertyAsset/")+(b->getName())+("B.png");
+        }
+        if ( b->getId()<7){
+            b->setRotation(180);
+            if (b->getId()==0){
+                b->setPos(0,0);
+                b->setP1Position(b->x()-130,b->y()-120);
+            }else{
+                b->setPos((b->getId())*90,0);
+                b->setP1Position(gameField.front()->getP1XPosition()+130+90*(b->getId()-1),gameField.front()->getP1YPosition());
+            }
+        }else if (b->getId()<14){
+            if (b->getId()==7){
+                jail=b;
+                b->setPos(540,-130);
+                b->setP1Position(gameField.back()->getP1XPosition()+110,gameField.back()->getP1YPosition()-50);
+                static_cast<Jail*>(jail)->setJailP1Position(jail->getP1XPosition(),jail->getP1YPosition()+40);
+            }else if (b->getId()==8){
+                b->setRotation(-90);
+                b->setPos(540,(b->getId()-7)*90);
+                b->setP1Position(gameField.back()->getP1XPosition(),gameField.back()->getP1YPosition()+130);
+            }else{
+                b->setRotation(-90);
+                b->setPos(540,(b->getId()-7)*90);
+                b->setP1Position(gameField.back()->getP1XPosition(),gameField.back()->getP1YPosition()+90);
+            }
+        }else if (b->getId()<21){
+            if (b->getId()==14){
+                b->setPos(540,540);
+                b->setP1Position(gameField.back()->getP1XPosition(),gameField.back()->getP1YPosition()+100);
+            }else{
+                b->setPos(630-(b->getId()-13)*90,540);
+                b->setP1Position(gameField.back()->getP1XPosition()-90,gameField.back()->getP1YPosition());
+            }
+        } else {
+            b->setRotation(90);
+            if (b->getId()==21){
+                b->setPos(0,540);
+                b->setP1Position(gameField.back()->getP1XPosition()-130,gameField.back()->getP1YPosition());
+            }else{
+                b->setPos(0,630-(b->getId()-20)*90);
+                b->setP1Position(gameField.back()->getP1XPosition(),gameField.back()->getP1YPosition()-90);
+            }
+        }
+        gameField.push_back(b);
+        b->setPixmap(QPixmap(path));
+        gameFieldScene->addItem(b);
+    }
+    file.close();
+    bool ok=false;
+    numOfPlayer=QInputDialog::getInt(mainWin,"","Plaese input number of player (2-6)",3,2,6,1,&ok);
+    if (ok){
+        for (unsigned i=1;i<=numOfPlayer;++i){
+            bool ok=false;
+            QString p_name=QInputDialog::getText(mainWin,"",QString("Plaese input player %1 name").arg(QString::number(i)),QLineEdit::Normal,"", &ok);
+            if (ok){
+                Player* p=new Player(i,p_name);
+                playerList.push_back(p);
+                QString path;
+                path=((":/img/character/character")+QString::number(i)+(".png"));
+                p->setPixmap(QPixmap(path));
+                playerPositionSetter(playerList.back(),gameField.front());
+                gameFieldScene->addItem(p);
+            }
+        }
+    }
+    currentPlayer=playerList.front();
     deck->shuffle();
-//    for (vector<Box*>::const_iterator target=gameField.begin();target!=gameField.end();++target){
-//        if(typeid ((*target))==typeid (BuildableProperty)|| (typeid ((*target))==typeid (Restaurant))){
-//            Property* temp=static_cast<Property*>(*target);
-//            Box::connect(temp,SIGNAL(doMortgage(unsigned ,unsigned)),SLOT(mortgageAction(unsigned,unsigned)));
-//        }
-//    }
+    return gameFieldScene;
 }
-
-//void GameManager::setCurrentPlayer(Player*p){
-//    currentPlayer=p;
-//}
 
 Player* & GameManager::getCurrentPlayer(){
     return currentPlayer;
 }
+
 void GameManager::moveToNextPlayer(){
-//        vector<Player *>::const_iterator p=find_if(playerList.begin(),playerList.end(),
-//                                                 [&](Player* q){ qDebug()<<q->getId()<<currentPlayer->getId();
-//                return q->getId()==currentPlayer->getId();});
     if (checkBankrupt()){
-        //vector<Player*>::const_iterator loser=find_if(playerList.begin(),playerList.end(),
-          //                                            [&](const Player* target){return target->getId()==currentPlayer->getId();});
         QMessageBox* loseMsg=new QMessageBox();
         loseMsg->setText("Player"+QString::number(currentPlayer->getId())+" bankrupted! sosad");
         loseMsg->exec();
@@ -51,6 +135,7 @@ void GameManager::moveToNextPlayer(){
             target->resetter();
         }
         delete loseMsg;
+        gameFieldScene->removeItem(currentPlayer);
     }
 
     do{
@@ -64,26 +149,11 @@ void GameManager::moveToNextPlayer(){
 }
 
 void GameManager::movePlayer(unsigned u){
-    //QPropertyAnimation* an=new QPropertyAnimation(currentPlayer,"fs");
-    //currentPlayer->setPosition(5);
-    /*vector<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
-                                         [&](Box* c){return c->getId()==(currentPlayer->getPosition()+u)%28;})*/;
     Box* b=(gameField[(currentPlayer->getPosition()+u)%28]);
     if (currentPlayer->getPosition()>(b)->getId()) (*currentPlayer)+=2000;
-    //currentPlayer->setPos(currentPlayer->x()+100,currentPlayer->y());
-//    for (int i=0;i<u;++i){
-//        if ((*b)->getId()==27){
-//            if (currentPlayer->checkInJail()==false)
-//                (*currentPlayer)+=2000;
-//            b=gameField.begin();
-//        }else ++b;
-//    }
-
-//    qDebug()<<"gm"<<(*b)->getName();
     playerPositionSetter(currentPlayer,b);
     currentPlayer->setPosition((b)->getId());
     QMessageBox* rentMessage=new QMessageBox();
-    //emailContent->setInformativeText(e->getMessage());
     rentMessage->setStandardButtons(QMessageBox::Ok);
     rentMessage->setDefaultButton(QMessageBox::Ok);
     qDebug()<<"t1";
@@ -92,22 +162,21 @@ void GameManager::movePlayer(unsigned u){
         BuildableProperty *bp=static_cast<BuildableProperty*>(b);
         qDebug()<<"t3";
         if(bp->getOwnerId()!=0 && bp->getOwnerId()!=currentPlayer->getId() && !bp->getMortgage()){
-            qDebug()<<"t4";
-            (*currentPlayer)-=bp->getRentOfProperty();
-            qDebug()<<"t5";
-           // vector<Player*>::const_iterator owner=find_if(playerList.begin(),playerList.end(),
-             //                          [&](Player* p){return p->getId()==bp->getOwnerId();});
             Player* owner=playerList[bp->getOwnerId()-1];
+            unsigned numOfSameColor=0;
+            for (int i=0;i<owner->getOwnedPropertyList().size();++i){
+                if (static_cast<BuildableProperty*>(gameField[owner->getOwnedPropertyList()[i]])->getColor()==bp->getColor())
+                    ++numOfSameColor;
+                if (numOfSameColor>=2)
+                    break;
+            }
+            (*currentPlayer)-=bp->getRentOfProperty()*numOfSameColor;
             qDebug()<<"rent"<<currentPlayer->getId()<<owner->getId()<<bp->getName()<<bp->getId();
-            (*owner)+=(bp->getRentOfProperty());
+            (*owner)+=(bp->getRentOfProperty())*numOfSameColor;
             qDebug()<<"t7";
             rentMessage->setInformativeText("You have to pay $"+QString::number(bp->getRentOfProperty())+"for rent.");
             qDebug()<<"t8";
             rentMessage->exec();
-//            int choice=rentMessage->exec();
-//            if (choice==QMessageBox::Ok){
-
-//            }
         }
     }else if (typeid ((*b))==typeid (Restaurant)){
         qDebug()<<"t2";
@@ -115,12 +184,7 @@ void GameManager::movePlayer(unsigned u){
         qDebug()<<"t3";
         if(r->getOwnerId()!=0 && r->getOwnerId()!=currentPlayer->getId() && !r->getMortgage()){
             qDebug()<<"t4";
-           // vector<Player*>::const_iterator owner=find_if(playerList.begin(),playerList.end(),
-             //                          [&](Player* p){return p->getId()==r->getOwnerId();});
             Player* owner=playerList[r->getOwnerId()-1];
-            qDebug()<<"t5";
-//            int numOfRestaurant=count_if((*owner)->getOwnedPropertyList().begin(),(*owner)->getOwnedPropertyList().end(),
-//                                              [&](Property* p){return typeid (*p)==typeid (Restaurant);});
             unsigned numOfRestaurant=owner->getNumOfRestaurant();
             qDebug()<<"rent"<<currentPlayer->getId()<<owner->getId()<<r->getName()<<r->getId();
             (*currentPlayer)-=r->getRentOfProperty(numOfRestaurant-1);
@@ -130,10 +194,6 @@ void GameManager::movePlayer(unsigned u){
             rentMessage->setInformativeText("You have to pay $"+QString::number(r->getRentOfProperty(numOfRestaurant-1))+"for rent.");
             qDebug()<<"t8";
             rentMessage->exec();
-//            int choice=rentMessage->exec();
-//            if (choice==QMessageBox::Ok){
-
-//            }
         }
     }else if(QString::compare((b)->getName(),"Email",Qt::CaseInsensitive)==0){
         emailAction(b);
@@ -160,11 +220,6 @@ void GameManager::movePlayer(unsigned u){
 }
 
 void GameManager::playerPositionSetter(Player *p, Box *b){
-    //if (b->getId()<7){
-    qDebug()<<p->getId()<<b->getName();
-    qDebug()<<currentPlayer->getJailPass();
-    qDebug()<<"c9";
-
     if (currentPlayer->getJailPass() && p->checkInJail()){
         currentPlayer->setinJail(false);
         currentPlayer->changeJailPass();
@@ -191,9 +246,6 @@ void GameManager::playerPositionSetter(Player *p, Box *b){
 }
 
 bool GameManager::ableToBuy(){
-    //vector<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
-        //                                 [&](Box* target){ qDebug()<<target->getId()<<currentPlayer->getPosition();
-      //      return target->getId()==currentPlayer->getPosition();});
     Box* b=gameField[currentPlayer->getPosition()];
     qDebug()<<typeid ((*b)).name()<<typeid (BuildableProperty).name();
     if(typeid ((*b))==typeid (BuildableProperty)||typeid ((*b))==typeid (Restaurant)){
@@ -205,10 +257,7 @@ bool GameManager::ableToBuy(){
 }
 
 bool GameManager::ableToIncreaseWifi(){
-    //vector<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
-      //                                   [&](Box* target){return target->getId()==currentPlayer->getPosition();});
     Box* b=gameField[currentPlayer->getPosition()];
-
     if(typeid ((*b))==typeid (BuildableProperty)){
         BuildableProperty *p=static_cast<BuildableProperty*>(b);
         return (currentPlayer->getId()==p->getOwnerId() && currentPlayer->getMoney()>=p->getCostPerLevelOfWifiCoverage() && p->getLevelOfWifiCoverage()<4);
@@ -231,8 +280,6 @@ bool GameManager::checkEndTurn(){
 }
 
 void GameManager::buyAsset(){
-   // vector<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
-     //                                    [&](Box* b){return b->getId()==currentPlayer->getPosition();});
     Box* b=gameField[currentPlayer->getPosition()];
     if(typeid ((*b))==typeid (BuildableProperty)){
         BuildableProperty *p=static_cast<BuildableProperty*>(b);
@@ -257,16 +304,12 @@ void GameManager::build(){
 }
 
 void GameManager::emailAction(Box* oldLocation){
-
-
-
     Email * e=deck->getEmail();
     QMessageBox * emailContent=new QMessageBox();
 
     emailContent->setInformativeText(e->getMessage());
     emailContent->setStandardButtons(QMessageBox::Ok);
     emailContent->setDefaultButton(QMessageBox::Ok);
-    //emailContent->exec();
     qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     int choice=emailContent->exec();
     if (choice==QMessageBox::Ok){
@@ -279,20 +322,9 @@ void GameManager::emailAction(Box* oldLocation){
     }else qDebug()<<"not completely Used the deck";
 
     qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
-    //vector<Box*>::const_iterator newLocation=find_if(gameField.begin(),gameField.end(),
-      //                                   [&](Box* b){return b->getId()==currentPlayer->getPosition();});
     Box* newLocation=gameField[currentPlayer->getPosition()];
     qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     qDebug()<<"et1";
-
-//    if (currentPlayer->getJailPass()){
-
-//        currentPlayer->setinJail(false);
-//        currentPlayer->changeJailPass();
-//        QMessageBox* usePassMsg=new QMessageBox();
-//        usePassMsg->setText("You have used the pass");
-//        usePassMsg->exec();
-//    }
 
     if (oldLocation->getId()<(newLocation)->getId()){
         qDebug()<<"et2";

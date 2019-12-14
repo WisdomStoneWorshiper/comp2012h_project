@@ -81,6 +81,7 @@ void MortgageWindow::on_confirmBtn_clicked()
         doMortgage(targetProperty,Apply);
     else if (ui->payBtn->isChecked()==true)
         doMortgage(targetProperty,Pay);
+    this->close();
 }
 
 void MortgageWindow::on_cancelBtn_clicked()

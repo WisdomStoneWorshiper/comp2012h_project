@@ -179,22 +179,13 @@ void GameManager::playerPositionSetter(Player *p, Box *b){
             qDebug()<<"p3"<<b->getP1XPosition()<<b->getP1YPosition();
             p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
         }else
-            p->setPos(b->getP1XPosition()+20*(p->getId()-4),b->getP1YPosition()-50);
-        qDebug()<<"p4";
+            p->setPos(b->getP1XPosition()+20*(p->getId()-4),b->getP1YPosition()+50);
     }else{
-        qDebug()<<"p5";
-//        if (!(p->checkInJail())){
-//            qDebug()<<"p6"<<b->getP1XPosition()<<b->getP1YPosition();
-//            double x=b->getP1XPosition(),y=b->getP1YPosition();
-//            p->setPos(x+20*(p->getId()-1),y);
-//        }else{
-            qDebug()<<"p7";
             if (p->getId()<4)
                 p->setPos(static_cast<Jail*>(b)->getJailP1XPosition()+20*(p->getId()-1),static_cast<Jail*>(b)->getJailP1YPosition());
             else
                 p->setPos(static_cast<Jail*>(b)->getJailP1XPosition()+20*(p->getId()-4),static_cast<Jail*>(b)->getJailP1YPosition()-50);
             qDebug()<<"p8";
-//        }
     }
     qDebug()<<"p9";
 }
@@ -217,6 +208,7 @@ bool GameManager::ableToIncreaseWifi(){
     //vector<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
       //                                   [&](Box* target){return target->getId()==currentPlayer->getPosition();});
     Box* b=gameField[currentPlayer->getPosition()];
+
     if(typeid ((*b))==typeid (BuildableProperty)){
         BuildableProperty *p=static_cast<BuildableProperty*>(b);
         return (currentPlayer->getId()==p->getOwnerId() && currentPlayer->getMoney()>=p->getCostPerLevelOfWifiCoverage() && p->getLevelOfWifiCoverage()<4);

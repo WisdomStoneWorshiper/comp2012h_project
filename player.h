@@ -13,7 +13,7 @@ class Player: public QGraphicsPixmapItem{
 
 
 private:
-    vector <unsigned> owned_place_id_list;
+    vector <unsigned> owned_place_id_list; //list to stored player properties
     const unsigned short id;
     unsigned short position;
     bool jail_pass;

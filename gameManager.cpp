@@ -10,23 +10,23 @@ GameManager::GameManager():deck(new EmailDeck())
 //destructor of GameManager
 GameManager::~GameManager(){
 
-    for(unsigned i=0; i < playerList.size(); i++){
-       delete playerList[i];
-    }
+//    for(unsigned i=0; i < playerList.size(); i++){
+//       delete playerList[i];
+//    }
 
-    for(unsigned i=0; i < gameField.size(); i++){
-       delete playerList[i];
-    }
-    playerList.clear();
-    gameField.clear();
+//    for(unsigned i=0; i < gameField.size(); i++){
+//       delete playerList[i];
+//    }
+//    playerList.clear();
+//    gameField.clear();
 
-//    if (!playerList.empty())
-//        playerList.clear();
+    if (!playerList.empty())
+        playerList.clear();
 
-//    if (!gameField.empty())
-//        gameField.clear();
+    if (!gameField.empty())
+        gameField.clear();
 
-//    if (deck!=nullptr)
+    if (deck!=nullptr)
         delete deck;
 }
 

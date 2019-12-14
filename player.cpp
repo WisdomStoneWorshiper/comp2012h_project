@@ -67,7 +67,6 @@ int Player::getMoney() const{
 bool Player::getJailPass() const{
     qDebug()<<"c10";
 
-    //macbook user can't return jail_pass, don't know do what
     //return jail_pass;
 
     return 1;

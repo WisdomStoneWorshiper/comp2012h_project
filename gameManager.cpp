@@ -161,6 +161,7 @@ void GameManager::movePlayer(unsigned u){
     playerPositionSetter(currentPlayer,b);
     currentPlayer->setPosition((b)->getId());
     QMessageBox* rentMessage=new QMessageBox();
+
     rentMessage->setStandardButtons(QMessageBox::Ok);
     rentMessage->setDefaultButton(QMessageBox::Ok);
     qDebug()<<"t1";

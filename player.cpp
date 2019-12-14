@@ -70,10 +70,12 @@ int Player::getMoney() const{  //access player money
 
 bool Player::getJailPass() const{  //access player jail pass
     qDebug()<<"c10";
+
     //macbook user can't return jail_pass, don't know do what
     //return jail_pass;
 
     return jail_pass; //true = have jail pass
+
 }
 
 QString Player::getName() const{  //access player name
@@ -104,10 +106,13 @@ void Player::changeJailPass(){  //trigger to change the jail pass boolean
     if(jail_pass==false){  // when player get jail pass
         qDebug()<<" Player::changeJailPass() true\n";
           qDebug()<<this->getPlayerInfo();
+
         jail_pass = true;
     }else{  //when user use the jail pass
         jail_pass = false;
+
           qDebug()<<" Player::changeJailPass() false";
+
     }
 }
 Player& Player::operator+=(int a){ //use operator to add money from player
@@ -137,6 +142,10 @@ void Player::setmoney(int a){  //set the player money directly
 void Player::setNumOfRestaurant(unsigned int r){ //change the number of restaurant
     numOfRestaurant=r;
 }
+void Player::setJail_pass(bool own){
+    jail_pass = own;
+}
+
 
 unsigned Player::getNumOfRestaurant(){  //change the number of restaurant
     return numOfRestaurant;//88
@@ -164,7 +173,7 @@ void Player::jailAction(unsigned num){  //the principle of jail
         delete jailMessage;
     }
     //jailDiceCount[0]=jailDiceCount[1]=0;
-
+      delete jailMessage;
 }
 
 bool Player::checkLosed() const{ //check whether the player is losed

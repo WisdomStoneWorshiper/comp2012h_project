@@ -9,11 +9,20 @@ GameManager::GameManager():deck(new EmailDeck())
 
 //destructor of GameManager
 GameManager::~GameManager(){
+    for (vector<Player*>::const_iterator target=playerList.begin();target!=playerList.end();++target){
+        delete *target;
+    }
+    for (vector<Box*>::const_iterator target=gameField.begin();target!=gameField.end();++target){
+        delete *target;
+    }
+
     if (!playerList.empty()) playerList.clear();
     if (!gameField.empty()) gameField.clear();
     if (deck!=nullptr) delete deck;
+    delete gameFieldScene;
 }
 
+//
 QGraphicsScene* & GameManager::init(QWidget* mainWin){
     if (gameFieldScene!=nullptr) delete gameFieldScene;
     if (!gameField.empty()) gameField.clear();

@@ -37,6 +37,7 @@ void MortgageWindow::on_applyBtn_clicked()
         }
     }
     ui->mortgageList->setEnabled(true);
+    //ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
 
 void MortgageWindow::on_payBtn_clicked()
@@ -81,6 +82,7 @@ void MortgageWindow::on_confirmBtn_clicked()
         doMortgage(targetProperty,Apply);
     else if (ui->payBtn->isChecked()==true)
         doMortgage(targetProperty,Pay);
+    this->close();
 }
 
 void MortgageWindow::on_cancelBtn_clicked()

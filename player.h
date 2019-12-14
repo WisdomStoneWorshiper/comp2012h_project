@@ -21,7 +21,8 @@ private:
     int money;
     QString user_name;
     unsigned numOfRestaurant;
-    int jailDiceCount[2];
+    //int jailDiceCount[2];
+    unsigned jailTurnCounter;
     QMessageBox msgBox;
     bool losed;
 
@@ -46,9 +47,9 @@ public:
     void setmoney(int);
     void setNumOfRestaurant(unsigned);
     unsigned getNumOfRestaurant();
-    void saveJailDice(unsigned);
+    void jailAction(unsigned);
     QString getPlayerInfo() const;
-    bool checkLosed() const;
+    bool checkLosed();
     void setLosed();
 
 public slots:

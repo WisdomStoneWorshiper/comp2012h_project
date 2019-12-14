@@ -217,6 +217,7 @@ bool GameManager::ableToIncreaseWifi(){
     //vector<Box*>::const_iterator b=find_if(gameField.begin(),gameField.end(),
       //                                   [&](Box* target){return target->getId()==currentPlayer->getPosition();});
     Box* b=gameField[currentPlayer->getPosition()];
+    qDebug()<<"ai"<<(typeid ((*b))==typeid (BuildableProperty));
     if(typeid ((*b))==typeid (BuildableProperty)){
         BuildableProperty *p=static_cast<BuildableProperty*>(b);
         return (currentPlayer->getId()==p->getOwnerId() && currentPlayer->getMoney()>=p->getCostPerLevelOfWifiCoverage() && p->getLevelOfWifiCoverage()<4);
@@ -226,6 +227,7 @@ bool GameManager::ableToIncreaseWifi(){
 
 bool GameManager::ableToAddVendingMachine(){
     Box* b=gameField[currentPlayer->getPosition()];
+    qDebug()<<"av"<<(typeid ((*b))==typeid (BuildableProperty));
     if(typeid ((*b))==typeid (BuildableProperty)){
         BuildableProperty *p=static_cast<BuildableProperty*>(b);
         return (currentPlayer->getId()==p->getOwnerId() && currentPlayer->getMoney()>=p->getCostOfVendingMachine() && p->getNumOfVendingMachines()<1 && p->getLevelOfWifiCoverage()==4);

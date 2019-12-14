@@ -168,7 +168,7 @@ void MainWindow::on_rollDiceBtn_clicked(){
 
 void MainWindow::move (unsigned t){
     if (gm->getCurrentPlayer()->checkInJail()){
-        gm->getCurrentPlayer()->saveJailDice(t);
+        gm->getCurrentPlayer()->jailAction(t);
         if (gm->getCurrentPlayer()->checkInJail()==false){
             gm->movePlayer(0);
         }
@@ -181,7 +181,7 @@ void MainWindow::move (unsigned t){
     ui->endBtn->setEnabled(true);
     qDebug()<<"m2";
     //ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
-    qDebug()<<"m3";
+    qDebug()<<"m3"<<gm->ableToIncreaseWifi()<<gm->ableToAddVendingMachine();
     if (gm->ableToBuy()){
         qDebug()<<"m5";
         ui->buyBtn->setEnabled(true);
@@ -214,6 +214,8 @@ void MainWindow::on_buyBtn_clicked(){
 }
 
 void MainWindow::on_buildBtn_clicked(){
+    if (!gm->ableToIncreaseWifi() && !gm->ableToAddVendingMachine())
+        return;
     QMessageBox * comfirmBox=new QMessageBox();
     //comfirmBox->setText("You are gonna to buy this asset.");
    // comfirmBox->setInformativeText("After purchase, you have $"+QString::number(gm->getMoneyAfterBuy())+" left");

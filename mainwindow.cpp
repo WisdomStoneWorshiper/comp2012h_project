@@ -159,8 +159,8 @@ void MainWindow::on_buyBtn_clicked(){
     //the following line maybe crash, if crashed comment it
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
     delete comfirmBox;
-    if (gm->checkBankrupt()==false)
-        endTurn();
+//    if (gm->checkBankrupt()==false)
+//        endTurn();
 }
 
 void MainWindow::on_buildBtn_clicked(){
@@ -180,8 +180,8 @@ void MainWindow::on_buildBtn_clicked(){
     //the following line maybe crash, if crashed comment it
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
     delete comfirmBox;
-    if (gm->checkBankrupt()==false)
-        endTurn();
+//    if (gm->checkBankrupt()==false)
+//        endTurn();
 }
 
 void MainWindow::on_endBtn_clicked(){

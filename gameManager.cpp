@@ -177,56 +177,46 @@ void GameManager::moveToNextPlayer(){
 
 //this function is used to handle moving player
 void GameManager::movePlayer(unsigned u){
-    Box* b=(gameField[(currentPlayer->getPosition()+u)%28]);
-    if (currentPlayer->getPosition()>(b)->getId()) (*currentPlayer)+=2000;
-    playerPositionSetter(currentPlayer,b);
-    currentPlayer->setPosition((b)->getId());
+    //first find the box player need to move to
+    Box* currentBox=(gameField[(currentPlayer->getPosition()+u)%28]);
+    if (currentPlayer->getPosition()>(currentBox)->getId()) (*currentPlayer)+=2000;
+    playerPositionSetter(currentPlayer,currentBox);
+    currentPlayer->setPosition((currentBox)->getId());
     QMessageBox* rentMessage=new QMessageBox();
-
     rentMessage->setStandardButtons(QMessageBox::Ok);
     rentMessage->setDefaultButton(QMessageBox::Ok);
-    qDebug()<<"t1";
-    if(typeid ((*b))==typeid (BuildableProperty)){
-        qDebug()<<"t2";
-        BuildableProperty *bp=static_cast<BuildableProperty*>(b);
-        qDebug()<<"t3";
-        if(bp->getOwnerId()!=0 && bp->getOwnerId()!=currentPlayer->getId() && !bp->getMortgage()){
-            Player* owner=playerList[bp->getOwnerId()-1];
+    //Check whether the box have speacial action needed to be done
+    //since BuildableProperty and Restaurant need to pay rent and they have two type of rent calculation
+    //so they are seperated
+    if(typeid ((*currentBox))==typeid (BuildableProperty)){
+        BuildableProperty *target=static_cast<BuildableProperty*>(currentBox);
+        if(target->getOwnerId()!=0 && target->getOwnerId()!=currentPlayer->getId() && !target->getMortgage()){
+            Player* owner=playerList[target->getOwnerId()-1];
             unsigned numOfSameColor=0;
             for (int i=0;i<owner->getOwnedPropertyList().size();++i){
-                if (static_cast<BuildableProperty*>(gameField[owner->getOwnedPropertyList()[i]])->getColor()==bp->getColor())
+                if (static_cast<BuildableProperty*>(gameField[owner->getOwnedPropertyList()[i]])->getColor()==target->getColor())
                     ++numOfSameColor;
                 if (numOfSameColor>=2)
                     break;
             }
-            (*currentPlayer)-=bp->getRentOfProperty()*numOfSameColor;
-            qDebug()<<"rent"<<currentPlayer->getId()<<owner->getId()<<bp->getName()<<bp->getId();
-            (*owner)+=(bp->getRentOfProperty())*numOfSameColor;
-            qDebug()<<"t7";
-            rentMessage->setInformativeText("You have to pay $"+QString::number(bp->getRentOfProperty())+"for rent.");
-            qDebug()<<"t8";
+            (*currentPlayer)-=target->getRentOfProperty()*numOfSameColor;
+            (*owner)+=(target->getRentOfProperty())*numOfSameColor;
+            rentMessage->setInformativeText("You have to pay $"+QString::number(target->getRentOfProperty())+"for rent.");
             rentMessage->exec();
         }
-    }else if (typeid ((*b))==typeid (Restaurant)){
-        qDebug()<<"t2";
-        Restaurant *r=static_cast<Restaurant*>(b);
-        qDebug()<<"t3";
-        if(r->getOwnerId()!=0 && r->getOwnerId()!=currentPlayer->getId() && !r->getMortgage()){
-            qDebug()<<"t4";
-            Player* owner=playerList[r->getOwnerId()-1];
+    }else if (typeid ((*currentBox))==typeid (Restaurant)){
+        Restaurant *currentRestaurant=static_cast<Restaurant*>(currentBox);
+        if(currentRestaurant->getOwnerId()!=0 && currentRestaurant->getOwnerId()!=currentPlayer->getId() && !currentRestaurant->getMortgage()){
+            Player* owner=playerList[currentRestaurant->getOwnerId()-1];
             unsigned numOfRestaurant=owner->getNumOfRestaurant();
-            qDebug()<<"rent"<<currentPlayer->getId()<<owner->getId()<<r->getName()<<r->getId();
-            (*currentPlayer)-=r->getRentOfProperty(numOfRestaurant-1);
-            qDebug()<<"t6";
-            (*owner)+=r->getRentOfProperty(numOfRestaurant-1);
-            qDebug()<<"t7";
-            rentMessage->setInformativeText(r->getName()+" is owned by other player\nYou have to pay $"+QString::number(r->getRentOfProperty(numOfRestaurant-1))+" for rent.");
-            qDebug()<<"t8";
+            (*currentPlayer)-=currentRestaurant->getRentOfProperty(numOfRestaurant-1);
+            (*owner)+=currentRestaurant->getRentOfProperty(numOfRestaurant-1);
+            rentMessage->setInformativeText(currentRestaurant->getName()+" is owned by other player\nYou have to pay $"+QString::number(currentRestaurant->getRentOfProperty(numOfRestaurant-1))+" for rent.");
             rentMessage->exec();
         }
-    }else if(QString::compare((b)->getName(),"Email",Qt::CaseInsensitive)==0){
-        emailAction(b);
-    }else if(QString::compare((b)->getName(),"TakeTheClass",Qt::CaseInsensitive)==0){
+    }else if(QString::compare((currentBox)->getName(),"Email",Qt::CaseInsensitive)==0){ //
+        emailAction(currentBox);
+    }else if(QString::compare((currentBox)->getName(),"TakeTheClass",Qt::CaseInsensitive)==0){
 
         QMessageBox popUpContent;
         popUpContent.setInformativeText("According to your disappointing mid-term result\n"
@@ -241,39 +231,37 @@ void GameManager::movePlayer(unsigned u){
         popUpContent.exec();
 
         currentPlayer->setinJail(true);
-        movePlayer(14);
+        movePlayer(14); //jail id = 14
 
     }
     delete rentMessage;
-    qDebug()<<"t9";
 }
 
+//move a player to a box
 void GameManager::playerPositionSetter(Player *p, Box *b){
+    //if player need to go to jail and have a jail pass, place him/she in just passing
     if (p->getJailPass() && p->checkInJail()){
-        qDebug()<<"c11";
         p->setinJail(false);
         p->changeJailPass();
         QMessageBox usePassMsg;
         usePassMsg.setText("Lucky! You have a \"Escape Pass\", You can leave in next round\n\nNow You have no \"Escape Pass\"");
         usePassMsg.exec();
     }
+    //if player need to go to jail, place him/she in jail
     if (!(p->checkInJail())){
-        qDebug()<<"p2";
         if (p->getId()<4){
-            qDebug()<<"p3"<<b->getP1XPosition()<<b->getP1YPosition();
             p->setPos(b->getP1XPosition()+20*(p->getId()-1),b->getP1YPosition());
         }else
             p->setPos(b->getP1XPosition()+20*(p->getId()-4),b->getP1YPosition()+50);
-    }else{
+    }else{ //if not, place in corresponding box
             if (p->getId()<4)
                 p->setPos(static_cast<Jail*>(b)->getJailP1XPosition()+20*(p->getId()-1),static_cast<Jail*>(b)->getJailP1YPosition());
             else
                 p->setPos(static_cast<Jail*>(b)->getJailP1XPosition()+20*(p->getId()-4),static_cast<Jail*>(b)->getJailP1YPosition()-50);
-            qDebug()<<"p8";
     }
-    qDebug()<<"p9";
 }
 
+//check whether currentPlayer can buy a Property
 bool GameManager::ableToBuy(){
     Box* b=gameField[currentPlayer->getPosition()];
     qDebug()<<typeid ((*b)).name()<<typeid (BuildableProperty).name();
@@ -285,6 +273,7 @@ bool GameManager::ableToBuy(){
     return false;
 }
 
+//check whether the currentPlayer can increase BuildableProperty wifi level
 bool GameManager::ableToIncreaseWifi(){
     Box* b=gameField[currentPlayer->getPosition()];
     if(typeid ((*b))==typeid (BuildableProperty)){
@@ -294,6 +283,7 @@ bool GameManager::ableToIncreaseWifi(){
     return false;
 }
 
+//check whether the currentPlayer can add a vending machine
 bool GameManager::ableToAddVendingMachine(){
     Box* b=gameField[currentPlayer->getPosition()];
     qDebug()<<"av"<<(typeid ((*b))==typeid (BuildableProperty));
@@ -304,11 +294,13 @@ bool GameManager::ableToAddVendingMachine(){
     return false;
 }
 
+//check whether the currentPlayer can do nothing
 bool GameManager::checkEndTurn(){
     if(!ableToBuy()&&!ableToIncreaseWifi()) return true;
     return false;
 }
 
+//do action of buy property which is stepped by currentPlayer
 void GameManager::buyAsset(){
     Box* b=gameField[currentPlayer->getPosition()];
     if(typeid ((*b))==typeid (BuildableProperty)){
@@ -321,6 +313,7 @@ void GameManager::buyAsset(){
     }
 }
 
+//do action of build something which is stepped by currentPlayer
 void GameManager::build(){
     BuildableProperty* bp=static_cast<BuildableProperty*>(gameField[currentPlayer->getPosition()]);
     if (ableToAddVendingMachine()){
@@ -333,43 +326,39 @@ void GameManager::build(){
 
 }
 
+//if currentPlayer stepped on email box, some speacial action will be performed
 void GameManager::emailAction(Box* oldLocation){
+    //first show the message of the email
     Email * e=deck->getEmail();
     QMessageBox * emailContent=new QMessageBox();
-
     emailContent->setInformativeText(e->getMessage());
     emailContent->setStandardButtons(QMessageBox::Ok);
     emailContent->setDefaultButton(QMessageBox::Ok);
-    qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
+    //when ok button of the message box is clicked, perform speacial email action
     int choice=emailContent->exec();
     if (choice==QMessageBox::Ok){
 
         e->emailAction(currentPlayer);
     }
 
+    //if all email card is used, shuffle it
     if(deck->isCompletelyUsed()){
         deck->shuffle();
-    }else qDebug()<<"not completely Used the deck";
+    }
 
-    qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     Box* newLocation=gameField[currentPlayer->getPosition()];
-    qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
-    qDebug()<<"et1";
-
+    //if the position of player is changed affter the speacial action of the email,
+    //move currentPlayer to corresponding position
     if (oldLocation->getId()<(newLocation)->getId()){
-        qDebug()<<"et2";
-        qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
         playerPositionSetter(currentPlayer,newLocation);
     }else if(oldLocation->getId()>(newLocation)->getId()){
-        qDebug()<<"et3";
         (*currentPlayer)+=2000;
-        qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
         playerPositionSetter(currentPlayer,newLocation);
     }
     delete emailContent;
-
 }
 
+//return information of currentPlayer
 QString GameManager::getCurrentPlayerInfo(){
     qDebug()<<"Info"<<("Player id: "+QString::number(currentPlayer->getId())
               +"\nPlayer name: "+currentPlayer->getName()
@@ -379,10 +368,12 @@ QString GameManager::getCurrentPlayerInfo(){
     return (currentPlayer->getPlayerInfo());
 }
 
+//reuturn money after the buying of property
 unsigned GameManager::getMoneyAfterBuy(){
     return currentPlayer->getMoney()-static_cast<Property*>(gameField[currentPlayer->getPosition()])->getPropertyPrice();
 }
 
+//reuturn money after building something
 unsigned GameManager::getMoneyAfterBuild(){
     BuildableProperty* target=static_cast<BuildableProperty*>(gameField[currentPlayer->getPosition()]);
     if (ableToAddVendingMachine())
@@ -390,6 +381,7 @@ unsigned GameManager::getMoneyAfterBuild(){
     else
         return currentPlayer->getMoney()-target->getCostPerLevelOfWifiCoverage();
 }
+
 
 vector<Player*> GameManager::getPlayerList() const{
     return playerList;
@@ -399,6 +391,7 @@ vector<Box*> GameManager::getGameField() const{
     return gameField;
 }
 
+//perform trading property action between player
 void GameManager::tradeAction(Player* seller,Property*targetProperty,unsigned price){
     currentPlayer->addProperty(targetProperty);
     seller->removeProperty(targetProperty);
@@ -406,6 +399,7 @@ void GameManager::tradeAction(Player* seller,Property*targetProperty,unsigned pr
     (*seller)+=price;
 }
 
+//perform mortgage action of a property
 void GameManager::mortgageAction(Property *target, int mod){
     if (mod==Apply){
         target->setMortgage(true);
@@ -420,6 +414,7 @@ bool GameManager::checkBankrupt(){
     return currentPlayer->getMoney()<0;
 }
 
+//check whether the winner is exist, if yes, return id of winner, if no, return -1
 int GameManager::winner(){
     int alivePlayerId=0, totalPlayerAlive=0;
     for (int i=0;i<playerList.size();++i){

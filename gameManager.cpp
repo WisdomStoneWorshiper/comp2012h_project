@@ -127,7 +127,7 @@ void GameManager::movePlayer(unsigned u){
             qDebug()<<"t6";
             (*owner)+=r->getRentOfProperty(numOfRestaurant-1);
             qDebug()<<"t7";
-            rentMessage->setInformativeText("You have to pay $"+QString::number(r->getRentOfProperty(numOfRestaurant-1))+"for rent.");
+            rentMessage->setInformativeText(r->getName()+" is owned by other player\nYou have to pay $"+QString::number(r->getRentOfProperty(numOfRestaurant-1))+" for rent.");
             qDebug()<<"t8";
             rentMessage->exec();
 //            int choice=rentMessage->exec();
@@ -218,6 +218,7 @@ bool GameManager::ableToIncreaseWifi(){
 
 bool GameManager::ableToAddVendingMachine(){
     Box* b=gameField[currentPlayer->getPosition()];
+    qDebug()<<"av"<<(typeid ((*b))==typeid (BuildableProperty));
     if(typeid ((*b))==typeid (BuildableProperty)){
         BuildableProperty *p=static_cast<BuildableProperty*>(b);
         return (currentPlayer->getId()==p->getOwnerId() && currentPlayer->getMoney()>=p->getCostOfVendingMachine() && p->getNumOfVendingMachines()<1 && p->getLevelOfWifiCoverage()==4);

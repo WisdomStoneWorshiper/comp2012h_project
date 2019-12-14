@@ -130,20 +130,22 @@ void MainWindow::on_rollDiceBtn_clicked(){
 void MainWindow::move (unsigned t){
     ui->endBtn->setEnabled(true);
     if (gm->getCurrentPlayer()->checkInJail()){
-        gm->getCurrentPlayer()->saveJailDice(t);
+        gm->getCurrentPlayer()->jailAction(t);
         if (gm->getCurrentPlayer()->checkInJail()==false){
             gm->movePlayer(0);
         }
         endTurn();
     }else{
     gm->movePlayer(t);
-//    ui->endBtn->setEnabled(true);
+
     if (gm->ableToBuy()){
         ui->buyBtn->setEnabled(true);
     }else if(gm->ableToIncreaseWifi()||gm->ableToAddVendingMachine()){
         ui->buildBtn->setEnabled(true);
     }
     }
+
+    ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
 
 void MainWindow::on_buyBtn_clicked(){
@@ -161,9 +163,12 @@ void MainWindow::on_buyBtn_clicked(){
     delete comfirmBox;
 //    if (gm->checkBankrupt()==false)
 //        endTurn();
+    ui->buyBtn->setEnabled(false); //by tat
 }
 
 void MainWindow::on_buildBtn_clicked(){
+    if (!gm->ableToIncreaseWifi() && !gm->ableToAddVendingMachine())
+        return;
     QMessageBox * comfirmBox=new QMessageBox();
     comfirmBox->setInformativeText("After purchase, you have $"+QString::number(gm->getMoneyAfterBuild())+" left");
     comfirmBox->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
@@ -182,6 +187,8 @@ void MainWindow::on_buildBtn_clicked(){
     delete comfirmBox;
 //    if (gm->checkBankrupt()==false)
 //        endTurn();
+
+    ui->buildBtn->setEnabled(false); //by tat
 }
 
 void MainWindow::on_endBtn_clicked(){
@@ -250,4 +257,5 @@ void MainWindow::mortgage(Property* target, Mod mod){
         gm->mortgageAction(target,0);
     else
         gm->mortgageAction(target,1);
+      ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }

@@ -51,7 +51,7 @@ void Box::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 }
 QString Box::getBoxInfo(){
-    return (name);
+    return (name+"\n");
 }
 
 QString Box::getName(){

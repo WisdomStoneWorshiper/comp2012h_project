@@ -22,6 +22,7 @@ public:
     unsigned getValue();
 
 
+
 signals:
     void changevalue(unsigned);
 

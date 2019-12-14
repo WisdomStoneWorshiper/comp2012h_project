@@ -55,10 +55,11 @@ void BuildableProperty::resetter(){
 
 QString BuildableProperty::getBoxInfo(){
     return (Property::getBoxInfo()
-            + "\nRent price without anything: " + QString::number(Property::getRentOfProperty())
+            + "\nBase Rent price(without anything builded): " + QString::number(Property::getRentOfProperty())
             +"\nExtra rent with each of level of wifi coverage: "+QString::number(RENTPERLEVELOFWIFICOVERAGE)
             +"\nExtra rent with vending Machine: " + QString::number(RENTOFVENDINGMACHINE)
             +"\nColor: "+(propertyColor==Red?"Red":(propertyColor==Blue?"Blue":(propertyColor==Yellow?"Yellow":"Green")))
-            +"\nLevel of Wifi coverage: "+QString::number(levelOfWifiCoverage)
-            +"\nNumber of Vending Machine: "+QString::number(numOfVendingMachines));
+            +"\n"
+            +"\nLevel of Wifi Coverage Now: "+QString::number(levelOfWifiCoverage)
+            +"\nNumber of Vending Machine Now: "+QString::number(numOfVendingMachines));
 }

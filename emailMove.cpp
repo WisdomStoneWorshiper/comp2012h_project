@@ -39,7 +39,7 @@ void EmailMove::emailAction(Player *p){ //return the id of map position
     switch (cardIndex){
         case 1:
             setMessage("\n"+p->getPlayerInfo()+"\n");
-            p->setPosition(7);
+            p->setPosition(7);  
             p->setinJail(true);
             break;
         case 2:

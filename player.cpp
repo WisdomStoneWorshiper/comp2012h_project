@@ -11,8 +11,7 @@ Player::Player(unsigned short id_num, QString name):Charactor(id_num){
     qDebug()<<"c3"<<jail_pass;
     user_name = name;
     inJail=false;
-    jailDiceCount[0]=0;
-    jailDiceCount[1]=0;
+    jailTurnCounter=0;
     losed=false;
 };
 
@@ -40,7 +39,8 @@ QString Player::getPlayerInfo(){
     return ("Player Id: "+QString::number(this->getId())
                 +"\nPlayer name: "+this->getName()
                 +"\n$: "+QString::number(this->getMoney())
-                +"\nJail Pass on hand? "+((this->getJailPass())?"Yes":"No"));
+                +"\nJail Pass on hand? "+((this->getJailPass())?"Yes":"No")
+                +"\n\nState: " + (inJail?"Imprisonnment":"Out of Jail"));
 }
 
 float Player::getGpa() const{
@@ -55,6 +55,7 @@ bool Player::getJailPass() const{
     qDebug()<<"c10";
     //macbook user can't return jail_pass, don't know do what
     //return jail_pass;
+
     return jail_pass;
 }
 
@@ -135,36 +136,23 @@ unsigned Player::getNumOfRestaurant(){
     return numOfRestaurant;
 }
 
-void Player::saveJailDice(unsigned num){
+void Player::jailAction(unsigned num){
     QMessageBox* jailMessage=new QMessageBox();
-
-    if (jailDiceCount[0]==0){
-        jailDiceCount[0]=num;
-        jailMessage->setText("Fail to Roll a SIX, \n\nYou still in jail");
-    }else if(jailDiceCount[0]!=0 && jailDiceCount[1]==0){
-        if(jailDiceCount[0]==num){
-            inJail=false;
-            jailDiceCount[0]=0;
-            jailMessage->setText("You will be released in next round");
-            setinJail(NORMAL);
-        }else{
-            jailDiceCount[1]=num;
+    if (num!=6){
+        if (jailTurnCounter<2){
+            ++jailTurnCounter;
             jailMessage->setText("Fail to Roll a SIX, \n\nYou still in jail");
-
-        }
-    }else{
-        if(!(jailDiceCount[0]==num||jailDiceCount[1]==num)){
-            //inJail==false;
-            //jailDiceCount[0]=jailDiceCount[1]=0;
+        }else{
             money-=500;
             jailMessage->setText("You have been the jail 3 round already\n\nYou will be released in next round but you need to pay $500 fine now");
             setinJail(NORMAL);
-        }else{
-            jailMessage->setText("You roll a SIX!\n\nYou will be released in next round");
-            setinJail(NORMAL);
+            jailTurnCounter=0;
         }
-        inJail=false;
-        jailDiceCount[0]=jailDiceCount[1]=0;
+    }else{
+            jailMessage->setText("You will be released in next round");
+            setinJail(NORMAL);
+            jailTurnCounter=0;
+
     }
     int ok=jailMessage->exec();
     if (ok==QMessageBox::Ok){

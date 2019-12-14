@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -87,86 +86,49 @@ MainWindow::MainWindow(QWidget *parent)
         map.push_back(b);
         b->setPixmap(QPixmap(path));
         scene->addItem(b);
-
-        if (id%7==0 || name=="email"){
-            qDebug()<<id<<" "<<(name);
-        }else {
-            qDebug()<<id<<" "<<(name)<<" "<<price<<" "<<rent;
-        }
     }
     file.close();
     bool ok=false;
     vector<Player*> p_list;
     unsigned numOfPlayer=QInputDialog::getInt(this,"","Plaese input number of player (2-6)",3,2,6,1,&ok);
     if (ok){
-        //gm->init(numOfPlayer);
-
-
         for (unsigned i=1;i<=numOfPlayer;++i){
 
             bool ok=false;
             QString p_name=QInputDialog::getText(this,"",QString("Plaese input player %1 name").arg(QString::number(i)),QLineEdit::Normal,"", &ok);
             if (ok){
-                qDebug()<<"c1";
                 Player* p=new Player(i,p_name);
-                 qDebug()<<"c3";
                 p_list.push_back(p);
-                 qDebug()<<"c4";
                 QString path;
                 path=((":/img/character/character")+QString::number(i)+(".png"));
-                 qDebug()<<"c5";
                 p->setPixmap(QPixmap(path));
-                 qDebug()<<"c6";
-//                if (i<4)
-//                    //p->setPos(map.front()->x()-150+20*i,map.front()->y()-120);
-//                    p->setPos(map.front()->getP1XPosition()+20*(i-1),map.front()->getP1YPosition());
-//                else
-//                    //p->setPos(map.front()->x()-150+20*(i-3),map.front()->y()-70);
-//                    p->setPos(map.front()->getP1XPosition()+20*(i-4),map.front()->getP1YPosition()-70);
-                 qDebug()<<"c7";
                 gm->playerPositionSetter(p_list.back(),map.front());
-                 qDebug()<<"c8";
                 scene->addItem(p);
             }
 
         }
     }
-//    p_list.front()->setinJail(true);
-//    gm->playerPositionSetter(p_list.front(),jail);
-    qDebug()<<"w1";
     ui->gameArea->setScene(scene);
-    qDebug()<<"w2";
     ui->gameArea->show();
-    qDebug()<<"w3";
-    //d=new RollDiceWindow(this);
     connect(d,SIGNAL(changevalue(unsigned)),this,SLOT(move(unsigned)));
-    qDebug()<<"w4";
     gm->init(numOfPlayer,map,p_list);
-    qDebug()<<"w5";
     t=new TradeWindow(p_list,map);
     connect(t,SIGNAL(doTrade(Player* ,Property*,unsigned)),this,SLOT(trade(Player*,Property*,unsigned)));
     m=new MortgageWindow(p_list,map);
     connect(m,SIGNAL(doMortgage(Property*, Mod)),this,SLOT(mortgage(Property*, Mod)));
-    qDebug()<<"w6";
     ui->buyBtn->setEnabled(false);
-    qDebug()<<"w7";
     ui->endBtn->setEnabled(false);
-    qDebug()<<"w8";
     ui->buildBtn->setEnabled(false);
-    qDebug()<<"w9";
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
 
 void MainWindow::on_rollDiceBtn_clicked(){
-    //d=new RollDiceWindow();
     d->show();
-    //move(1);
     ui->rollDiceBtn->setEnabled(false);
-    //
-    //while ()
 }
 
 void MainWindow::move (unsigned t){
+    ui->endBtn->setEnabled(true);
     if (gm->getCurrentPlayer()->checkInJail()){
         gm->getCurrentPlayer()->jailAction(t);
         if (gm->getCurrentPlayer()->checkInJail()==false){
@@ -174,25 +136,12 @@ void MainWindow::move (unsigned t){
         }
         endTurn();
     }else{
-    qDebug()<<t;
     gm->movePlayer(t);
-    //delete d;
-    qDebug()<<"m1";
-    ui->endBtn->setEnabled(true);
-    qDebug()<<"m2";
-    //ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
-    qDebug()<<"m3"<<gm->ableToIncreaseWifi()<<gm->ableToAddVendingMachine();
     if (gm->ableToBuy()){
-        qDebug()<<"m5";
         ui->buyBtn->setEnabled(true);
     }else if(gm->ableToIncreaseWifi()||gm->ableToAddVendingMachine()){
-        qDebug()<<"m6";
         ui->buildBtn->setEnabled(true);
-    }else if (gm->checkEndTurn()){
-        qDebug()<<"m7";
-        endTurn();
     }
-    qDebug()<<"m4";
     }
 }
 
@@ -217,8 +166,6 @@ void MainWindow::on_buildBtn_clicked(){
     if (!gm->ableToIncreaseWifi() && !gm->ableToAddVendingMachine())
         return;
     QMessageBox * comfirmBox=new QMessageBox();
-    //comfirmBox->setText("You are gonna to buy this asset.");
-   // comfirmBox->setInformativeText("After purchase, you have $"+QString::number(gm->getMoneyAfterBuy())+" left");
     comfirmBox->setInformativeText("After purchase, you have $"+QString::number(gm->getMoneyAfterBuild())+" left");
     comfirmBox->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
     comfirmBox->setDefaultButton(QMessageBox::Ok);
@@ -259,9 +206,6 @@ void MainWindow::on_endBtn_clicked(){
 }
 
 void MainWindow::on_tradeBtn_clicked(){
-//    Tradewindow* tw=new Tradewindow(gm->getCurrentPlayer(),gm->getPlayerList(),gm->getGameField());
-//    //connect(tw,SIGNAL(tradeAction(Property*, unsigned)),this,SLOT(trade(Property*, unsigned)));
-//    tw->show();
     t->init(gm->getCurrentPlayer());
     t->show();
 }
@@ -279,25 +223,12 @@ void MainWindow::endTurn(){
     if (gm->checkBankrupt()){
         scene->removeItem(gm->getCurrentPlayer());
     }
-    qDebug()<<"e3";
-    if (ui->rollDiceBtn->isEnabled()==false)
         ui->rollDiceBtn->setEnabled(true);
-    qDebug()<<"e4";
-    if (ui->buyBtn->isEnabled())
-        ui->buyBtn->setDisabled(true);
-    qDebug()<<"e5";
-    if (ui->buildBtn->isEnabled())
-        ui->endBtn->setDisabled(true);
-    qDebug()<<"e6";
-    if(ui->endBtn->isEnabled())
-        ui->buildBtn->setDisabled(true);
-    qDebug()<<"e7";
-    qDebug()<<gm->getCurrentPlayer()->getId();
-    qDebug()<<"e8"<<gm->getCurrentPlayerInfo();
+        ui->buyBtn->setEnabled(false);
+        ui->endBtn->setEnabled(false);
+        ui->buildBtn->setEnabled(false);
     gm->moveToNextPlayer();
-    qDebug()<<"e1"<<gm->getCurrentPlayerInfo();
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
-    qDebug()<<"e2";
 }
 
 MainWindow::~MainWindow()

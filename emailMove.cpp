@@ -4,13 +4,10 @@
 EmailMove::~EmailMove(){}
 
 EmailMove::EmailMove(int cardOrder){//assign corresponding emailIndex by the emailOrder from emailDeck
-
-
-
-
     switch (cardOrder){
         case 1:
-            setMessage(getMessage()+"\nDear student,\n\nJust a gentle reminder that a make-up class will be conducted Now at Rm 2304.\nThanks, and see you. :)\n\nBest,\nDesmond ");
+            setMessage(getMessage()+"\nDear student,\n\nJust a gentle reminder that a make-up class will be conducted Now at Rm 2304.\n\nThanks, and see you. :)\n\nBest,\nDesmond "
+                                    "\n\n\nRoll the dice with 6 help you esacpe the class\n");
             cardIndex =1;
             break;
         case 2:
@@ -29,35 +26,31 @@ EmailMove::EmailMove(int cardOrder){//assign corresponding emailIndex by the ema
             setMessage(getMessage()+"\nYou are the representive of your department !\nAdance to Swimming Pool\n");
             cardIndex =5;
             break;
-
     }
-
-
 }
 
 void EmailMove::emailAction(Player *p){ //return the id of map position
     switch (cardIndex){
         case 1:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             p->setPosition(7);  
             p->setinJail(true);
             break;
         case 2:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             p->setPosition(0);
             break;
         case 3:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             p->setPosition(20);
             break;
         case 4:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             p->setPosition(27);
             break;
         case 5:
-         setMessage("\n"+p->getPlayerInfo()+"\n");
+
             p->setPosition(8);
             break;
     }
-
 }

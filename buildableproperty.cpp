@@ -21,7 +21,7 @@ Color BuildableProperty::getColor(){
 }
 
 unsigned BuildableProperty:: getRentOfProperty(){
-    return (Property::getRentOfProperty())+levelOfWifiCoverage*RENTPERLEVELOFWIFICOVERAGE+numOfVendingMachines*RENTOFVENDINGMACHINE;
+    return Property::getRentOfProperty()+levelOfWifiCoverage*RENTPERLEVELOFWIFICOVERAGE+numOfVendingMachines*RENTOFVENDINGMACHINE;
 }
 
 void BuildableProperty:: increaseWifiCoverage(){

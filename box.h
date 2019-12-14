@@ -15,16 +15,13 @@ public:
     Box();
     Box(unsigned, QString);
     Box(const Box &);
-    ~Box();
-//    virtual void queueUp(Player);
-//    Player* movePlayer();
+    virtual ~Box();
     QString getName();
     unsigned getId();
     double getP1XPosition();
     double getP1YPosition();
     void setP1Position(double,double);
     virtual QString getBoxInfo();
-//    bool findCurrentBox(Box*);
 
 protected slots:
    void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -34,7 +31,6 @@ private:
     double p1XPosition,p1YPosition;
 protected:
     QMessageBox msgBox;
-    //queue<Player> playerOnThisBox;
 };
 
 #endif // BOX_H

@@ -10,20 +10,17 @@ EmailDeck::EmailDeck(){
             EmailGetMoney * p = new EmailGetMoney(i);// create Email with a emailOrder parameter
             deck.push_back(p);
         }
-
         deck.push_back(new EmailGetJailPass);
-
         emailOrder = deck.begin();
-
 }
 EmailDeck::~EmailDeck(){
 
-//    for(unsigned i = 0; deck[i]!=deck.back();++i)
-//        delete deck[i];
-    for (deque<Email*>::const_iterator target=deck.begin();target!=deck.end();++target){
-        delete *target;
-    }
-
+    for(unsigned i = 0; deck[i]!=deck.back();++i)
+        delete [] deck[i];
+    delete [] deck.back();
+//    for (deque<Email*>::const_iterator target=deck.begin();target!=deck.end();++target){
+//        delete *target;
+//    }
     deck.clear();
 
 }
@@ -38,14 +35,14 @@ void EmailDeck::shuffle(){ //shuffle before the dequee isCompletelyUsed
 
 bool EmailDeck::isCompletelyUsed()const { //check if the double end queue go back to the first
     return emailOrder == deck.end();
-    qDebug()<<"the deck completely Used ";
+    //qDebug()<<"the deck completely Used ";
 }
 
 Email * EmailDeck ::getEmail(){
 
     deque<Email*>:: iterator temp;
     temp = emailOrder;
-    emailOrder ++;
+    //++emailOrder ;
     return *temp;
 
 }

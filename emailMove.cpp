@@ -4,10 +4,6 @@
 EmailMove::~EmailMove(){}
 
 EmailMove::EmailMove(int cardOrder){//assign corresponding emailIndex by the emailOrder from emailDeck
-
-
-
-
     switch (cardOrder){
         case 1:
             setMessage(getMessage()+"\nDear student,\n\nJust a gentle reminder that a make-up class will be conducted Now at Rm 2304.\nThanks, and see you. :)\n\nBest,\nDesmond ");
@@ -29,10 +25,7 @@ EmailMove::EmailMove(int cardOrder){//assign corresponding emailIndex by the ema
             setMessage(getMessage()+"\nYou are the representive of your department !\nAdance to Swimming Pool\n");
             cardIndex =5;
             break;
-
     }
-
-
 }
 
 void EmailMove::emailAction(Player *p){ //return the id of map position
@@ -59,5 +52,4 @@ void EmailMove::emailAction(Player *p){ //return the id of map position
             p->setPosition(8);
             break;
     }
-
 }

@@ -1,11 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "charactor.h"
 #include <QString>
 #include <QMessageBox>
 #include <list>
 #include <QGraphicsPixmapItem>
+#include "property.h"
 
 using namespace std;
 

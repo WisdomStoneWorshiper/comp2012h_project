@@ -4,8 +4,6 @@
 EmailGetMoney::~EmailGetMoney(){}
 
 EmailGetMoney::EmailGetMoney(int emailOrder){ //assign corresponding emailIndex by the emailOrder from emailDeck
-
-
     switch (emailOrder){
         case 1:
             setMessage(getMessage()+"\nYou got $1000 scholarship\n");
@@ -70,6 +68,5 @@ void EmailGetMoney::emailAction(Player *p){
             setMessage("\n"+p->getPlayerInfo()+"\n");
             *p+=1000;
             break;
-
     }
 }

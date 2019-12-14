@@ -1,9 +1,6 @@
 #ifndef EMAILDECK_H
 #define EMAILDECK_H
 
-#include <ctime>
-#include <cstdlib>
-
 #include "emailMove.h"
 #include "emailGetJailPass.h"
 #include "emailGetMoney.h"

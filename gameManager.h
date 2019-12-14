@@ -18,9 +18,6 @@
 #include <QFile>
 #include <QInputDialog>
 
-
-//using namespace std;
-
 class GameManager{
 
 public:

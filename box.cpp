@@ -1,5 +1,5 @@
 #include "box.h"
-//#include <QDebug>
+
 Box::Box(unsigned id, QString name) :id(id), name(name){
 
 }
@@ -8,13 +8,10 @@ Box::Box(const Box &box):id(box.id)
                         , name(box.name)
                         , p1XPosition(box.p1XPosition)
                         , p1YPosition(box.p1YPosition)
-                        //, msgBox(box.msgBox)
 {
     this->setPos(box.pos());
     this->setRotation(box.rotation());
     this->setPixmap(box.pixmap());
-    //this->msgBox(box.msgBox);
-
 }
 
 Box::~Box(){
@@ -22,33 +19,9 @@ Box::~Box(){
 }
 
 void Box::mousePressEvent(QGraphicsSceneMouseEvent *event){
-
-   // setPos(x()+10,y());
     msgBox.setText(this->getBoxInfo());
-   // qDebug()<<this->getBoxInfo();
-   // qDebug()<<"I am ready!"<<msgBox.text()<<"done";
     msgBox.exec();
     QGraphicsItem::mousePressEvent(event);
-
-  //  QMessageBox * boxContent=new QMessageBox();
-   // qDebug()<<this->getName();
-
-   // boxContent->setInformativeText(this->getBoxInfo());
- //   boxContent->setText(this->getBoxInfo());
-  //  boxContent->setStandardButtons(QMessageBox::Ok);
-
-  //  boxContent->setDefaultButton(QMessageBox::Ok);
-
-  //  boxContent->exec();
-  //  delete boxContent;
- //   qDebug()<<"delete";
-  //  int choice=boxContent->exec();
-
-   // if (choice==QMessageBox::Ok){
-   //     qDebug()<<"delete";
-       // delete boxContent;
-  //  }
-
 }
 QString Box::getBoxInfo(){
     return (name+"\n");

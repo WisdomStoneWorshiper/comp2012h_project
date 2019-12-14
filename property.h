@@ -24,8 +24,8 @@ public:
     virtual void resetter();
 //signals:
 //    void doMortgage(unsigned propertyId,unsigned ownerId);
-//private slots:
-//    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+////private slots:
+////    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 private:
     unsigned propertyPrice;
     unsigned rentOfProperty;

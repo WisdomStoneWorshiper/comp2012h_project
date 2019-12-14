@@ -257,4 +257,5 @@ void MainWindow::mortgage(Property* target, Mod mod){
         gm->mortgageAction(target,0);
     else
         gm->mortgageAction(target,1);
+      ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }

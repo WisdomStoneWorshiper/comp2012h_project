@@ -70,10 +70,12 @@ int Player::getMoney() const{
 
 bool Player::getJailPass() const{
     qDebug()<<"c10";
+
     //macbook user can't return jail_pass, don't know do what
     //return jail_pass;
 
-    return jail_pass;
+    return 1;
+
 }
 
 QString Player::getName() const{
@@ -104,10 +106,13 @@ void Player::changeJailPass(){
     if(jail_pass==false){
         qDebug()<<" Player::changeJailPass() true\n";
           qDebug()<<this->getPlayerInfo();
-        jail_pass = true;
+          setJail_pass(true);
+//        jail_pass = true;
     }else{
-        jail_pass = false;
+        setJail_pass(false);
+//        jail_pass = false;
           qDebug()<<" Player::changeJailPass() false";
+
     }
 }
 Player& Player::operator+=(int a){
@@ -137,6 +142,10 @@ void Player::setmoney(int a){
 void Player::setNumOfRestaurant(unsigned int r){
     numOfRestaurant=r;
 }
+void Player::setJail_pass(bool own){
+    jail_pass = own;
+}
+
 
 unsigned Player::getNumOfRestaurant(){
     return numOfRestaurant;
@@ -164,7 +173,7 @@ void Player::jailAction(unsigned num){
         delete jailMessage;
     }
     //jailDiceCount[0]=jailDiceCount[1]=0;
-
+      delete jailMessage;
 }
 
 bool Player::checkLosed() const{

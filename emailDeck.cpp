@@ -17,11 +17,13 @@ EmailDeck::EmailDeck(){
 
 }
 EmailDeck::~EmailDeck(){
+
 //    for(unsigned i = 0; deck[i]!=deck.back();++i)
 //        delete deck[i];
     for (deque<Email*>::const_iterator target=deck.begin();target!=deck.end();++target){
         delete *target;
     }
+
     deck.clear();
 
 }

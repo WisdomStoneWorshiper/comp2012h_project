@@ -16,18 +16,13 @@ GameManager::~GameManager(){
         delete *target;
     }
 
-//    for (int i=0;i<playerList.size();++i){
-//        delete playerList[i];
-//    }
-//    for (int i=0;i<gameField.size();++i){
-//        delete gameField[i];
-//    }
     if (!playerList.empty()) playerList.clear();
     if (!gameField.empty()) gameField.clear();
     if (deck!=nullptr) delete deck;
     delete gameFieldScene;
 }
 
+//
 QGraphicsScene* & GameManager::init(QWidget* mainWin){
     if (gameFieldScene!=nullptr) delete gameFieldScene;
     if (!gameField.empty()) gameField.clear();

@@ -136,11 +136,13 @@ void MainWindow::endTurn(){
         QPushButton* playAgain=winMsg->addButton("Play Again",QMessageBox::ActionRole);
         winMsg->exec();
         if (winMsg->clickedButton()==endGame){
+            delete winMsg;
             exit(0);
         }else if (winMsg->clickedButton()==playAgain){
-
+            delete winMsg;
+            ui->gameArea->setScene(gm->init(this));
         }
-        delete winMsg;
+
     }
         ui->rollDiceBtn->setEnabled(true);
         ui->buyBtn->setEnabled(false);

@@ -3,21 +3,22 @@
 
 #include <list>
 #include <QMainWindow>
-#include <QInputDialog>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
-#include <QTextStream>
-#include <QFile>
+//#include <QTextStream>
+//#include <QFile>
+//#include <QInputDialog>
 #include <QMessageBox>
 #include <QComboBox>
+#include <QPushButton>
 
 #include "gameManager.h"
-#include "box.h"
+#include "property.h"
 #include "player.h"
 #include "rolldicewindow.h"
-#include "restaurant.h"
-#include "buildableproperty.h"
-#include "jail.h"
+//#include "restaurant.h"
+//#include "buildableproperty.h"
+//#include "jail.h"
 #include "tradewindow.h"
 #include "mortgagewindow.h"
 
@@ -49,8 +50,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     GameManager *gm;
-    vector<Box> gameField;
-    QGraphicsScene *scene;
     RollDiceWindow* d;
     TradeWindow* t;
     MortgageWindow* m;

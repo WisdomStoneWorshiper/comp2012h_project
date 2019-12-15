@@ -127,9 +127,25 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
     numOfPlayer=QInputDialog::getInt(mainWin,"","Plaese input number of player (2-6)",3,2,6,1,&ok);
     if (ok){
         for (unsigned i=1;i<=numOfPlayer;++i){
+            bool validName=false;
+            while(validName==false){
+                validName=true;
             bool ok=false;
             QString p_name=QInputDialog::getText(mainWin,"",QString("Plaese input player %1 name").arg(QString::number(i)),QLineEdit::Normal,"", &ok);
             if (ok){
+                qDebug()<<"name"<<p_name;
+                if (!playerList.empty()){
+                for (int i=0;i<playerList.size();++i){
+                    if (p_name.isEmpty() ||(!playerList.empty() && p_name.compare(playerList[i]->getName())==0)){
+                        validName=false;
+                        break;
+                    }
+                }
+                }else{
+                     if (p_name.isEmpty() )
+                         validName=false;
+                }
+                if (validName){
                 Player* p=new Player(i,p_name);
                 playerList.push_back(p);
                 QString path;
@@ -137,7 +153,14 @@ QGraphicsScene* & GameManager::init(QWidget* mainWin){
                 p->setPixmap(QPixmap(path));
                 playerPositionSetter(p,gameField.front());
                 gameFieldScene->addItem(p);
+                }else{
+                    QMessageBox *invalidNameMsg=new QMessageBox();
+                    invalidNameMsg->setText("Name cannot be empty and must be unique");
+                    invalidNameMsg->exec();
+                    delete invalidNameMsg;
+                }
             }
+        }
         }
     }
     currentPlayer=playerList.front();

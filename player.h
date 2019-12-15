@@ -6,6 +6,7 @@
 #include <list>
 #include <QGraphicsPixmapItem>
 #include "property.h"
+#include "restaurant.h"
 
 using namespace std;
 

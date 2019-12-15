@@ -90,7 +90,8 @@ bool Player::buyProperty(Property* target){  //player buy the property
 
     addProperty(target);
     target->changeOwner(getId());
-
+    if (typeid (target)==typeid (Restaurant))
+        ++numOfRestaurant;
     return true;
 }
 

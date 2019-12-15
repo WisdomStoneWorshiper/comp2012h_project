@@ -551,7 +551,7 @@ int GameManager::winner()
     int alivePlayerId = 0, totalPlayerAlive = 0;
     for (int i = 0; i < playerList.size(); ++i)
     {
-        if (playerList[i]->checkLosed() == false && totalPlayerAlive > 0)
+        if (playerList[i]->checkLosed() == false && totalPlayerAlive > 1)
         {
             return -1;
         }

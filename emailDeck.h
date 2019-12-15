@@ -5,23 +5,23 @@
 #include "emailGetJailPass.h"
 #include "emailGetMoney.h"
 #include "deque" //double end queue
+#include "vector"
+#include "list"
 
 using namespace std;
-
-//Total create 4Move 7Money 1Pass
 
 
 class EmailDeck{
 public:
     EmailDeck();
     //int random_seed (int);
-    void shuffle();//shuffle before the dequee isCompletelyUsed
+    void shuffle(); //shuffle after reach the last email
     Email * getEmail();
-    bool isCompletelyUsed ()const ;  //check if the double end queue go back to the first
+    bool isLastEmail ()const ;
     ~EmailDeck();
 private:
     deque<Email*> deck;
-    deque<Email*>:: iterator emailOrder;
+    deque<Email*>:: iterator emailToBeGet;
 };
 
 #endif // EMAILDECK_H

@@ -329,11 +329,13 @@ void GameManager::build(){
 //if currentPlayer stepped on email box, some speacial action will be performed
 void GameManager::emailAction(Box* oldLocation){
     //first show the message of the email
+
     Email * e=deck->getEmail();
     QMessageBox * emailContent=new QMessageBox();
     emailContent->setInformativeText(e->getMessage());
     emailContent->setStandardButtons(QMessageBox::Ok);
     emailContent->setDefaultButton(QMessageBox::Ok);
+
     //when ok button of the message box is clicked, perform speacial email action
     int choice=emailContent->exec();
     if (choice==QMessageBox::Ok){
@@ -341,10 +343,7 @@ void GameManager::emailAction(Box* oldLocation){
         e->emailAction(currentPlayer);
     }
 
-    //if all email card is used, shuffle it
-    if(deck->isCompletelyUsed()){
-        deck->shuffle();
-    }
+    qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
 
     Box* newLocation=gameField[currentPlayer->getPosition()];
     //if the position of player is changed affter the speacial action of the email,
@@ -355,6 +354,12 @@ void GameManager::emailAction(Box* oldLocation){
         (*currentPlayer)+=2000;
         playerPositionSetter(currentPlayer,newLocation);
     }
+
+    if(deck->isLastEmail()){
+        qDebug()<<"reach the last email ";
+        deck->shuffle();
+    }else qDebug()<<"not reach the last email";
+
     delete emailContent;
 }
 

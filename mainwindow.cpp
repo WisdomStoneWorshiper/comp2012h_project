@@ -123,8 +123,6 @@ void MainWindow::on_endBtn_clicked()
         checkMsg->setStandardButtons(QMessageBox::No | QMessageBox::Yes);
         checkMsg->setDefaultButton(QMessageBox::No);
         int choice = checkMsg->exec();
-        //here maybe crash
-        //if crashed change whole function to endTurn(); only and comment the rest of the part
         if (choice == QMessageBox::No)
         {
             delete checkMsg;
@@ -173,8 +171,9 @@ void MainWindow::endTurn()
         }
         else if (winMsg->clickedButton() == playAgain)
         {
-            delete winMsg;
             ui->gameArea->setScene(gm->init(this));
+            delete winMsg;
+            return;
         }
     }
     ui->rollDiceBtn->setEnabled(true);

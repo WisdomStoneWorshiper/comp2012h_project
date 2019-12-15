@@ -20,15 +20,13 @@ public:
     explicit RollDiceWindow(QWidget *parent = nullptr);
     ~RollDiceWindow() override;
     void keyPressEvent(QKeyEvent *) override;
-    unsigned getValue();
 
 signals:
-    void changevalue(unsigned);
+    void changevalue(const unsigned &);
 
 private:
     Ui::RollDiceWindow *ui;
     QMovie *dice;
-    unsigned v;
     QElapsedTimer *timer;
 };
 

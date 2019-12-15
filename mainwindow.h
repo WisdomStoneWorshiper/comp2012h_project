@@ -1,24 +1,18 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <list>
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
-//#include <QTextStream>
-//#include <QFile>
-//#include <QInputDialog>
 #include <QMessageBox>
 #include <QComboBox>
 #include <QPushButton>
+#include <QCloseEvent>
 
 #include "gameManager.h"
 #include "property.h"
 #include "player.h"
 #include "rolldicewindow.h"
-//#include "restaurant.h"
-//#include "buildableproperty.h"
-//#include "jail.h"
 #include "tradewindow.h"
 #include "mortgagewindow.h"
 
@@ -36,12 +30,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void moveCharactor(Player, int);
+    void moveCharactor(const Player &, const int &);
     void endTurn();
+    void closeEvent (QCloseEvent *);
 public slots:
-    void move(unsigned);
-    void trade(Player *, Property *, unsigned);
-    void mortgage(Property *, Mod);
+    void move(const unsigned &);
+    void trade(Player *, Property *, const unsigned &);
+    void mortgage(Property *, const Mod &);
     void on_rollDiceBtn_clicked();
     void on_buyBtn_clicked();
     void on_buildBtn_clicked();

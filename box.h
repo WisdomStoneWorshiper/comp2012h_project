@@ -13,14 +13,14 @@ class Box : public QGraphicsPixmapItem
     //Q_OBJECT
 public:
     Box();
-    Box(unsigned, QString);
+    Box(const unsigned &, const QString &);
     Box(const Box &);
     virtual ~Box();
     QString getName();
     unsigned getId();
     double getP1XPosition();
     double getP1YPosition();
-    void setP1Position(double, double);
+    void setP1Position(const double &, const double &);
     virtual QString getBoxInfo();
 
 protected slots:

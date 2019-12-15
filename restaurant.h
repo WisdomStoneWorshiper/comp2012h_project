@@ -6,9 +6,9 @@
 class Restaurant : public Property
 {
 public:
-    Restaurant(unsigned, QString, unsigned, unsigned);
+    Restaurant(const unsigned &, const QString &, const unsigned &, const unsigned &);
     Restaurant(const Restaurant &);
-    unsigned getRentOfProperty(unsigned);
+    unsigned getRentOfProperty(const unsigned &);
     QString getBoxInfo() override;
 
 private:

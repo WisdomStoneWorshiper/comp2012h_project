@@ -6,11 +6,11 @@
 class Jail : public Box
 {
 public:
-    Jail(unsigned, QString);
+    Jail(const unsigned &, const QString &);
     Jail(const Jail &);
     double getJailP1XPosition();
     double getJailP1YPosition();
-    void setJailP1Position(double, double);
+    void setJailP1Position(const double &, const double &);
 
 private:
     double jailP1XPosition, jailP1YPosition;

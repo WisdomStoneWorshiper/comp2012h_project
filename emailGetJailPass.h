@@ -8,6 +8,6 @@ class EmailGetJailPass : public Email
 public:
     EmailGetJailPass();
     void emailAction(Player *p) override; // get a jail pass if player dont have one
-    ~EmailGetJailPass() override;
+    ~EmailGetJailPass() ;
 };
 #endif // EMAILJAILPASS_H

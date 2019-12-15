@@ -1,5 +1,4 @@
 #include "gameManager.h"
-#include <QDebug>
 
 GameManager::GameManager() : deck(new EmailDeck())
 {
@@ -95,7 +94,7 @@ QGraphicsScene *&GameManager::init(QWidget *mainWin)
                 c = Green;
             else
                 c = Red;
-            b = new BuildableProperty(id, (name), c, price, rent);
+            b = new BuildableProperty(id, name, c, price, rent);
             path = (":/img/propertyAsset/") + (b->getName()) + ("B.png");
         }
         //this if statement is setting the graphical view of the box object
@@ -183,7 +182,6 @@ QGraphicsScene *&GameManager::init(QWidget *mainWin)
                 QString p_name = QInputDialog::getText(mainWin, "", QString("Plaese input player %1 name").arg(QString::number(i)), QLineEdit::Normal, "", &ok);
                 if (ok)
                 {
-                    qDebug() << "name" << p_name;
                     if (!playerList.empty())
                     {
                         for (int i = 0; i < playerList.size(); ++i)
@@ -220,9 +218,12 @@ QGraphicsScene *&GameManager::init(QWidget *mainWin)
                 }
             }
         }
+        currentPlayer = playerList.front();
+        deck->shuffle();
+
+    } else{
+        exit(0);
     }
-    currentPlayer = playerList.front();
-    deck->shuffle();
     return gameFieldScene;
 }
 
@@ -369,11 +370,9 @@ void GameManager::playerPositionSetter(Player *p, Box *b)
 bool GameManager::ableToBuy()
 {
     Box *b = gameField[currentPlayer->getPosition()];
-    qDebug() << typeid((*b)).name() << typeid(BuildableProperty).name();
     if (typeid((*b)) == typeid(BuildableProperty) || typeid((*b)) == typeid(Restaurant))
     {
         Property *p = static_cast<Property *>(b);
-        qDebug() << currentPlayer->getMoney() << " " << p->getPropertyPrice() << " " << p->getOwnerId();
         return (currentPlayer->getMoney() >= p->getPropertyPrice() && p->getOwnerId() == 0);
     }
     return false;
@@ -395,7 +394,6 @@ bool GameManager::ableToIncreaseWifi()
 bool GameManager::ableToAddVendingMachine()
 {
     Box *b = gameField[currentPlayer->getPosition()];
-    qDebug() << "av" << (typeid((*b)) == typeid(BuildableProperty));
     if (typeid((*b)) == typeid(BuildableProperty))
     {
         BuildableProperty *p = static_cast<BuildableProperty *>(b);
@@ -464,8 +462,6 @@ void GameManager::emailAction(Box *oldLocation)
         e->emailAction(currentPlayer);
     }
 
-    qDebug() << "email" << currentPlayer->getId() << currentPlayer->getPosition();
-
     Box *newLocation = gameField[currentPlayer->getPosition()];
     //if the position of player is changed affter the speacial action of the email,
     //move currentPlayer to corresponding position
@@ -481,11 +477,9 @@ void GameManager::emailAction(Box *oldLocation)
 
     if (deck->isLastEmail())
     {
-        qDebug() << "reach the last email ";
         deck->shuffle();
     }
     else
-        qDebug() << "not reach the last email";
 
     delete emailContent;
 }
@@ -493,8 +487,6 @@ void GameManager::emailAction(Box *oldLocation)
 //return information of currentPlayer
 QString GameManager::getCurrentPlayerInfo()
 {
-    qDebug() << "Info" << ("Player id: " + QString::number(currentPlayer->getId()) + "\nPlayer name: " + currentPlayer->getName() + "\n$: " + QString::number(currentPlayer->getMoney()) + "\nJail Pass on hand? " + ((currentPlayer->getJailPass()) ? "Yes" : "No"));
-
     return (currentPlayer->getPlayerInfo());
 }
 

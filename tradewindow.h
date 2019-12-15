@@ -22,9 +22,9 @@ public:
 
     void init(Player *);
 signals:
-    void doTrade(Player *, Property *, unsigned);
+    void doTrade(Player *, Property *, const unsigned &);
 private slots:
-    void on_sellerBox_activated(const QString &arg1);
+    void on_sellerBox_activated(const QString &);
 
     void on_cancelBtn_clicked();
 

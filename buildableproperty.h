@@ -14,7 +14,7 @@ enum Color
 class BuildableProperty : public Property
 {
 public:
-    BuildableProperty(unsigned, QString, Color, unsigned, unsigned);
+    BuildableProperty(const unsigned &, const QString &, const Color &, const unsigned &, const unsigned &);
     BuildableProperty(const BuildableProperty &);
     Color getColor();
     unsigned getRentOfProperty() override;

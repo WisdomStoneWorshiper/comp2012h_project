@@ -7,7 +7,8 @@
 #include "buildableproperty.h"
 #include "restaurant.h"
 
-namespace Ui {
+namespace Ui
+{
 class TradeWindow;
 }
 
@@ -16,15 +17,15 @@ class TradeWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit TradeWindow(const vector<Player*>&, const vector<Box *>&, QWidget *parent = nullptr);
+    explicit TradeWindow(const vector<Player *> &, const vector<Box *> &, QWidget *parent = nullptr);
     ~TradeWindow();
 
     void init(Player *);
 signals:
-    void doTrade(Player*,Property*,unsigned);
+    void doTrade(Player *, Property *, unsigned);
 private slots:
     void on_sellerBox_activated(const QString &arg1);
-    
+
     void on_cancelBtn_clicked();
 
     void on_propertyBox_activated(const QString &arg1);
@@ -37,12 +38,12 @@ private slots:
 
 private:
     Ui::TradeWindow *ui;
-    vector<Player*> playerList;
+    vector<Player *> playerList;
     vector<Box *> gameField;
-    Player* buyer;
-    QIntValidator* valider;
-    Player* seller;
-    Property* targetProperty;
+    Player *buyer;
+    QIntValidator *valider;
+    Player *seller;
+    Property *targetProperty;
 };
 
 #endif // TRADEWINDOW_H

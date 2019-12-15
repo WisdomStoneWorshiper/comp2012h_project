@@ -7,7 +7,8 @@
 #include <QGraphicsScene>
 #include <QElapsedTimer>
 
-namespace Ui {
+namespace Ui
+{
 class RollDiceWindow;
 }
 
@@ -18,7 +19,7 @@ class RollDiceWindow : public QDialog
 public:
     explicit RollDiceWindow(QWidget *parent = nullptr);
     ~RollDiceWindow() override;
-    void keyPressEvent(QKeyEvent *) override ;
+    void keyPressEvent(QKeyEvent *) override;
     unsigned getValue();
 
 signals:
@@ -26,9 +27,9 @@ signals:
 
 private:
     Ui::RollDiceWindow *ui;
-    QMovie* dice;
+    QMovie *dice;
     unsigned v;
-    QElapsedTimer* timer;
+    QElapsedTimer *timer;
 };
 
 #endif // ROLLDICEWINDOW_H

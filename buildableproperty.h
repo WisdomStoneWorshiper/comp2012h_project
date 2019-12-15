@@ -3,7 +3,13 @@
 
 #include <property.h>
 
-enum Color{Red, Blue, Yellow, Green};
+enum Color
+{
+    Red,
+    Blue,
+    Yellow,
+    Green
+};
 
 class BuildableProperty : public Property
 {
@@ -20,12 +26,13 @@ public:
     void addVendingMachines();
     QString getBoxInfo() override;
     void resetter() override;
+
 private:
     Color propertyColor;
     unsigned levelOfWifiCoverage;
     unsigned numOfVendingMachines;
-    const unsigned RENTPERLEVELOFWIFICOVERAGE=200, RENTOFVENDINGMACHINE=300;
-    const unsigned COSTPERLEVELOFWIFICOVERAGE=400, COSTOFVENDINGMACHINE=600;
+    const unsigned RENTPERLEVELOFWIFICOVERAGE = 200, RENTOFVENDINGMACHINE = 300;
+    const unsigned COSTPERLEVELOFWIFICOVERAGE = 400, COSTOFVENDINGMACHINE = 600;
 };
 
 #endif // BUILDABLEPROPERTY_H

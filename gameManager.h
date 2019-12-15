@@ -18,45 +18,51 @@
 #include <QFile>
 #include <QInputDialog>
 
-class GameManager{
+class GameManager
+{
 
 public:
     GameManager();
     ~GameManager();
-    QGraphicsScene* & init(QWidget* );
+    QGraphicsScene *&init(QWidget *);
     void moveToNextPlayer();
     void movePlayer(unsigned);
-    void playerPositionSetter(Player*,Box*);
+    void playerPositionSetter(Player *, Box *);
     bool ableToBuy();
     bool ableToIncreaseWifi();
     bool ableToAddVendingMachine();
     bool checkEndTurn();
-    Player* & getCurrentPlayer();
+    Player *&getCurrentPlayer();
     void buyAsset();
     void build();
-    void emailAction(Box*);
+    void emailAction(Box *);
     QString getCurrentPlayerInfo();
-   // void inJailAction();
+    // void inJailAction();
     unsigned getMoneyAfterBuy();
     unsigned getMoneyAfterBuild();
-    vector<Player*> getPlayerList() const;
+    vector<Player *> getPlayerList() const;
     vector<Box *> getGameField() const;
-    void tradeAction(Player*,Property*,unsigned);
-    enum Mod{Apply, Pay};
+    void tradeAction(Player *, Property *, unsigned);
+    enum Mod
+    {
+        Apply,
+        Pay
+    };
     void mortgageAction(Property *, int);
     bool checkBankrupt();
     int winner();
     bool haveArrestToSell();
 private slots:
     //void on_
-    void mortgageAction(unsigned,unsigned);
+    void mortgageAction(unsigned, unsigned);
+
 private:
-    QGraphicsScene* gameFieldScene;
-    vector<Player*> playerList;
+    QGraphicsScene *gameFieldScene;
+    vector<Player *> playerList;
     vector<Box *> gameField;
     unsigned numOfPlayer;
-    Player* currentPlayer;
-    EmailDeck* deck;
+    Player *currentPlayer;
+    EmailDeck *deck;
 };
 
 #endif // GAMEMANAGER_H

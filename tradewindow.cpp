@@ -2,56 +2,58 @@
 #include "ui_tradewindow.h"
 #include <QDebug>
 
-TradeWindow::TradeWindow(const vector<Player*> &playerList, const vector<Box *>& gameField, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::TradeWindow)
+TradeWindow::TradeWindow(const vector<Player *> &playerList, const vector<Box *> &gameField, QWidget *parent) : QDialog(parent),
+                                                                                                                ui(new Ui::TradeWindow)
 {
     ui->setupUi(this);
-    qDebug()<<"w9";
-        this->playerList=playerList;
-    qDebug()<<"w10";
-        this->gameField=(gameField);
-    qDebug()<<"w11";
+    qDebug() << "w9";
+    this->playerList = playerList;
+    qDebug() << "w10";
+    this->gameField = (gameField);
+    qDebug() << "w11";
     ui->sellerBox->setEnabled(false);
     ui->propertyBox->setEnabled(false);
-    qDebug()<<"w12";
+    qDebug() << "w12";
     ui->priceField->setEnabled(false);
-    qDebug()<<"w13";
-    valider=nullptr;
+    qDebug() << "w13";
+    valider = nullptr;
     ui->comfirmBtn->setEnabled(false);
 }
 
 TradeWindow::~TradeWindow()
 {
     delete ui;
-    if (valider!=nullptr)
+    if (valider != nullptr)
         delete valider;
     playerList.clear();
     gameField.clear();
 }
 
-void TradeWindow::init(Player* buyer){
-    this->buyer=buyer;
+void TradeWindow::init(Player *buyer)
+{
+    this->buyer = buyer;
     ui->buyerBox->clear();
     ui->sellerBox->clear();
     ui->propertyBox->clear();
 
-    qDebug()<<"tw1"<<buyer->getId();
-    if (valider!=nullptr)
+    qDebug() << "tw1" << buyer->getId();
+    if (valider != nullptr)
         delete valider;
-    valider=new QIntValidator(1,buyer->getMoney(),this);
+    valider = new QIntValidator(1, buyer->getMoney(), this);
 
-    for (int target=0;target<playerList.size();++target){
+    for (int target = 0; target < playerList.size(); ++target)
+    {
         ui->buyerBox->addItem(playerList[target]->getName());
     }
-
 }
 
 void TradeWindow::on_buyerBox_activated(const QString &buyerName)
 {
-    buyer=*find_if(playerList.begin(),playerList.end(), [&](const Player* target){return target->getName().compare(buyerName)==0;});
-    for (int target=0;target<playerList.size();++target){
-        if (playerList[target]->getId()!=buyer->getId()){
+    buyer = *find_if(playerList.begin(), playerList.end(), [&](const Player *target) { return target->getName().compare(buyerName) == 0; });
+    for (int target = 0; target < playerList.size(); ++target)
+    {
+        if (playerList[target]->getId() != buyer->getId())
+        {
             ui->sellerBox->addItem(playerList[target]->getName());
         }
     }
@@ -62,42 +64,47 @@ void TradeWindow::on_sellerBox_activated(const QString &sellerName)
 {
 
     ui->propertyBox->setEnabled(true);
-    qDebug()<<sellerName;
-    seller=*find_if(playerList.begin(),playerList.end(), [&](const Player* target){return target->getName().compare(sellerName)==0;});
+    qDebug() << sellerName;
+    seller = *find_if(playerList.begin(), playerList.end(), [&](const Player *target) { return target->getName().compare(sellerName) == 0; });
 
-    for (vector<Box*>::const_iterator box=gameField.begin();box!=gameField.end();++box){
-        qDebug()<<(*box)->getId();
-        if (typeid (*(*box))==typeid (BuildableProperty)||typeid (*(*box))==typeid (Restaurant)){
-            Property* currentProperty=static_cast<Property*>(*box);
-            if (currentProperty->getOwnerId()==(seller)->getId()){
+    for (vector<Box *>::const_iterator box = gameField.begin(); box != gameField.end(); ++box)
+    {
+        qDebug() << (*box)->getId();
+        if (typeid(*(*box)) == typeid(BuildableProperty) || typeid(*(*box)) == typeid(Restaurant))
+        {
+            Property *currentProperty = static_cast<Property *>(*box);
+            if (currentProperty->getOwnerId() == (seller)->getId())
+            {
                 ui->propertyBox->addItem(currentProperty->getName());
             }
         }
     }
-
 }
 
 void TradeWindow::on_cancelBtn_clicked()
 {
     this->close();
     delete valider;
-    valider=nullptr;
+    valider = nullptr;
 }
 
 void TradeWindow::on_propertyBox_activated(const QString &targetName)
 {
-    vector<Box*>::const_iterator target=find_if(gameField.begin(),gameField.end(), [&]( Box* t){return t->getName().compare(targetName)==0;});
-    targetProperty=static_cast<Property*>(*target);
+    vector<Box *>::const_iterator target = find_if(gameField.begin(), gameField.end(), [&](Box *t) { return t->getName().compare(targetName) == 0; });
+    targetProperty = static_cast<Property *>(*target);
     ui->priceField->setValidator(valider);
     ui->priceField->setEnabled(true);
 }
 
 void TradeWindow::on_priceField_textChanged(const QString &price)
 {
-    if (price.toInt()>buyer->getMoney()){
+    if (price.toInt() > buyer->getMoney())
+    {
         ui->priceCheckerMessage->setText("You do not have enough money");
         ui->comfirmBtn->setEnabled(false);
-    }else{
+    }
+    else
+    {
         ui->priceCheckerMessage->setText("Please click confirm to finish this trade");
         ui->comfirmBtn->setEnabled(true);
     }
@@ -105,7 +112,5 @@ void TradeWindow::on_priceField_textChanged(const QString &price)
 
 void TradeWindow::on_comfirmBtn_clicked()
 {
-    doTrade(seller,targetProperty,ui->priceField->text().toUInt());
+    doTrade(seller, targetProperty, ui->priceField->text().toUInt());
 }
-
-

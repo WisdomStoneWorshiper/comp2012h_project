@@ -6,9 +6,14 @@
 #include "buildableproperty.h"
 #include "restaurant.h"
 
-enum Mod{Apply, Pay};
+enum Mod
+{
+    Apply,
+    Pay
+};
 
-namespace Ui {
+namespace Ui
+{
 class MortgageWindow;
 }
 
@@ -17,12 +22,12 @@ class MortgageWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit MortgageWindow(const vector<Player*>&, const vector<Box *>&,QWidget *parent = nullptr);
+    explicit MortgageWindow(const vector<Player *> &, const vector<Box *> &, QWidget *parent = nullptr);
     ~MortgageWindow();
-    void init(Player*);
+    void init(Player *);
 
 signals:
-    void doMortgage(Property*, Mod);
+    void doMortgage(Property *, Mod);
 
 private slots:
     void on_applyBtn_clicked();
@@ -37,10 +42,10 @@ private slots:
 
 private:
     Ui::MortgageWindow *ui;
-    vector<Player*> playerList;
+    vector<Player *> playerList;
     vector<Box *> gameField;
-    Player* currentPlayer;
-    Property* targetProperty;
+    Player *currentPlayer;
+    Property *targetProperty;
 };
 
 #endif // MORTGAGEWINDOW_H

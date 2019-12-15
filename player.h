@@ -10,11 +10,11 @@
 
 using namespace std;
 
-class Player: public QGraphicsPixmapItem{
-
+class Player : public QGraphicsPixmapItem
+{
 
 private:
-    vector <unsigned> owned_place_id_list; //list to stored player properties
+    vector<unsigned> owned_place_id_list; //list to stored player properties
     const unsigned short id;
     unsigned short position;
     bool jail_pass;
@@ -29,21 +29,21 @@ private:
 
 public:
     Player(unsigned short, QString);
-    Player(const Player&);
+    Player(const Player &);
     ~Player();
     unsigned short getId() const;
-    void addProperty(Property*);
-    void removeProperty(Property*);
-    vector <unsigned> getOwnedPropertyList() const;
+    void addProperty(Property *);
+    void removeProperty(Property *);
+    vector<unsigned> getOwnedPropertyList() const;
     int getMoney() const;
     bool getJailPass() const;
     QString getName() const;
-    bool buyProperty(Property*);
+    bool buyProperty(Property *);
     void changeJailPass();
     unsigned short getPosition() const;
     void setPosition(unsigned);
-    Player& operator+=(int);
-    Player& operator-=(int);
+    Player &operator+=(int);
+    Player &operator-=(int);
     bool checkInJail() const;
     void setinJail(bool);
     void setmoney(int);

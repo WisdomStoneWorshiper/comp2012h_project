@@ -6,9 +6,9 @@
 
 using namespace std;
 
-
 //const unsigned RENTPERLEVELOFWIFICOVERAGE=200, RENTOFVENDINGMACHINE=100;
-class Property: public Box{
+class Property : public Box
+{
 
 public:
     Property(unsigned, QString, unsigned, unsigned);
@@ -22,16 +22,15 @@ public:
     void setMortgage(bool);
     void changeOwner(unsigned);
     virtual void resetter();
-//signals:
-//    void doMortgage(unsigned propertyId,unsigned ownerId);
-////private slots:
-////    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    //signals:
+    //    void doMortgage(unsigned propertyId,unsigned ownerId);
+    ////private slots:
+    ////    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 private:
     unsigned propertyPrice;
     unsigned rentOfProperty;
     bool mortgage;
     unsigned ownerId;
-
 };
 
 #endif // PROPERTY_H

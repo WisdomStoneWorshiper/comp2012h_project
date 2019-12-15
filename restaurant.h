@@ -10,8 +10,9 @@ public:
     Restaurant(const Restaurant &);
     unsigned getRentOfProperty(unsigned);
     QString getBoxInfo() override;
+
 private:
-    const unsigned ADDITIONRENTPERRESTAURANT=250;
+    const unsigned ADDITIONRENTPERRESTAURANT = 250;
 };
 
 #endif // RESTAURANT_H

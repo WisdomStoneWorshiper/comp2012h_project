@@ -42,31 +42,24 @@ void EmailGetMoney::emailAction(Player *p)
     switch (emailIndex)
     {
     case 1:
-
         *p += 1000;
         break;
     case 2:
-
         *p += 500;
         break;
     case 3:
-
         *p -= 500;
         break;
     case 4:
-
         *p -= 1000;
         break;
     case 5:
-
         *p += 200;
         break;
     case 6:
-
         *p -= 500;
         break;
     case 7:
-
         *p += 1000;
         break;
     }

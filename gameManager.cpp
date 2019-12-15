@@ -203,7 +203,7 @@ void GameManager::movePlayer(unsigned u){
             qDebug()<<"rent"<<currentPlayer->getId()<<owner->getId()<<bp->getName()<<bp->getId();
             (*owner)+=(bp->getRentOfProperty())*numOfSameColor;
             qDebug()<<"t7";
-            rentMessage->setInformativeText("You have to pay $"+QString::number(bp->getRentOfProperty())+"for rent.");
+            rentMessage->setInformativeText("You have to pay $"+QString::number(bp->getRentOfProperty())+" for rent.");
             qDebug()<<"t8";
             rentMessage->exec();
         }
@@ -220,7 +220,7 @@ void GameManager::movePlayer(unsigned u){
             qDebug()<<"t6";
             (*owner)+=r->getRentOfProperty(numOfRestaurant-1);
             qDebug()<<"t7";
-            rentMessage->setInformativeText(r->getName()+" is owned by other player\nYou have to pay $"+QString::number(r->getRentOfProperty(numOfRestaurant-1))+" for rent.");
+            rentMessage->setInformativeText("\nYou have to pay $"+QString::number(r->getRentOfProperty(numOfRestaurant-1))+" for rent.");
             qDebug()<<"t8";
             rentMessage->exec();
         }

@@ -41,31 +41,31 @@ EmailGetMoney::EmailGetMoney(int emailOrder){ //assign corresponding emailIndex 
 void EmailGetMoney::emailAction(Player *p){
     switch (emailIndex){
         case 1:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             *p+=1000;
             break;
         case 2:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             *p+=500;
             break;
         case 3:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             *p-=500;
             break;
         case 4:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             *p-=1000;
             break;
         case 5:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             *p+=200;
             break;
         case 6:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             *p-=500;
             break;
         case 7:
-            setMessage("\n"+p->getPlayerInfo()+"\n");
+
             *p+=1000;
             break;
     }

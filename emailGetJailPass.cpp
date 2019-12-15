@@ -7,7 +7,7 @@ EmailGetJailPass::EmailGetJailPass(){
 
 void EmailGetJailPass::emailAction(Player *p){
 
-    setMessage("\n"+p->getPlayerInfo()+"\n");
+
     p->changeJailPass();
 }
 EmailGetJailPass::~EmailGetJailPass(){

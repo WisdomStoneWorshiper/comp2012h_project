@@ -1,6 +1,6 @@
 #include "emailDeck.h"
 #include <QDebug>
-EmailDeck::EmailDeck(){ 
+EmailDeck::EmailDeck(){ //Total create 5Move 7Money 1Pass email for user to draw
         for(int i =1; i<=5 ; ++i){
             EmailMove * p = new EmailMove(i);
             deck.push_back(p);
@@ -10,10 +10,11 @@ EmailDeck::EmailDeck(){
             EmailGetMoney * p = new EmailGetMoney(i);// create Email with a emailOrder parameter
             deck.push_back(p);
         }
+
         deck.push_back(new EmailGetJailPass);
-        emailOrder = deck.begin();
+        emailToBeGet = deck.begin();
 }
-EmailDeck::~EmailDeck(){
+EmailDeck::~EmailDeck(){//delete each Email
 
     for(unsigned i = 0; deck[i]!=deck.back();++i)
         delete [] deck[i];
@@ -26,23 +27,24 @@ EmailDeck::~EmailDeck(){
 }
 
 
-void EmailDeck::shuffle(){ //shuffle before the dequee isCompletelyUsed
+void EmailDeck::shuffle(){ //shuffle after reach the last email
 
      std::random_shuffle ( deck.begin(), deck.end() );
-     emailOrder = deck.begin();
-     qDebug()<<"do shuffle";
+     emailToBeGet = deck.begin();
+     qDebug()<<"Finish shuffle function";
 }
 
-bool EmailDeck::isCompletelyUsed()const { //check if the double end queue go back to the first
-    return emailOrder == deck.end();
-    //qDebug()<<"the deck completely Used ";
+bool EmailDeck::isLastEmail()const {
+    qDebug()<<"inside isLaseEmailFucntion";
+    return (emailToBeGet == deck.end());
+
 }
 
 Email * EmailDeck ::getEmail(){
 
     deque<Email*>:: iterator temp;
-    temp = emailOrder;
-    //++emailOrder ;
+    temp = emailToBeGet;
+    ++emailToBeGet ;
     return *temp;
 
 }

@@ -334,6 +334,7 @@ void GameManager::build(){
 }
 
 void GameManager::emailAction(Box* oldLocation){
+    qDebug()<<"come to get email";
     Email * e=deck->getEmail();
     QMessageBox * emailContent=new QMessageBox();
 
@@ -341,15 +342,12 @@ void GameManager::emailAction(Box* oldLocation){
     emailContent->setStandardButtons(QMessageBox::Ok);
     emailContent->setDefaultButton(QMessageBox::Ok);
     qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
-    int choice=emailContent->exec();
+    int choice=emailContent->exec();  qDebug()<<"I show the email message";
+
     if (choice==QMessageBox::Ok){
 
         e->emailAction(currentPlayer);
     }
-
-    if(deck->isCompletelyUsed()){
-        deck->shuffle();
-    }else qDebug()<<"not completely Used the deck";
 
     qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
     Box* newLocation=gameField[currentPlayer->getPosition()];
@@ -366,6 +364,12 @@ void GameManager::emailAction(Box* oldLocation){
         qDebug()<<"email"<<currentPlayer->getId()<<currentPlayer->getPosition();
         playerPositionSetter(currentPlayer,newLocation);
     }
+
+    if(deck->isLastEmail()){
+        qDebug()<<"reach the last email ";
+        deck->shuffle();
+    }else qDebug()<<"not reach the last email";
+
     delete emailContent;
 
 }

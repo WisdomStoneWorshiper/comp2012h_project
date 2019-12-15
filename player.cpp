@@ -173,7 +173,7 @@ void Player::jailAction(unsigned num){  //the principle of jail
         delete jailMessage;
     }
     //jailDiceCount[0]=jailDiceCount[1]=0;
-      delete jailMessage;
+     // delete jailMessage;
 }
 
 bool Player::checkLosed() const{ //check whether the player is losed

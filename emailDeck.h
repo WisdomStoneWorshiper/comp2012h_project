@@ -5,16 +5,14 @@
 #include "emailGetJailPass.h"
 #include "emailGetMoney.h"
 #include "deque" //double end queue
-#include "vector"
-#include "list"
+
 
 using namespace std;
 
 class EmailDeck
 {
 public:
-    EmailDeck();
-    //int random_seed (int);
+    EmailDeck(); //Total create 5Move 7Money 1Pass email for user to draw
     void shuffle(); //shuffle after reach the last email
     Email *getEmail();
     bool isLastEmail() const;

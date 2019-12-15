@@ -18,14 +18,11 @@ EmailDeck::EmailDeck()
     emailToBeGet = deck.begin();
 }
 EmailDeck::~EmailDeck()
-{ //delete each Email
+{ //delete each Email pointer
 
     for (unsigned i = 0; deck[i] != deck.back(); ++i)
         delete deck[i];
     delete deck.back();
-//        for (deque<Email*>::const_iterator target=deck.begin();target!=deck.end();++target){
-//            delete *target;
-//        }
     deck.clear();
 }
 
@@ -34,12 +31,10 @@ void EmailDeck::shuffle()
 
     std::random_shuffle(deck.begin(), deck.end());
     emailToBeGet = deck.begin();
-    qDebug() << "Finish shuffle function";
 }
 
 bool EmailDeck::isLastEmail() const
 {
-    qDebug() << "inside isLaseEmailFucntion";
     return (emailToBeGet == deck.end());
 }
 

@@ -35,24 +35,19 @@ void EmailMove::emailAction(Player *p)
     switch (cardIndex)
     {
     case 1:
-
         p->setPosition(7);
         p->setinJail(true);
         break;
     case 2:
-
         p->setPosition(0);
         break;
     case 3:
-
         p->setPosition(20);
         break;
     case 4:
-
         p->setPosition(27);
         break;
     case 5:
-
         p->setPosition(8);
         break;
     }

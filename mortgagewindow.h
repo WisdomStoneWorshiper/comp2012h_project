@@ -27,14 +27,14 @@ public:
     void init(Player *);
 
 signals:
-    void doMortgage(Property *, Mod);
+    void doMortgage(Property *, const Mod &);
 
 private slots:
     void on_applyBtn_clicked();
 
     void on_payBtn_clicked();
 
-    void on_mortgageList_activated(const QString &arg1);
+    void on_mortgageList_activated(const QString &);
 
     void on_confirmBtn_clicked();
 

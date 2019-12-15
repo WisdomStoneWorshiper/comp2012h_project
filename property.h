@@ -6,12 +6,11 @@
 
 using namespace std;
 
-//const unsigned RENTPERLEVELOFWIFICOVERAGE=200, RENTOFVENDINGMACHINE=100;
 class Property : public Box
 {
 
 public:
-    Property(unsigned, QString, unsigned, unsigned);
+    Property(const unsigned &, const QString &, const unsigned &, const unsigned &);
     Property(const Property &);
     ~Property();
     QString getBoxInfo() override;
@@ -19,13 +18,10 @@ public:
     virtual unsigned getRentOfProperty();
     unsigned getOwnerId();
     bool getMortgage();
-    void setMortgage(bool);
+    void setMortgage(const bool &);
     void changeOwner(unsigned);
     virtual void resetter();
-    //signals:
-    //    void doMortgage(unsigned propertyId,unsigned ownerId);
-    ////private slots:
-    ////    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+
 private:
     unsigned propertyPrice;
     unsigned rentOfProperty;

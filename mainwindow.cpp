@@ -1,23 +1,25 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+//convension constructor
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), gm(new GameManager()), d(new RollDiceWindow())
 {
     ui->setupUi(this);
-    ui->gameArea->setScene(gm->init(this));
+    ui->gameArea->setScene(gm->init(this)); //call game manager initalize the game
     ui->gameArea->show();
-    connect(d, SIGNAL(changevalue(unsigned)), this, SLOT(move(unsigned)));
-    t = new TradeWindow(gm->getPlayerList(), gm->getGameField());
-    connect(t, SIGNAL(doTrade(Player *, Property *, unsigned)), this, SLOT(trade(Player *, Property *, unsigned)));
-    m = new MortgageWindow(gm->getPlayerList(), gm->getGameField());
-    connect(m, SIGNAL(doMortgage(Property *, Mod)), this, SLOT(mortgage(Property *, Mod)));
+    connect(d, SIGNAL(changevalue(unsigned)), this, SLOT(move(unsigned))); //connect a signal from RollDiceWindow class to a slot in this class
+    t = new TradeWindow(gm->getPlayerList(), gm->getGameField()); //new a TradeWindow class
+    connect(t, SIGNAL(doTrade(Player *, Property *, unsigned)), this, SLOT(trade(Player *, Property *, unsigned))); //connect a signal from TradeWindow class to a slot in this class
+    m = new MortgageWindow(gm->getPlayerList(), gm->getGameField()); //new a Mortgage class
+    connect(m, SIGNAL(doMortgage(Property *, Mod)), this, SLOT(mortgage(Property *, Mod))); //connect a signal from MortgageWindow class to a slot in this class
     ui->buyBtn->setEnabled(false);
     ui->endBtn->setEnabled(false);
     ui->buildBtn->setEnabled(false);
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
 
+//destructor
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -27,18 +29,20 @@ MainWindow::~MainWindow()
     delete m;
 }
 
+//action will be performed when roll dice button is clicked
 void MainWindow::on_rollDiceBtn_clicked()
 {
     d->show();
     ui->rollDiceBtn->setEnabled(false);
 }
 
-void MainWindow::move(unsigned t)
+//based on the value from the signal from RollDiceWindow, do the cooresponding act
+void MainWindow::move(const unsigned & diceValue)
 {
     ui->endBtn->setEnabled(true);
     if (gm->getCurrentPlayer()->checkInJail())
     {
-        gm->getCurrentPlayer()->jailAction(t);
+        gm->getCurrentPlayer()->jailAction(diceValue);
         if (gm->getCurrentPlayer()->checkInJail() == false)
         {
             gm->movePlayer(0);
@@ -47,7 +51,7 @@ void MainWindow::move(unsigned t)
     }
     else
     {
-        gm->movePlayer(t);
+        gm->movePlayer(diceValue);
         if (gm->ableToBuy())
         {
             ui->buyBtn->setEnabled(true);
@@ -57,13 +61,14 @@ void MainWindow::move(unsigned t)
             ui->buildBtn->setEnabled(true);
         }
     }
-
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
 
+//action will be performed when buy button is clicked
 void MainWindow::on_buyBtn_clicked()
 {
     QMessageBox *comfirmBox = new QMessageBox();
+    //ask user to comfirm their act
     comfirmBox->setText("You are gonna buy this asset.");
     comfirmBox->setInformativeText("After purchase, you have $" + QString::number(gm->getMoneyAfterBuy()));
     comfirmBox->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
@@ -73,27 +78,27 @@ void MainWindow::on_buyBtn_clicked()
     {
         gm->buyAsset();
     }
-    //the following line maybe crash, if crashed comment it
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
     delete comfirmBox;
-    //    if (gm->checkBankrupt()==false)
-    //        endTurn();
-    ui->buyBtn->setEnabled(false); //by tat
+    ui->buyBtn->setEnabled(false);
 }
 
+//action will be performed when build button is clicked
 void MainWindow::on_buildBtn_clicked()
 {
     if (!gm->ableToIncreaseWifi() && !gm->ableToAddVendingMachine())
         return;
+    //ask user to comfirm their act
     QMessageBox *comfirmBox = new QMessageBox();
     comfirmBox->setInformativeText("After purchase, you have $" + QString::number(gm->getMoneyAfterBuild()) + " left");
     comfirmBox->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
     comfirmBox->setDefaultButton(QMessageBox::Ok);
+    //if they can add a vending machine, show the corresponding message
     if (gm->ableToAddVendingMachine())
     {
         comfirmBox->setText("You are gonna add vending machine");
     }
-    else if (gm->ableToIncreaseWifi())
+    else if (gm->ableToIncreaseWifi()) //if they cannot add a vending machine but can increase wifi coverage, show the corresponding message
     {
         comfirmBox->setText("You are gonna increase wifi level");
     }
@@ -102,17 +107,15 @@ void MainWindow::on_buildBtn_clicked()
     {
         gm->build();
     }
-    //the following line maybe crash, if crashed comment it
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
     delete comfirmBox;
-    //    if (gm->checkBankrupt()==false)
-    //        endTurn();
-
-    ui->buildBtn->setEnabled(false); //by tat
+    ui->buildBtn->setEnabled(false);
 }
 
+//action will be performed when end button is clicked
 void MainWindow::on_endBtn_clicked()
 {
+    //if the current player is going to bankrupt, ask him/her whether him/her comfirm to end this turn
     if (gm->checkBankrupt())
     {
         QMessageBox *checkMsg = new QMessageBox();
@@ -137,26 +140,32 @@ void MainWindow::on_endBtn_clicked()
         endTurn();
 }
 
+//action will be performed when trade button is clicked
 void MainWindow::on_tradeBtn_clicked()
 {
     t->init(gm->getCurrentPlayer());
     t->show();
 }
 
-void MainWindow::trade(Player *seller, Property *target, unsigned price)
+//slot connect to a signal at TradeWindow class, it will pass the value from TradeWindow to game manager
+void MainWindow::trade(Player *seller, Property *target, const unsigned & price)
 {
     gm->tradeAction(seller, target, price);
 }
 
+//turn end action
 void MainWindow::endTurn()
 {
+    //check whether there are winner
     if (gm->winner() != -1)
     {
+        //show the congrat message
         QMessageBox *winMsg = new QMessageBox();
         winMsg->setText("Congrat!\nPlayer" + QString::number(gm->winner()) + " win the game");
         QPushButton *endGame = winMsg->addButton("End Game", QMessageBox::ActionRole);
         QPushButton *playAgain = winMsg->addButton("Play Again", QMessageBox::ActionRole);
         winMsg->exec();
+        //if player no longer want to play, end program, if player still want to player, call game manager to initalize the game
         if (winMsg->clickedButton() == endGame)
         {
             delete winMsg;
@@ -176,17 +185,32 @@ void MainWindow::endTurn()
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
 }
 
+//action will be performed when mortgage button is clicked
 void MainWindow::on_mortgageBtn_clicked()
 {
     m->init(gm->getCurrentPlayer());
     m->show();
 }
 
-void MainWindow::mortgage(Property *target, Mod mod)
+//slot connect to a signal at Mortgage class, it will pass the value from Mortgage to game manager
+void MainWindow::mortgage(Property *target, const Mod & mod)
 {
     if (mod == Apply)
         gm->mortgageAction(target, 0);
     else
         gm->mortgageAction(target, 1);
     ui->playerInfoTag->setText(gm->getCurrentPlayerInfo());
+}
+
+//action will be performed when closing cross is clicked
+void MainWindow::closeEvent (QCloseEvent *event){
+    QMessageBox::StandardButton closeBtn = QMessageBox::question( this, "You are about to leave the game",
+                                                                    tr("Are you sure?\n"),
+                                                                    QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+                                                                    QMessageBox::Yes);
+        if (closeBtn != QMessageBox::Yes) {
+            event->ignore();
+        } else {
+            event->accept();
+        }
 }

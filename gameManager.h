@@ -17,6 +17,7 @@
 #include <QTextStream>
 #include <QFile>
 #include <QInputDialog>
+#include <QApplication>
 
 class GameManager
 {

@@ -23,7 +23,6 @@ EmailDeck::~EmailDeck()
     for (unsigned i = 0; deck[i] != deck.back(); ++i)
         delete deck[i];
     delete deck.back();
-
     deck.clear();
 }
 

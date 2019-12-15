@@ -1,7 +1,7 @@
 #include "rolldicewindow.h"
 #include "ui_rolldicewindow.h"
-#include <QDebug>
 
+//convension constructor
 RollDiceWindow::RollDiceWindow(QWidget *parent) : QDialog(parent),
                                                   ui(new Ui::RollDiceWindow),
                                                   timer(new QElapsedTimer())
@@ -12,6 +12,7 @@ RollDiceWindow::RollDiceWindow(QWidget *parent) : QDialog(parent),
     dice->start();
 }
 
+//destructor
 RollDiceWindow::~RollDiceWindow()
 {
     delete ui;
@@ -21,23 +22,18 @@ RollDiceWindow::~RollDiceWindow()
 
 void RollDiceWindow::keyPressEvent(QKeyEvent *e)
 {
-    if (e->key() == Qt::Key_Space)
+    if (e->key() == Qt::Key_Space) //when space key is pressed, stop rolling the dice
     {
         dice->stop();
         timer->restart();
+        //stop for 2 second and then pass the dice face value to a signal
         while (timer->elapsed() < 2000)
         {
         }
         unsigned temp = dice->currentFrameNumber() + 1;
-
         this->close();
         dice->start();
-        qDebug() << "r" << temp;
         changevalue(temp);
     }
 }
 
-unsigned RollDiceWindow::getValue()
-{
-    return v;
-}

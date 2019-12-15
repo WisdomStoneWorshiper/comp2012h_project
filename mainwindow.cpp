@@ -171,6 +171,7 @@ void MainWindow::endTurn()
         }
         else if (winMsg->clickedButton() == playAgain)
         {
+            delete ui->gameArea->scene();
             ui->gameArea->setScene(gm->init(this));
             delete winMsg;
             return;

@@ -18,9 +18,6 @@ TradeWindow::TradeWindow(const vector<Player*> &playerList, const vector<Box *>&
     ui->priceField->setEnabled(false);
     qDebug()<<"w13";
     valider=nullptr;
-    //ui->priceField->setInputMask("99999");
-    qDebug()<<"w14";
-    //ui->cancelBtn->setEnabled(false);
     ui->comfirmBtn->setEnabled(false);
 }
 

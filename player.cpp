@@ -1,13 +1,10 @@
 #include "player.h"
-#include <QDebug>
 
 Player::Player(unsigned short id_num, QString name) : id(id_num)
 {
     money = 10000;
     position = 0;
-    qDebug() << "c2";
     jail_pass = false;
-    qDebug() << "c3" << jail_pass;
     user_name = name;
     inJail = false;
     jailTurnCounter = 0;
@@ -75,11 +72,6 @@ int Player::getMoney() const
 
 bool Player::getJailPass() const
 { //access player jail pass
-    qDebug() << "c10";
-
-    //macbook user can't return jail_pass, don't know do what
-    //return jail_pass;
-
     return jail_pass; //true = have jail pass
 }
 
@@ -117,16 +109,12 @@ void Player::changeJailPass()
 { //trigger to change the jail pass boolean
     if (jail_pass == false)
     { // when player get jail pass
-        qDebug() << " Player::changeJailPass() true\n";
-        qDebug() << this->getPlayerInfo();
 
         jail_pass = true;
     }
     else
     { //when user use the jail pass
         jail_pass = false;
-
-        qDebug() << " Player::changeJailPass() false";
     }
 }
 Player &Player::operator+=(int a)

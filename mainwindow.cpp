@@ -161,20 +161,12 @@ void MainWindow::endTurn()
         QMessageBox *winMsg = new QMessageBox();
         winMsg->setText("Congrat!\nPlayer" + QString::number(gm->winner()) + " win the game");
         QPushButton *endGame = winMsg->addButton("End Game", QMessageBox::ActionRole);
-        QPushButton *playAgain = winMsg->addButton("Play Again", QMessageBox::ActionRole);
         winMsg->exec();
-        //if player no longer want to play, end program, if player still want to player, call game manager to initalize the game
+        //if player no longer want to play, end program
         if (winMsg->clickedButton() == endGame)
         {
             delete winMsg;
             exit(0);
-        }
-        else if (winMsg->clickedButton() == playAgain)
-        {
-            ui->gameArea->setScene(nullptr);
-            ui->gameArea->setScene(gm->init(this));
-            delete winMsg;
-            return;
         }
     }
     ui->rollDiceBtn->setEnabled(true);

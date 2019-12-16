@@ -1,5 +1,5 @@
 #include "emailDeck.h"
-#include <QDebug>
+
 EmailDeck::EmailDeck()
 { //Total create 5Move 7Money 1Pass email for user to draw
     for (int i = 1; i <= 5; ++i)

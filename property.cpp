@@ -1,5 +1,4 @@
 #include <property.h>
-#include <QDebug>
 
 //convension constructor
 Property::Property(const unsigned & id, const QString & name, const unsigned & price, const unsigned & rent) : Box(id, name), propertyPrice(price), rentOfProperty(rent)
